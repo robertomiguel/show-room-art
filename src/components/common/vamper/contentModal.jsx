@@ -1,6 +1,7 @@
 import React from 'react'
+import { HeaderModal } from './headerModal'
 
-export const VModal = ({ children, isOpen, onClose, label }) => {
+export const ContentModal = ({ children, isOpen, onClose, label }) => {
 
     return (
         <>
@@ -31,22 +32,7 @@ export const VModal = ({ children, isOpen, onClose, label }) => {
                     alignItems: 'center',
                     boxShadow: '-1px 0px 19px 8px rgba(0,0,0,0.75)',
                 }}>
-                  <div style={{
-                      display: 'flex',
-                      justifyContent: 'space-between',
-                      alignItems: 'center',
-                      width: '100%',
-                      borderBottom: '1px solid #dbdbdb',
-                  }} >
-                    <div style={{fontStyle: 'italic'}} >{label}</div>
-                    <div style={{
-                        color: '#aaa',
-                        fontSize: '28px',
-                        fontWeight: 'bold',
-                        cursor: 'pointer',
-                        width: 'auto',
-                    }} onClick={onClose}>&times;</div>
-                  </div>
+                    <HeaderModal onClose={onClose} label={label} />
                     {children}
                 </div>
             </div>}

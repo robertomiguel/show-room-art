@@ -1,39 +1,22 @@
-import { DocumentData, DocumentSnapshot, Firestore, collection, doc, getDocs, limit, orderBy, query, setDoc, startAt, where } from "firebase/firestore";
+import { DocumentData, DocumentSnapshot, Firestore, collection, deleteDoc, doc, getDocs, orderBy, query, setDoc, where } from "firebase/firestore";
 import { PhotoData } from "../appType";
-
-export interface PhotosGetList {
-    galleryId: string
-    pageSize: number
-    lastDocument?: number
-    published?: boolean
-    password?: string
-}
 
 function photos(db: Firestore) {
 
   return {
-    getList: async ({galleryId, lastDocument, pageSize, published}: PhotosGetList) => {
+    getList: async (galleryId: string, published?: boolean) => {
         try {
             const wheres = [
-                orderBy('order'),
-                where("deleted", "==", false),
-              ]
-              if (published) wheres.push(where("public", "==", true))
-              let q
-              if (lastDocument)
-                q = query(
-                  collection(db, 'gallery', galleryId, "photos"),  
-                  ...wheres,
-                  startAt(lastDocument),
-                  limit(pageSize),
-                )
-              else q = query(
-                collection(db, 'gallery', galleryId, "photos"),
-                ...wheres,
-                limit(pageSize),
-              )
-              const querySnapshot: DocumentData = await getDocs(q);                
-              return querySnapshot.docs.map((doc: DocumentSnapshot) => doc.data());
+              orderBy('order'),
+              where("deleted", "==", false),
+            ]
+            if (published) wheres.push(where("public", "==", true))
+            const q = query(
+              collection(db, 'gallery', galleryId, "photos"),
+              ...wheres,
+            )
+            const querySnapshot: DocumentData = await getDocs(q);                
+            return querySnapshot.docs.map((doc: DocumentSnapshot) => doc.data());
         } catch (error) {
             console.log('galError: ', error);
             throw error
@@ -59,50 +42,21 @@ function photos(db: Firestore) {
       }
     },
 
-    delete: async (galleryId: string, photoId: string) => {
+    delete: async (galleryId: string, photoId: string, isRealDelete?: boolean) => {
       try {
-        const data = { deleted: true, deleted_at: new Date() }
-        await setDoc(doc(db, 'gallery', galleryId, 'photos', photoId), data, { merge: true });
+        if (isRealDelete){
+          const docRef = doc(db, 'gallery', galleryId, 'photos', photoId)
+          await deleteDoc(docRef);
+        }
+        else {
+          const data = { deleted: true, deleted_at: new Date() }
+          await setDoc(doc(db, 'gallery', galleryId, 'photos', photoId), data, { merge: true });
+        }
       } catch (e) {
         console.error("Error:", e);
       }
     },
 
-    getCount: async ({galleryId, published}: {galleryId: string, published?: boolean}) => {
-      const wheres = [
-        where("deleted", "==", false),
-      ]
-      if (published) wheres.push(where("public", "==", true))
-      const q = query(
-        collection(db, "gallery", galleryId, "photos"),
-        ...wheres,
-      )
-      const querySnapshot: DocumentData = await getDocs(q)
-      return querySnapshot.docs.length
-    },
-
-    getListByPassword: async ({galleryId, lastDocument, pageSize, published}: PhotosGetList) => {
-      try {
-            const queryParams = []
-
-            if (lastDocument) queryParams.push(startAt(lastDocument))
-            if (published) queryParams.push(where("public", "==", true))
-            
-            const q = query(
-                collection(db, 'gallery', galleryId, "photos"),
-                orderBy('order'),
-                where("deleted", "==", false),
-                ...queryParams,
-                limit(pageSize),
-            )
-
-            const querySnapshot: DocumentData = await getDocs(q);
-            return querySnapshot.docs.map((doc: DocumentSnapshot) => doc.data());
-      } catch (error) {
-          console.log('galError: ', error);
-          throw error
-      }
-    },
   }
 }
 

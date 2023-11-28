@@ -22,14 +22,7 @@ function gallery(db: Firestore) {
                 );
 
                 const querySnapshot: DocumentData = await getDocs(q);
-                if (!uid)
-                    return querySnapshot.docs.map((doc: DocumentSnapshot) => doc.data());
-                else
-                    return querySnapshot.docs.map((doc: DocumentSnapshot) => {
-                        const data = doc.data() as GalleryData;
-                        
-                        return {...doc.data(), name: data.name + (data.visible ? ' (listado)' : ' (no listado)')}
-                    });
+                return querySnapshot.docs.map((doc: DocumentSnapshot) => doc.data());
             } catch (error) {
                 console.log('galError: ', error);
                 throw error

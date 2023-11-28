@@ -43,7 +43,7 @@ export const ImageBox = ({photo, onClick, cld}: ImageBoxProp) => {
         borderRadius='0 0 5px 5px'
         direction='column'
       >
-          <Text>Nombre: {photo?.file_name}</Text>
+          <Text>({photo?.order}) Nombre: {photo?.file_name}</Text>
           <Text>Estado: <span style={{fontWeight: 700}} >{photo.public ? 'Pública' : 'Privada'}</span></Text>
           {photo?.public_last_date && <Text>Última publicación: {formatDate(photo.public_last_date)}</Text>}
           <Stack direction='row' >

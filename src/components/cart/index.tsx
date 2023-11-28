@@ -15,9 +15,9 @@ import {
 import FireContext from '../../FireContext'
 import { ShowPrice } from './showPrice'
 import { GalleryData, PhotoData } from '../../appType'
-import { VModal } from '../common/vamperModal'
 import { isEmail } from '../common/emailValidator'
 import { ImgBox } from '../common/imgBox'
+import { ContentModal } from '../common/vamper/contentModal'
 
 export const Cart = () => {
 
@@ -36,7 +36,7 @@ export const Cart = () => {
     const sendMessage = () => {        
         const files = galleryList.map( (g: GalleryData) => ({
             name: g.name,
-            pics: cartList.filter((f: any) => f.gallery_id === g.id).map( (ps: any) => ps.order ).sort((a: number, b: number) => a - b).join(',')
+            pics: cartList.filter((f: any) => f.gallery_id === g.id).map( (ps: any) => ps.file_name ).sort((a: number, b: number) => a - b).join(',')
           })).filter( (f: any) => f.pics).reduce( (t: string, c: any) => {
             return t + `Galería: ${c.name}%0a${c.pics}%0a`
           },[])          
@@ -125,7 +125,7 @@ Importe: $${price.total}
                             Cerrar
                         </Button>
                         <Button colorScheme='green' isDisabled={cartList.length === 0} onClick={() => setShowBuyModal(true)} >Hacer pedido</Button>
-                        <VModal
+                        <ContentModal
                             isOpen={showBuyModal}
                             onClose={() => setShowBuyModal(false)}
                             label='Completar datos de pedido'
@@ -149,7 +149,7 @@ Importe: $${price.total}
                                     isDisabled={customerName.trim() === '' || !isEmail(customerEmail)}
                                     onClick={sendMessage} >Confirmar pedido (WSP)</Button>
                             </Stack>
-                        </VModal>
+                        </ContentModal>
                     </DrawerFooter>
                 </DrawerContent>
             </Drawer>}

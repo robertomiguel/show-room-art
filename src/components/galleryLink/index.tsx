@@ -26,13 +26,13 @@ export const GalleryLink = ({onClose}: {onClose: () => void}) => {
         const newForm = new FormData(e.target as HTMLFormElement)
         const personal_id: string = newForm.get('personal_id') as string        
         const formData: PersonalData = {
-            enabled: newForm.get('enabled') === 'on' ? true : false,
+            enabled: newForm.get('enabled') === 'on',
             id: personal_id,
             uid: user?.uid as string,
             gallery_id: gallerySelected?.id as string,
             title: newForm.get('title') as string,
             description: newForm.get('description') as string,
-            security: newForm.get('security') === 'on' ? true : false,
+            security: newForm.get('security') === 'on',
             password: newForm.get('password') as string,
         }
         setIsLoading(true)

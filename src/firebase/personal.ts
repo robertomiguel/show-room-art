@@ -9,7 +9,7 @@ export const personal = (db: Firestore) => {
                   const q = query(
                     collection(db, 'personal'),
                     where("id", "==", personalId),
-                    where("password", "==", password || null),
+                    where("password", "==", password ?? null),
                     where("enabled", "==", true),
                     limit(1),
                   )

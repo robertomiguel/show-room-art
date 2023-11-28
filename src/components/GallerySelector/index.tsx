@@ -6,8 +6,7 @@ import { gallery } from '../../firebase/gallery'
 
 export const GallerySelector = () => {
 
-    const { db, gallerySelected, setGallerySelected, galleryList, setGalleryList, setLastDocument, user } = useContext(FireContext)
-    
+    const { db, gallerySelected, setGallerySelected, galleryList, setGalleryList, user } = useContext(FireContext)
 
     const getList = async () => {
         try {
@@ -30,13 +29,12 @@ export const GallerySelector = () => {
             <Select
                 value={gallerySelected?.id}
                 onChange={ val => {
-                    setLastDocument(1)
                     setGallerySelected(galleryList.find( (f: GalleryData) => f.id === val.target.value ))
                 }}
                 size={['lg']}
             >
                 {galleryList.map((gallery: GalleryData) =>
-                    <option key={gallery.id} value={gallery.id} >{gallery.name}</option>)
+                    <option key={gallery.id} value={gallery.id} >{gallery.name} {user?.uid && (gallery?.visible ? '(Visible)' : '(No Visible)')}</option>)
                 }
             </Select>
         </Stack>

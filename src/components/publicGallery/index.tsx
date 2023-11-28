@@ -6,7 +6,13 @@ import { ImgBox } from '../common/imgBox'
 
 export const PublicGallery = () => {
 
-    const { publicPhotos, cartList, setCartList, setShowCartList, cloudinary, gallerySelected } = React.useContext(FireContext)
+    const { photosList, paginatorData, cartList, setCartList, setShowCartList, cloudinary, gallerySelected,  } = React.useContext(FireContext)
+
+    const [ list, setList ] = React.useState<PhotoData[]>([])
+    
+    React.useEffect(() => {
+      setList(photosList.filter( ( _: any , index: number) => index >= paginatorData.indexFrom - 1 && index <= paginatorData.indexTo - 1 ))
+    }, [photosList, paginatorData])
 
     const addPhoto = ((photo: PhotoData) => {
         setCartList( (prev: PhotoData[]) => ([...prev, photo]))
@@ -15,7 +21,7 @@ export const PublicGallery = () => {
     const openCart = () => setShowCartList(true)
 
     return <Stack direction='row' flexWrap='wrap' padding='8px' paddingTop={['120px', '80px']} marginBottom='40px' justifyContent='space-evenly'>
-        {publicPhotos.map( (pf: PhotoData) =>
+        {list.map( (pf: PhotoData) =>
         <Stack direction='column' key={pf.id} background='white' padding='8px' borderRadius='5px'>
             <ImgBox photo={pf} cld={cloudinary} />
             {gallerySelected?.for_sale && <>

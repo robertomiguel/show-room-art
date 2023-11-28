@@ -58,4 +58,9 @@ export interface PhotoData {
     security: boolean
     password: string
     error?: string
-}
+  }
+
+  export interface PaginatorData {
+    indexFrom: number
+    indexTo: number
+  }

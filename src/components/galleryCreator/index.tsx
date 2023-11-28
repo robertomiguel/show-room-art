@@ -52,7 +52,7 @@ export const GalleryCreator = () => {
       }
 
     return <Stack direction='column' >
-        <Text>Nombre de gallería</Text>
+        <Text>Nombre de galería</Text>
         <Input bg='white' color='black' value={galName} onChange={handleChange} />
         <Text>Visible</Text>
         <Switch isChecked={visible} onChange={() => setVisible(!visible)} />

@@ -6,62 +6,59 @@ import { generateId } from '../common/generateId'
 
 export const Paginator = () => {
 
-    const { publicSetting, isMobile, user, db, gallerySelected, lastDocument, setLastDocument, } = useContext(FireContext)
+    const { publicSetting, isMobile, user, db, gallerySelected, photosList, setPhotosList, setPaginatorData } = useContext(FireContext)
     const [ currentPage, setCurrentPage ] = useState<number>(1)
     const [ totalPage, setTotalPage ] = useState<number>(0)
     const [ perPage, setPerPage ] = useState<number>(0)
     const [ totalDocs, setTotalDocs ] = useState<number>(0)
 
-    const getUserPhotos = async () => {
-        if (!user?.uid) return
-        const count = await photos(db).getCount({
-            galleryId: gallerySelected?.id,
-        })
-        setTotalDocs(count)        
-        setTotalPage(Math.ceil(count / publicSetting?.per_page))
-        setPerPage(publicSetting?.per_page)
-        setCurrentPage(lastDocument)
-    }
-
-    const getPublic = async () => {
-        if (user?.uid) return
-        const count = await photos(db).getCount({
-            galleryId: gallerySelected?.id,
-            published: true,
-        })
-
+    const getPhotos = async (publicPhotos: boolean) => {
+        const list = await photos(db).getList(gallerySelected?.id, publicPhotos)        
+        const count = list.length
         setTotalDocs(count)
         setTotalPage(Math.ceil(count / publicSetting?.per_page))
         setPerPage(publicSetting?.per_page)
-        setCurrentPage(lastDocument)
+        setCurrentPage(1)
+        setPhotosList(list)
     }
 
     useEffect(() => {
-        if (user?.uid) {
-            getUserPhotos()
-        } else {
-            getPublic()
-        }
+        if (gallerySelected?.id) getPhotos(!user?.uid)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[gallerySelected, publicSetting, totalDocs, user?.uid])
+    },[gallerySelected?.id])
+
+    useEffect(() => {
+        const count = photosList.length
+        if (totalDocs === count) return
+        setTotalDocs(count)
+        setTotalPage(Math.ceil(count / publicSetting?.per_page))
+        setPerPage(publicSetting?.per_page)
+        setCurrentPage(1)
+        setPaginatorData({indexFrom: 1, indexTo: publicSetting?.per_page})
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[photosList])
 
     const nextPage = () => {
-        setCurrentPage(prev => prev + 1 > totalPage ? 1 : prev + 1)
+        const newPage = currentPage + 1 > totalPage ? 1 : currentPage + 1
+        setCurrentPage(newPage)
+        setPaginatorData({indexFrom: newPage * perPage - perPage + 1, indexTo: newPage * perPage})
     }
 
     const prevPage = () => {
-        setCurrentPage(prev => prev - 1 === 0 ? totalPage : prev - 1)
+        const newPage = currentPage - 1 === 0 ? totalPage : currentPage - 1
+        setCurrentPage(newPage)
+        setPaginatorData({indexFrom: newPage * perPage - perPage + 1, indexTo: newPage * perPage})
     }
 
-    useEffect(() => {
-       const newCurrentPage = (currentPage === 1 ? 1 : perPage * currentPage - (perPage - 1))
-       setLastDocument(newCurrentPage)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[currentPage])
+    const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+         const pagerNumber = parseInt(e.target.value)
+         setPaginatorData({indexFrom: pagerNumber * perPage - perPage + 1, indexTo: pagerNumber * perPage})
+         setCurrentPage(pagerNumber)
+    }
 
     return <Stack direction='row' alignItems='center' width={['100%', '350px']} >
         <Button colorScheme='gray' onClick={prevPage}>{isMobile ? '<' : 'Anterior'}</Button>
-        <Select value={currentPage} width={['100%', '200px']} onChange={ e =>setCurrentPage(parseInt(e.target.value))}>
+        <Select value={currentPage} width={['100%', '200px']} onChange={handleChange}>
             {Array.from({ length: totalPage }).map((_, idx) => (
                 <option key={generateId()} value={idx + 1} >
                     Pág. {idx + 1} de {`${(idx + 1) * perPage - perPage + 1} a ${((idx + 1) * perPage) > totalDocs ? totalDocs : ((idx + 1) * perPage)}`}

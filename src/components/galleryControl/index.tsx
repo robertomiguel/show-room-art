@@ -10,28 +10,8 @@ import { photos } from '../../firebase/photos'
 import { GalleryLink } from '../galleryLink'
 import axios from 'axios'
 import { sha1 } from 'crypto-hash'
-
-const GalleryContainer = ({children}: any) => <Stack
-    position={['relative', 'absolute']}
-    display='flex'
-    flexDirection='column'
-    background='var(--chakra-colors-gray-700)'
-    border='1px solid var(--chakra-colors-gray-500)'
-    padding='10px'
-    gap='5px'
-    borderRadius='5px'
-    boxShadow='-1px 0px 9px 3px rgba(128,128,128,0.75)'
-    marginBottom={['10px', '0px']}
->
-    {children}
-</Stack>
-
-const ButtonContainer = ({children}: any) => <Stack
-    width={['100%', 'auto']}
-    display={['flex', 'inline-block']}
->
-    {children}
-</Stack>
+import { MenuButton } from '../common/vamper/menuButton'
+import { HeaderModal } from '../common/vamper/headerModal'
 
 export const GalleryControl = () => {
 
@@ -42,6 +22,7 @@ export const GalleryControl = () => {
     const [ showGalleryEditor, setShowGalleryEditor ] = React.useState<boolean>(false)
     const [ showSetting, setShowSetting ] = React.useState<boolean>(false)
     const [ showGalleryLink, setShowGalleryLink ] = React.useState<boolean>(false)
+    const [ showTools, setShowTools ] = React.useState<boolean>(false)
     
     const [ unPublishList, setUnPublishList ] = React.useState<string[]>([])
     const [ isDisabledUnPublished, setIsDisabledUnPublished ] = React.useState<boolean>(false)
@@ -83,7 +64,7 @@ export const GalleryControl = () => {
         const url = `https://api.cloudinary.com/v1_1/${process.env.REACT_APP_CLOUD_NAME}/image/destroy`
         await Promise.all(publishList.map(
             async (photoId: string) => {
-                await photos(db).delete(gallerySelected.id, photoId)
+                await photos(db).delete(gallerySelected.id, photoId, true)
                 const public_id = photosList.find( (p: PhotoData) => p.id === photoId)?.public_id
                 const timestamp = new Date().getTime().toString()
                 const string = `public_id=${public_id}&timestamp=${timestamp}${process.env.REACT_APP_CLOUD_API_SECRET}`
@@ -122,11 +103,6 @@ export const GalleryControl = () => {
 
     const closeSelector = () => {
         setShowSelector(!showSelector)
-        setShowUploader(false)
-        setShowGalleryCreator(false)
-        setShowGalleryEditor(false)
-        setShowSetting(false)
-        setShowGalleryLink(false)
     }
 
     const closeUploader = () => {
@@ -174,51 +150,45 @@ export const GalleryControl = () => {
         setShowGalleryCreator(false)
     }
 
-    return <Stack direction={['column', 'row']} padding='10px' alignItems='center' justifyContent='space-evenly' position='sticky' zIndex={1} >
-        <ButtonContainer>
-            <Button colorScheme='green' onClick={closeSetting} >Configurar</Button>
-            {showSetting && <GalleryContainer>
-                <Setting />
-            </GalleryContainer>}
-        </ButtonContainer>
-        <ButtonContainer>
-            <Button colorScheme='green' onClick={closeGalleryCreator} >Crear galería</Button>
-            {showGalleryCreator && <GalleryContainer>
-                <GalleryCreator />
-            </GalleryContainer>}
-        </ButtonContainer>
-        <ButtonContainer>
-            <Button colorScheme='green' onClick={closeGalleryEditor} >Editar galería</Button>
-            {showGalleryEditor && <GalleryContainer>
-                <GalleryEditor onClose={() => setShowGalleryEditor(false)} />
-            </GalleryContainer>}
-        </ButtonContainer>
-        <ButtonContainer>
-            <Button colorScheme='green' onClick={closeGalleryLink} >Crear link</Button>
-            {showGalleryLink && <GalleryContainer>
-                <GalleryLink onClose={() => setShowGalleryLink(false)} />
-            </GalleryContainer>}
-        </ButtonContainer>
-        <ButtonContainer>
-            <Button colorScheme='green' onClick={closeUploader} >Subir fotos</Button>
-                {showUploader && <GalleryContainer>
-                <UploadImage />
-            </GalleryContainer>}
-        </ButtonContainer>
-        <ButtonContainer>
-            <Button colorScheme='green' onClick={closeSelector} >Selector</Button>
-            {showSelector && <GalleryContainer>
-                <Stack direction='column' gap='10px'>
-                    <Button colorScheme='green' onClick={() => selector('selectAll')} >Todo</Button>
-                    <Button colorScheme='green' onClick={() => selector('selectPublished')} >Publicadas</Button>
-                    <Button colorScheme='green' onClick={() => selector('selectUnPublished')} >Sin publicar</Button>
-                    <Button colorScheme='red' onClick={() => selector('clearSelection')} >Borrar selección</Button>
-                </Stack>
-            </GalleryContainer>}
-        </ButtonContainer>
-        <Text>Seleccionados ({selectedPhotos.length})</Text>
-        <Button colorScheme='green' isLoading={isLoadingPublic} isDisabled={isDisabledPublished} onClick={() => handlePublished(true)} >Publicar</Button>
-        <Button colorScheme='orange' isLoading={isLoadingPublic} isDisabled={isDisabledUnPublished} onClick={() => handlePublished(false)} >Quitar publicación</Button>
-        <Button colorScheme='red' isLoading={isLoadingDelete} isDisabled={isDisabledPublished} onClick={handleDelete} >Eliminar</Button>
-    </Stack>
+    return <>
+        {showTools && <Stack zIndex={3} overflowY='scroll'  padding='10px' width='360px' direction='column' position='fixed' bg='rgb(50,50,50)' left={0} top='70px' bottom={0} boxShadow='-1px 0px 9px 3px rgba(28,28,28,0.75)' >
+            <div style={{display: 'flex', flexDirection: 'column', gap: '20px'}} >
+                <HeaderModal label='Herramientas' onClose={() => setShowTools(false)} />
+                <MenuButton show={showUploader} onClick={closeUploader} text='Subir fotos' />
+                {showUploader && <UploadImage />}
+
+                <MenuButton show={showGalleryCreator} onClick={closeGalleryCreator} text='Crear galería' />
+                {showGalleryCreator && <GalleryCreator />}
+
+                <MenuButton show={showGalleryEditor} onClick={closeGalleryEditor} text='Editar galería' />
+                {showGalleryEditor && <GalleryEditor onClose={() => setShowGalleryEditor(false)} />}
+
+                <MenuButton show={showGalleryLink} onClick={closeGalleryLink} text='Crear link' />
+                {showGalleryLink && <GalleryLink onClose={() => setShowGalleryLink(false)} />}
+
+                <MenuButton show={showSetting} onClick={closeSetting} text='Configurar' />
+                {showSetting && <Setting />}
+            </div>
+        </Stack>}
+        <Stack direction='row' padding='10px' alignItems='center' position='sticky' zIndex={1} >
+            <div style={{position: 'fixed', left: '10px'}} >
+                <button onClick={() => setShowTools(!showTools)} >Menú</button>
+            </div>
+            <div>
+                <MenuButton show={showSelector} onClick={closeSelector} text='Selector' />
+                {showSelector && 
+                    <Stack direction='column' gap='10px' position='absolute' bg='rgb(50,50,50)' padding='10px' >
+                        <Button colorScheme='blue' onClick={() => selector('selectAll')} >Todo</Button>
+                        <Button colorScheme='blue' onClick={() => selector('selectPublished')} >Publicadas</Button>
+                        <Button colorScheme='blue' onClick={() => selector('selectUnPublished')} >Sin publicar</Button>
+                        <Button colorScheme='red' onClick={() => selector('clearSelection')} >Limpiar selección</Button>
+                    </Stack>
+                }
+            </div>
+            <Text>Seleccionados ({selectedPhotos.length})</Text>
+            <Button colorScheme='green' isLoading={isLoadingPublic} isDisabled={isDisabledPublished} onClick={() => handlePublished(true)} >Publicar</Button>
+            <Button colorScheme='orange' isLoading={isLoadingPublic} isDisabled={isDisabledUnPublished} onClick={() => handlePublished(false)} >Quitar publicación</Button>
+            <Button colorScheme='red' isLoading={isLoadingDelete} isDisabled={isDisabledPublished} onClick={handleDelete} >Eliminar</Button>
+        </Stack>
+    </>
 }
