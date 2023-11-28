@@ -1,5 +1,4 @@
 import React, { useContext, useState } from 'react'
-import { Stack, Button, Text } from "@chakra-ui/react"
 import axios from 'axios'
 import FireContext from "../../FireContext"
 import { generateId } from '../common/generateId'
@@ -75,18 +74,18 @@ export const UploadImage = () => {
         }
       };
 
-    return <Stack direction='column' gap='20px' alignItems='center' >
+    return <div className='bluedark' style={{ display: 'flex', flexDirection: 'column', gap: '20px', alignItems: 'center', padding: '10px' }} >
         <input type="file" onChange={handleFileChange} multiple accept='image/jpeg' />
-        <Stack direction='row' alignItems='center' justifyContent='space-between' >
-            <Text>Galería</Text>
-            <Text>{gallerySelected?.name}</Text>
-        </Stack>
-        <Stack direction='row' alignItems='center' justifyContent='space-between' >
-            <Text>Cargados</Text>
-            <Text>{count}/{files.length}</Text>
-        </Stack>
-        <Stack direction='row' alignItems='center' justifyContent='space-between' >
-            <Button isLoading={isLoading} isDisabled={files.length===0 || files.length === count} colorScheme='green' onClick={handleUpload} >Iniciar Carga</Button>
-        </Stack>
-    </Stack>
+        <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }} >
+            <text>Galería</text>
+            <text>{gallerySelected?.name}</text>
+        </div>
+        <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+            <text>Cargados</text>
+            <text>{count}/{files.length}</text>
+        </div>
+        <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+            <button disabled={files.length===0 || files.length === count || isLoading} onClick={handleUpload} >Iniciar Carga</button>
+        </div>
+    </div>
 }

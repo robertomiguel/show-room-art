@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Button, Select, Stack } from '@chakra-ui/react'
 import FireContext from '../../FireContext'
 import { photos } from '../../firebase/photos'
 import { generateId } from '../common/generateId'
@@ -56,15 +55,21 @@ export const Paginator = () => {
          setCurrentPage(pagerNumber)
     }
 
-    return <Stack direction='row' alignItems='center' width={['100%', '350px']} >
-        <Button colorScheme='gray' onClick={prevPage}>{isMobile ? '<' : 'Anterior'}</Button>
-        <Select value={currentPage} width={['100%', '200px']} onChange={handleChange}>
+    return <div style={{
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+        width: isMobile ? '100%' : '350px',
+        gap: '5px',
+    }} >
+        <button onClick={prevPage}>{isMobile ? '<' : 'Anterior'}</button>
+        <select value={currentPage} onChange={handleChange}>
             {Array.from({ length: totalPage }).map((_, idx) => (
                 <option key={generateId()} value={idx + 1} >
                     Pág. {idx + 1} de {`${(idx + 1) * perPage - perPage + 1} a ${((idx + 1) * perPage) > totalDocs ? totalDocs : ((idx + 1) * perPage)}`}
                 </option>
                 ))}
-        </Select>
-        <Button colorScheme='gray' onClick={nextPage}>{isMobile ? '>' : 'Siguiente'}</Button>
-    </Stack>
+        </select>
+        <button onClick={nextPage}>{isMobile ? '>' : 'Siguiente'}</button>
+    </div>
 }

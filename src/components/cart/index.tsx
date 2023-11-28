@@ -1,27 +1,15 @@
 import React from 'react'
-import {
-    Drawer,
-    DrawerBody,
-    DrawerFooter,
-    DrawerHeader,
-    DrawerOverlay,
-    DrawerContent,
-    DrawerCloseButton,
-    Button,
-    Stack,
-    Text,
-    Input,
-} from '@chakra-ui/react'
 import FireContext from '../../FireContext'
 import { ShowPrice } from './showPrice'
 import { GalleryData, PhotoData } from '../../appType'
 import { isEmail } from '../common/emailValidator'
 import { ImgBox } from '../common/imgBox'
 import { ContentModal } from '../common/vamper/contentModal'
+import { HeaderModal } from '../common/vamper/headerModal'
 
 export const Cart = () => {
 
-    const { cartList, setCartList, showCartList, setShowCartList, price, galleryList, cloudinary } = React.useContext(FireContext)
+    const { isMobile, cartList, setCartList, showCartList, setShowCartList, price, galleryList, cloudinary } = React.useContext(FireContext)
 
     const handleShow = () => setShowCartList((prev: boolean) => !prev)
     
@@ -55,46 +43,73 @@ Importe: $${price.total}
 
     return (
         <>
-            <Stack
-                position={['fixed', 'relative']}
-                bottom={[50,'unset']}
-                right={['auto', 'unset']}
-                left={['auto', 'unset']}
+            <div style={{
+                    position: isMobile ? 'fixed' : 'relative',
+                    bottom: isMobile ? 50 : 'unset',
+                    right: isMobile ? 'auto' : 'unset',
+                    left: isMobile ? 'auto' : 'unset',
+                }}
             >
-                <Button
-                    bg='green'
+                <button
                     onClick={handleShow}
-                    border={['5px solid white','unset']}
-                    height={['50px','40px']}
-                    fontWeight={[700, 600]}
-                    boxShadow={['-1px 0px 19px 8px rgba(0,0,0,0.75);', 'unset']}
+                    style={{
+                        border: isMobile ? '5px solid white' : 'unset',
+                        height: isMobile ? '50px' : 'unset',
+                        fontWeight: isMobile ? 700 : 'unset',
+                        boxShadow: isMobile ? '-1px 0px 19px 8px rgba(0,0,0,0.75)' : 'unset',
+                      }}
                 >
                     Mi selección {`(${cartList.length })`}
-                </Button>
-            </Stack>
+                </button>
+            </div>
 
-            {showCartList && <Drawer
-                isOpen={true}
-                placement='right'
-                onClose={handleShow}
-                size='md'
+            {showCartList && <div
+                className='shadow'
+                style={{
+                    position: 'fixed',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    maxWidth: '400px',
+                    top: 0,
+                    bottom: 0,
+                    right: 0,
+                    padding: '10px',
+                    background: 'var(--background-darker)'
+                }}
             >
-                <DrawerOverlay />
-                <DrawerContent>
-                    <DrawerCloseButton />
-                    <DrawerHeader>Mi selección</DrawerHeader>
-                    <DrawerBody>
-                        <Stack width='100%' direction='column' alignItems='center' >
-                            <Stack width='100%' borderRadius={5} maxHeight='calc(100vh - 350px)' overflowY='scroll' columnGap='10px' border='2px solid white' >
+                
+                <div>
+                    <HeaderModal
+                        onClose={() => setShowCartList(false)}
+                        label='Mi selección'
+                    />
+                    <div style={{overflowY: 'scroll', height: 'calc(100vh - 120px)' }}>
+                        <div  style={{
+                            width: '100%',
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                        }}>
+                            <div style={{
+                                width: '100%',
+                                borderRadius: 5,
+                                maxHeight: 'calc(100vh - 350px)',
+                                overflowY: 'scroll',
+                                columnGap: '10px',
+                                border: '2px solid white',
+                            }}>
                                 {cartList.sort((a: PhotoData, b: PhotoData) => a.gallery_id.localeCompare(b.gallery_id))
                                     .map( (photo: PhotoData) =>
-                                    <Stack
+                                    <div
                                         key={photo.id}
-                                        direction='column'
-                                        alignItems='center'
-                                        paddingBottom={1}
-                                        bg='white'
-                                        paddingTop='3px'
+                                        style={{
+                                            display: 'flex',
+                                            flexDirection: 'column',
+                                            alignItems: 'center',
+                                            paddingBottom: 1,
+                                            backgroundColor: 'white',
+                                            paddingTop: '3px',
+                                          }}
                                     >
                                         <div style={{
                                             background: 'black',
@@ -105,54 +120,68 @@ Importe: $${price.total}
                                         }}>
                                             <ImgBox photo={photo} cld={cloudinary} />
                                         </div>
-                                        <Stack padding='0 5px' width='100%' direction='row' color='black' justifyContent='space-between' alignItems='center'>
-                                            <Text>{galleryList.find( (g: GalleryData) => g.id === photo.gallery_id).name}</Text>
-                                            <Button colorScheme='red' onClick={() => removePhoto(photo)} >Quitar</Button>
-                                        </Stack>
-                                    </Stack>)}
-                            </Stack>
-                            <Stack width='100%' textAlign='center' color='yellow' >
-                                <Text fontSize={20} >Hasta 50% OFF con 6 o más fotos!</Text>
-                            </Stack>
+                                        <div style={{
+                                                padding: '0 5px',
+                                                width: '100%',
+                                                display: 'flex',
+                                                flexDirection: 'row',
+                                                color: 'black',
+                                                justifyContent: 'space-between',
+                                                alignItems: 'center',
+                                                // Otros estilos aquí
+                                            }}>
+                                            <div>{galleryList.find( (g: GalleryData) => g.id === photo.gallery_id).name}</div>
+                                            <button onClick={() => removePhoto(photo)} >Quitar</button>
+                                        </div>
+                                    </div>)}
+                            </div>
+                            <div style={{ width: '100%', textAlign: 'center', color: 'yellow' }} >
+                                <div style={{fontSize: '20px', color: 'yellow'}} >Hasta 50% OFF con 6 o más fotos!</div>
+                            </div>
                             {cartList.length > 0
                                 ? <ShowPrice quantity={cartList.length} />
-                                : <Text>No hay fotos seleccionadas!</Text>
+                                : <div>No hay fotos seleccionadas!</div>
                             }
-                        </Stack>
-                    </DrawerBody>
-                    <DrawerFooter justifyContent='space-evenly' >
-                        <Button variant='outline' mr={3} onClick={handleShow}>
+                        </div>
+                    </div>
+                    <div style={{
+                        display: 'flex',
+                        flexDirection: 'row',
+                        justifyContent: 'space-evenly',
+                        alignItems: 'center',
+                        height: '50px',
+                    }} >
+                        <button onClick={handleShow}>
                             Cerrar
-                        </Button>
-                        <Button colorScheme='green' isDisabled={cartList.length === 0} onClick={() => setShowBuyModal(true)} >Hacer pedido</Button>
+                        </button>
+                        <button disabled={cartList.length === 0} onClick={() => setShowBuyModal(true)} >Hacer pedido</button>
                         <ContentModal
                             isOpen={showBuyModal}
                             onClose={() => setShowBuyModal(false)}
                             label='Completar datos de pedido'
                         >
-                            <Stack direction='column' width='100%' height='100%' padding='8px' >
-                                <Stack direction='column' spacing={3} >
-                                    <Text>Nombre</Text>
-                                    <Input value={customerName} onChange={ e => setCustomerName(e.target.value)} />
-                                </Stack>
-                                <Stack direction='column' spacing={3} >
-                                    <Text>Email para recibir las fotos</Text>
-                                    <Input value={customerEmail} onChange={ e => setCustomerEmail(e.target.value)} type='email' />
-                                </Stack>
-                                <Stack color='yellow' marginTop='10px' alignContent='center' alignItems='center' textAlign='center' >
-                                    <Text whiteSpace='break-spaces' >El pedido se envía por whatsapps al confirmar.</Text>
-                                    <Text>Forma de pago a convenir.</Text>
-                                </Stack>
-                                <Button
-                                    marginTop='20px'
-                                    colorScheme='blue'
-                                    isDisabled={customerName.trim() === '' || !isEmail(customerEmail)}
-                                    onClick={sendMessage} >Confirmar pedido (WSP)</Button>
-                            </Stack>
+                            <div style={{ display: 'flex', flexDirection: 'column', width: '100%', height: '100%', padding: '8px', maxWidth: '300px', gap: '10px' }} >
+                                <div style={{ display: 'flex', flexDirection: 'column', gap: '3px' }} >
+                                    <div>Nombre</div>
+                                    <input value={customerName} onChange={ e => setCustomerName(e.target.value)} />
+                                </div>
+                                <div style={{ display: 'flex', flexDirection: 'column', gap: '3px' }}>
+                                    <div>Email para recibir las fotos</div>
+                                    <input value={customerEmail} onChange={ e => setCustomerEmail(e.target.value)} type='email' />
+                                </div>
+                                <div style={{ color: 'yellow', marginTop: '10px', alignContent: 'center', alignItems: 'center', textAlign: 'center' }} >
+                                    <div style={{whiteSpace: 'break-spaces'}} >El pedido se envía por whatsapps al confirmar.</div>
+                                    <div>Forma de pago a convenir.</div>
+                                </div>
+                                <button
+                                    style={{marginTop: '20px'}}
+                                    disabled={customerName.trim() === '' || !isEmail(customerEmail)}
+                                    onClick={sendMessage} >Confirmar pedido (WSP)</button>
+                            </div>
                         </ContentModal>
-                    </DrawerFooter>
-                </DrawerContent>
-            </Drawer>}
+                    </div>
+                </div>
+            </div>}
         </>
     )
 }

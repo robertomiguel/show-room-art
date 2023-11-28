@@ -1,0 +1,244 @@
+/* Colores Dark Burton - by Roberto Miguel Costi */
+:root {
+    --background-dark: #1A1A1A; /* Fondo oscuro principal */
+    --background-darker: #333333; /* Fondo oscuro más oscuro */
+    --background-blue: #1E3B4F; /* Azul oscuro añadido */
+    --text-light: #CCCCCC; /* Texto claro */
+    --text-dark: #555555; /* Texto oscuro */
+    --border-dark: #1A1A1A; /* Borde oscuro */
+    --border-light: #00BFFF; /* Borde de enfoque en azul claro */
+    --disabled-background: #1A1A1A; /* Fondo para elementos deshabilitados */
+    --disabled-text: #555555; /* Texto para elementos deshabilitados */
+}
+
+/* Estilo para el cuerpo (body) en Dark Burton */
+body {
+    background-color: var(--background-dark);
+    color: var(--text-light);
+}
+
+/* Estilo para el encabezado (header) en Dark Burton */
+header {
+    background-color: var(--background-darker);
+}
+
+/* Estilo para el encabezado (header) en hover */
+header:hover {
+    background-color: var(--background-darker);
+}
+
+/* Estilo para el enlace (a) en Dark Burton */
+a {
+    color: var(--text-light);
+}
+
+/* Estilo para el enlace (a) en hover */
+a:hover {
+    color: var(--border-light);
+}
+
+/* Estilo para el input de tipo texto en Dark Burton */
+input[type="text"] {
+    background-color: var(--background-dark);
+    color: var(--text-light);
+    border: 1px solid var(--border-dark);
+    border-radius: 5px;
+    padding: 8px;
+    outline: none;
+    transition: border-color 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+    font-family: 'Timmana', sans-serif;
+}
+
+/* Estilo para el input de tipo texto en hover */
+input[type="text"]:hover {
+    border-color: var(--border-light);
+}
+
+/* Estilo para el input de tipo texto cuando está deshabilitado */
+input[type="text"]:disabled {
+    background-color: var(--disabled-background);
+    color: var(--disabled-text);
+    border-color: var(--disabled-background);
+}
+
+/* Estilo para el input de tipo password en Dark Burton */
+input[type="password"] {
+    background-color: var(--background-dark);
+    color: var(--text-light);
+    border: 1px solid var(--border-dark);
+    border-radius: 5px;
+    padding: 8px;
+    outline: none;
+    transition: border-color 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+    font-family: 'Timmana', sans-serif;
+}
+
+/* Estilo para el input de tipo password en hover */
+input[type="password"]:hover {
+    border-color: var(--border-light);
+}
+
+/* Estilo para el input de tipo password cuando está deshabilitado */
+input[type="password"]:disabled {
+    background-color: var(--disabled-background);
+    color: var(--disabled-text);
+    border-color: var(--disabled-background);
+}
+
+/* Estilo para el textarea en Dark Burton */
+textarea {
+    background-color: var(--background-dark);
+    color: var(--text-light);
+    border: 1px solid var(--border-dark);
+    border-radius: 5px;
+    padding: 8px;
+    outline: none;
+    resize: vertical;
+    transition: border-color 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+    font-family: 'Timmana', sans-serif;
+}
+
+/* Estilo para el textarea en hover */
+textarea:hover {
+    border-color: var(--border-light);
+}
+
+/* Estilo para el textarea cuando está deshabilitado */
+textarea:disabled {
+    background-color: var(--disabled-background);
+    color: var(--disabled-text);
+    border-color: var(--disabled-background);
+}
+
+.bluedark {
+    background-color: var(--background-blue);
+}
+
+/* Estilo para el nuevo elemento azul oscuro en Dark Burton */
+.bluedark-element {
+    background-color: var(--background-blue);
+    color: var(--text-light);
+    border: 1px solid var(--border-dark);
+    border-radius: 5px;
+    padding: 8px;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Estilo para el nuevo elemento azul oscuro en hover */
+.bluedark-element:hover {
+    border-color: var(--border-light);
+    background-color: var(--background-blue);
+}
+
+/* Estilo para el nuevo elemento azul oscuro cuando está deshabilitado */
+.bluedark-element:disabled {
+    background-color: var(--disabled-background);
+    color: var(--disabled-text);
+    border-color: var(--disabled-background);
+}
+
+/* Estilo para el elemento select en Dark Burton */
+select {
+    background-color: var(--background-dark);
+    color: var(--text-light);
+    border: 1px solid var(--border-dark);
+    border-radius: 5px;
+    padding: 8px;
+    outline: none;
+    transition: border-color 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+    font-family: 'Timmana', sans-serif;
+}
+
+/* Estilo para el elemento select en hover */
+select:hover {
+    border-color: var(--border-light);
+}
+
+/* Estilo para el elemento select cuando está deshabilitado */
+select:disabled {
+    background-color: var(--disabled-background);
+    color: var(--disabled-text);
+    border-color: var(--disabled-background);
+}
+
+/* Estilo para el input de tipo checkbox en Dark Burton */
+input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 20px;
+    height: 20px;
+    background-color: var(--background-dark);
+    border: 1px solid var(--border-dark);
+    border-radius: 5px;
+    outline: none;
+    transition: border-color 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Estilo para el input de tipo checkbox en hover */
+input[type="checkbox"]:hover {
+    background-color: var(--background-darker);
+}
+
+/* Estilo para el input de tipo checkbox cuando está deshabilitado */
+input[type="checkbox"]:disabled {
+    background-color: var(--background-dark);
+    color: var(--text-dark);
+    border-color: var(--border-dark);
+    cursor: not-allowed;
+}
+
+input[type="checkbox"]:checked {
+    background-color: var(--border-light);
+    border-color: var(--border-light);
+    color: var(--border-dark);
+}
+
+/* Estilo para mostrar el icono cuando el input de tipo checkbox está seleccionado */
+input[type="checkbox"]:checked::before {
+    color: var(--text-light); /* Color del icono cuando está seleccionado */
+}
+
+/* Estilo para el botón en Dark Burton */
+button {
+    background-color: var(--background-dark);
+    color: var(--text-light);
+    border: 1px solid var(--border-dark);
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-align: center;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Estilo para el botón en hover en Dark Burton */
+button:hover {
+    background-color: var(--background-darker);
+    color: var(--text-light);
+    border-color: var(--border-light);
+}
+
+/* Estilo para el botón deshabilitado en hover en Dark Burton */
+button:disabled:hover {
+    background-color: var(--disabled-background);
+    color: var(--disabled-text);
+    border-color: var(--border-dark);
+    cursor: not-allowed;
+}
+
+/* Estilo para el elemento option en el select en Dark Burton */
+select option {
+    background-color: var(--background-dark);
+    color: var(--text-light);
+    transition: background-color 0.3s ease, color 0.3s ease;
+    font-size: 1.3rem;
+}
+
+/* Estilo para el elemento option en hover en el select en Dark Burton */
+select option:hover {
+    background-color: var(--background-darker);
+    color: var(--text-light);
+}

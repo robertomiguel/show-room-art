@@ -1,6 +1,5 @@
 import React from 'react'
 import FireContext from '../../FireContext'
-import { Stack, Text } from '@chakra-ui/react'
 import { numberFormat } from '../common/numberFormat'
 import { Price } from '../../appType'
 
@@ -40,21 +39,21 @@ export const ShowPrice = ({quantity}: ShowPriceProp) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     },[quantity, publicSetting.dollar])
 
-    return <Stack direction='column' gap='10px' width='100%' >
-        <Stack direction='row' justifyContent='space-between' >
-            <Text>Total de fotos</Text><Text>{price?.quantity}</Text>
-        </Stack>
+    return <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', width: '100%' }}>
+        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+            <div>Total de fotos</div><div>{price?.quantity}</div>
+        </div>
 
-        <Stack direction='row' justifyContent='space-between'>
-            <Text>Subtotal</Text><Text whiteSpace='nowrap' >$AR {numberFormat(price?.subTotal)}</Text>
-        </Stack>
+        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+            <div>Subtotal</div><div>$AR {numberFormat(price?.subTotal)}</div>
+        </div>
 
-        <Stack direction='row' justifyContent='space-between'>
-            <Text>Bonif. por cantidad ({price?.percentage}%)</Text><Text whiteSpace='nowrap' >$AR {numberFormat(price?.bonificationAmount)}</Text>
-        </Stack>
+        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+            <div>Bonif. por cantidad ({price?.percentage}%)</div><div>$AR {numberFormat(price?.bonificationAmount)}</div>
+        </div>
 
-        <Stack direction='row' justifyContent='space-between'>
-            <Text fontSize={20} >TOTAL</Text><Text fontSize={20} whiteSpace='nowrap' >$AR {numberFormat(price?.total)}</Text>
-        </Stack>
-    </Stack>
+        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+            <div style={{fontSize: '24px'}} >TOTAL</div><div>$AR {numberFormat(price?.total)}</div>
+        </div>
+    </div>
 }

@@ -1,4 +1,3 @@
-import { Button, Input, Stack, Text } from '@chakra-ui/react'
 import React from 'react'
 import FireContext from '../../FireContext'
 import { PublicSetting } from '../../appType'
@@ -21,11 +20,11 @@ export const Setting = () => {
         }
     }
 
-    return <Stack direction='column' >
-        <Text>Dolar / Foto</Text>
-        <Input bg='white' color='black' value={publicSetting.dollar} onChange={( e => setPublicSetting((prev: PublicSetting) => ({...prev, dollar: e.target.value})) )} />
-        <Text>Fotos x página</Text>
-        <Input bg='white' color='black' value={publicSetting.per_page} onChange={( e => setPublicSetting((prev: PublicSetting) => ({...prev, per_page: e.target.value})) )} />
-        <Button colorScheme='green' isLoading={isLoading} onClick={handleSave} >Guardar</Button>
-    </Stack>
+    return <div className='bluedark' style={{ display: 'flex', flexDirection: 'column', padding: '10px', gap: '10px' }} >
+        <text>Dolar / Foto</text>
+        <input type='text' value={publicSetting.dollar} onChange={( e => setPublicSetting((prev: PublicSetting) => ({...prev, dollar: e.target.value})) )} />
+        <text>Fotos x página</text>
+        <input type='text' value={publicSetting.per_page} onChange={( e => setPublicSetting((prev: PublicSetting) => ({...prev, per_page: e.target.value})) )} />
+        <button disabled={isLoading} onClick={handleSave} >Guardar</button>
+    </div>
 }

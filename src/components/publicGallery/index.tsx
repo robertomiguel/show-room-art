@@ -1,12 +1,11 @@
 import React from 'react'
 import FireContext from '../../FireContext'
-import { Button, Stack } from '@chakra-ui/react'
 import { PhotoData } from '../../appType'
 import { ImgBox } from '../common/imgBox'
 
 export const PublicGallery = () => {
 
-    const { photosList, paginatorData, cartList, setCartList, setShowCartList, cloudinary, gallerySelected,  } = React.useContext(FireContext)
+    const { isMobile, photosList, paginatorData, cartList, setCartList, setShowCartList, cloudinary, gallerySelected,  } = React.useContext(FireContext)
 
     const [ list, setList ] = React.useState<PhotoData[]>([])
     
@@ -20,16 +19,33 @@ export const PublicGallery = () => {
 
     const openCart = () => setShowCartList(true)
 
-    return <Stack direction='row' flexWrap='wrap' padding='8px' paddingTop={['120px', '80px']} marginBottom='40px' justifyContent='space-evenly'>
+    return <div style={{
+        display: 'flex',
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        padding: '8px',
+        paddingTop: isMobile ? '120px' : '80px',
+        marginBottom: '40px',
+        justifyContent: 'space-evenly',
+    }}>
         {list.map( (pf: PhotoData) =>
-        <Stack direction='column' key={pf.id} background='white' padding='8px' borderRadius='5px'>
+        <div style={{
+            display: 'flex',
+            flexDirection: 'column',
+            background: 'white',
+            padding: '8px',
+            borderRadius: '5px',
+            gap: '5px',
+            marginBottom: '10px',
+            width: isMobile ? '100%' : 'unset',
+        }}>
             <ImgBox photo={pf} cld={cloudinary} />
             {gallerySelected?.for_sale && <>
             {!cartList.some( (s: PhotoData) => s.id === pf.id)
-                ? <Button colorScheme='pink' onClick={() => addPhoto(pf)} >La quiero!</Button>
-                : <Button colorScheme='black' onClick={openCart} >Agregada a tu lista!</Button>
+                ? <button onClick={() => addPhoto(pf)} >La quiero!</button>
+                : <button onClick={openCart} >Agregada a tu lista!</button>
             }</>}
-        </Stack>
+        </div>
         )}
-    </Stack>
+    </div>
 }

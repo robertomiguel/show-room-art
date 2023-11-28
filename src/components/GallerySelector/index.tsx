@@ -1,12 +1,11 @@
 import React, { useContext, useEffect } from 'react'
-import { Select, Stack } from '@chakra-ui/react'
 import { GalleryData } from '../../appType'
 import FireContext from '../../FireContext'
 import { gallery } from '../../firebase/gallery'
 
 export const GallerySelector = () => {
 
-    const { db, gallerySelected, setGallerySelected, galleryList, setGalleryList, user } = useContext(FireContext)
+    const { isMobile, db, gallerySelected, setGallerySelected, galleryList, setGalleryList, user } = useContext(FireContext)
 
     const getList = async () => {
         try {
@@ -25,18 +24,17 @@ export const GallerySelector = () => {
     }, [user?.uid])
 
     return (
-        <Stack width={['100%', '350px']}>
-            <Select
+        <div style={{width: isMobile ? '100%' : '350px' }}>
+            <select
                 value={gallerySelected?.id}
                 onChange={ val => {
                     setGallerySelected(galleryList.find( (f: GalleryData) => f.id === val.target.value ))
                 }}
-                size={['lg']}
             >
                 {galleryList.map((gallery: GalleryData) =>
                     <option key={gallery.id} value={gallery.id} >{gallery.name} {user?.uid && (gallery?.visible ? '(Visible)' : '(No Visible)')}</option>)
                 }
-            </Select>
-        </Stack>
+            </select>
+        </div>
     )
 }

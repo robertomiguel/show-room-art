@@ -1,4 +1,3 @@
-import { Button, Input, Stack, Text, Textarea } from "@chakra-ui/react";
 import React from "react";
 import { GalleryData, PersonalData } from "../../appType";
 import FireContext from "../../FireContext";
@@ -57,42 +56,50 @@ export const GalleryLink = ({onClose}: {onClose: () => void}) => {
 
     return (
         <form onSubmit={handleForm}>
-            <Stack direction='column' columnGap='10px' >
-                <Stack direction='row' justifyContent='space-between'>
-                    <Text>Activar Link</Text>
+            <div className="bluedark" style={{ display: 'flex', flexDirection: 'column', columnGap: '10px', padding: '10px', gap: '10px' }}>
+                <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', maxWidth: '80%' }}>
+                    <text>Activar Link</text>
                     <input type='checkbox' defaultChecked={linkData?.enabled} name='enabled' />
-                </Stack>
+                </div>
 
-                <Stack>
-                    <Text>URL de acceso:</Text>
-                    <Text>robertomiguelfotos.art/</Text>
-                    <Input defaultValue={gallerySelected?.personal_id} name='personal_id' required />
-                </Stack>
+                <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+                    <text>URL de acceso:</text>
+                    <text>robertomiguelfotos.art/</text>
+                    <input type='text' defaultValue={gallerySelected?.personal_id} name='personal_id' required />
+                </div>
 
-                <Stack>
-                    <Text>Título:</Text>
-                    <Input defaultValue={linkData?.title} name='title' required />
-                </Stack>
+                <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+                    <text>Título:</text>
+                    <input type='text' defaultValue={linkData?.title} name='title' required />
+                </div>
 
-                <Stack>
-                    <Text>Descripción</Text>
-                    <Textarea defaultValue={linkData?.description} name='description' />
-                </Stack>
+                <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
+                    <text>Descripción</text>
+                    <textarea defaultValue={linkData?.description} name='description' />
+                </div>
 
-                <Stack>
-                    <Stack direction='row' justifyContent='space-between'>
-                        <Text>Acceso con contraseña</Text>
-                        <input type='checkbox' defaultChecked={linkData?.security} name='security' onChange={ e => 
-                            setLinkData( prev => ({...prev, security: e.target.checked} as PersonalData))
-                        } />
-                    </Stack>
-                    <Input defaultValue={linkData?.password} name='password' required={linkData?.security} isDisabled={!linkData?.security} />
-                </Stack>
+                <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', gap: '10px' }}>
+                    <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', maxWidth: '80%' }}>
+                    <text>Acceso con contraseña</text>
+                    <input
+                        type='checkbox'
+                        defaultChecked={linkData?.security}
+                        name='security'
+                        onChange={(e) =>
+                        setLinkData((prev) => ({ ...prev, security: e.target.checked } as PersonalData))
+                        }
+                    />
+                    </div>
+                    <input type='password' defaultValue={linkData?.password} name='password' required={linkData?.security} disabled={!linkData?.security} />
+                </div>
 
-                <Stack>
-                    <Button isLoading={isLoading} type='submit' >Aplicar</Button>
-                </Stack>
-            </Stack>
+                <div>
+                    <button type='submit' disabled={isLoading}>
+                    Aplicar
+                    </button>
+                </div>
+            </div>
+
         </form>
     )
 }

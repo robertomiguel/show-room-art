@@ -1,6 +1,5 @@
 import React from 'react'
 import { Cloudinary } from '@cloudinary/url-gen'
-import { Checkbox, Stack, Text } from '@chakra-ui/react'
 import FireContext from '../../FireContext'
 import { formatDate } from '../common/formatDate'
 import { PhotoData } from '../../appType'
@@ -31,26 +30,35 @@ export const ImageBox = ({photo, onClick, cld}: ImageBoxProp) => {
     setIsSelected(value)
   },[selectedPhotos, photo.id])
 
-    return <Stack onClick={onClick} direction='column' gap='0' borderRadius='5px' outline={isSelected ? '1px solid white' : 'unset'} >
+    return <div className='dark-element' style={{
+      display: 'flex',
+      flexDirection: 'column',
+      padding: '4px',
+      borderRadius: '5px',
+      gap: '5px',
+      outline: isSelected ? '1px solid white' : 'unset',
+    }} >
 
-      <ImgBox photo={photo} cld={cld} />
+      <div onClick={onClick}>
+        <ImgBox photo={photo} cld={cld} />
+      </div>
 
-      <Stack
-        onClick={ e => e.stopPropagation()}
-        bg={photo?.public ? 'rgba(100,100,100,0.7)' : 'rgba(50,50,50,1)'}
-        fontSize={20}
-        padding={2}
-        borderRadius='0 0 5px 5px'
-        direction='column'
-      >
-          <Text>({photo?.order}) Nombre: {photo?.file_name}</Text>
-          <Text>Estado: <span style={{fontWeight: 700}} >{photo.public ? 'Pública' : 'Privada'}</span></Text>
-          {photo?.public_last_date && <Text>Última publicación: {formatDate(photo.public_last_date)}</Text>}
-          <Stack direction='row' >
-            <Text>Marcar:</Text>
-            <Checkbox size='lg' isChecked={isSelected} onChange={handleSelected} />
-          </Stack>
-      </Stack>
+      <div  style={{
+        display: 'flex',
+        flexDirection: 'column',
+        background: photo?.public ? 'rgba(100,100,100,0.7)' : 'rgba(50,50,50,1)',
+        fontSize: '20px',
+        padding: '5px',
+        borderRadius: '0 0 5px 5px',
+      }}>
+          <text>({photo?.order}) Nombre: {photo?.file_name}</text>
+          <text>Estado: <span style={{fontWeight: 700}} >{photo.public ? 'Pública' : 'Privada'}</span></text>
+          {photo?.public_last_date && <text>Última publicación: {formatDate(photo.public_last_date)}</text>}
+          <div style={{ display: 'flex', flexDirection: 'row' }} >
+            <text>Marcar:</text>
+            <input type='checkbox' checked={isSelected} onChange={handleSelected} />
+          </div>
+      </div>
 
-  </Stack>
+  </div>
 }

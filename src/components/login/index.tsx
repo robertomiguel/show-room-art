@@ -1,10 +1,4 @@
 import React from "react"
-import {
-    Stack,
-    Input,
-    Button,
-    FormControl,
-  } from '@chakra-ui/react'
 import { getAuth, signInWithEmailAndPassword, UserCredential } from "firebase/auth";
 import FireContext from "../../FireContext";
 
@@ -45,20 +39,18 @@ const Login = () => {
     
     return (
         <div>
-            <Button size='xs' onClick={handleShow}>Login</Button>
+            <button onClick={handleShow}>Login</button>
             {show && 
-                <Stack align='center' position='absolute' right={0} top={0} background='black' padding='5px' >
+                <div style={{ display: 'flex', alignItems: 'center', position: 'absolute', right: 0, top: 0, background: 'black', padding: '5px' }} >
                     <form onSubmit={login} style={{textAlign: 'center'}} >
-                        <FormControl isRequired>
-                            <Input type="email" placeholder="Email" name="email" />
-                        </FormControl>
-                        <FormControl isRequired>
-                            <Input type="password" placeholder="Password" name="password" />
-                        </FormControl>
-                        <Button size='sm' marginTop={3} marginRight={2} colorScheme='red' onClick={handleShow} >Cancelar</Button>
-                        <Button size='sm' marginTop={3} colorScheme='blue' type="submit">Entrar</Button>
+                        <div style={{display: 'flex', flexDirection: 'column'}} >
+                            <input type="email" placeholder="Email" name="email" required />
+                            <input type="password" placeholder="Password" name="password" required />
+                        </div>
+                        <button onClick={handleShow} >Cancelar</button>
+                        <button type="submit">Entrar</button>
                     </form>
-                </Stack>
+                </div>
             }
         </div>
     )

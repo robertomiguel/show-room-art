@@ -1,6 +1,5 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import FireContext from './FireContext';
-import { DarkMode, Image, Stack, Text, useMediaQuery } from '@chakra-ui/react'
 import Login from './components/login';
 import { UserCredential } from "firebase/auth";
 import { doc, getDoc, Firestore } from "firebase/firestore";
@@ -17,7 +16,7 @@ import logoimg from './image/logo.svg'
 import { PrivateGallery } from './components/privateGallery';
 import { Cloudinary } from '@cloudinary/url-gen';
 import { PrivatePass } from './components/privatePass';
-
+import { useMediaQuery } from './components/common/useMediaQuery';
 
 const App = ({db, pathName, cloudinary}: {db: Firestore, pathName: string, cloudinary: Cloudinary}) => {
 
@@ -62,7 +61,7 @@ const App = ({db, pathName, cloudinary}: {db: Firestore, pathName: string, cloud
   // Muestra pedido de Pass cuando la galería personal tiene contraseña
   const [ showAccessPassForm, setShowAccessPassForm ] = useState<boolean>(false)
 
-  const [ isMobile ] = useMediaQuery('(max-width: 1024px)')
+  const isMobile = useMediaQuery('(max-width: 900px)')
 
   const getPersonal = async (personalId: string, fireDB: Firestore, password?: string | null) => {
     const pdata: PersonalData | null = await personal(fireDB).getById(personalId, password)
@@ -130,32 +129,44 @@ const App = ({db, pathName, cloudinary}: {db: Firestore, pathName: string, cloud
 
   return (
     <FireContext.Provider value={valueContext}>
-      <DarkMode>
-
-        <Stack
-          spacing={4}
-          direction="row"
-          position="fixed"
-          top="0"
-          left="0"
-          right="0"
-          boxShadow="md"
-          bg='var(--chakra-colors-gray-700)'
-          zIndex='sticky'
-          padding='5px'
-          justifyContent='center'
-          alignItems='center'
-          flexWrap='wrap'
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'center',
+            alignItems: 'center',
+            flexWrap: 'wrap',
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            boxShadow: '0px 0px 10px #000000',
+            background: '#333333',
+            zIndex: 4,
+            padding: '5px',
+          }}
         >
-          <Stack direction={['column', 'row']} justifyContent='space-between' alignItems='center' width='100%'>
+          <div style={{
+            display: 'flex',
+            flexDirection: isMobile ? 'column' : 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            width: '100%',
+          }}>
 
-            <Stack direction='row' justifyContent='center' alignItems='center' width={['100%','auto']} >
-              {!isMobile && <div style={{cursor: 'pointer'}} onClick={handleGoHome}><Image src={logoimg} alt="logo" width='50px' /></div>}
+            <div style={{
+              display: 'flex',
+              flexDirection: 'row',
+              justifyContent: 'center',
+              alignItems: 'center',
+              width: 'auto',
+            }} >
+              {!isMobile && <div style={{cursor: 'pointer'}} onClick={handleGoHome}><img src={logoimg} alt="logo" style={{width: '50px', padding: '3px'}} /></div>}
 
               {(pathName === '/' || !pathName) && <GallerySelector />}
 
-              {personalGallery?.title && <Text color='orange' fontSize='20px' >{personalGallery.title}</Text>}
-            </Stack>
+              {personalGallery?.title && <div style={{color: 'orange', fontSize: '20px'}} >{personalGallery.title}</div>}
+            </div>
 
             {publicSetting && <Paginator />}
 
@@ -165,12 +176,12 @@ const App = ({db, pathName, cloudinary}: {db: Firestore, pathName: string, cloud
               ? <Account />
               : window.location.href.includes('?admin') && <Login />
             }
-          </Stack>
-          {user && <Stack direction='column'>
+          </div>
+          {user && <div style={{display: 'flex', flexDirection: 'column'}}>
             {(showControl || !isMobile) && <GalleryControl />}
-          </Stack>
+          </div>
           }
-        </Stack>
+        </div>
 
         {user && <PrivateGallery />}
 
@@ -179,7 +190,7 @@ const App = ({db, pathName, cloudinary}: {db: Firestore, pathName: string, cloud
         {showAccessPassForm && <PrivatePass isLoading={false} onPassSend={(pass)=>getPersonal(pathName, db, pass)} />}
 
         <Footer />
-      </DarkMode>
+
     </FireContext.Provider>
   )
 }

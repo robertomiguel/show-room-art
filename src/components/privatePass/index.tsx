@@ -1,4 +1,3 @@
-import { Stack, Input, Button, Text } from "@chakra-ui/react";
 import React from "react";
 
 export const PrivatePass = ({onPassSend, isLoading}: {onPassSend: (pass: string) => void, isLoading: boolean}) => {
@@ -19,22 +18,36 @@ export const PrivatePass = ({onPassSend, isLoading}: {onPassSend: (pass: string)
     
         return (
             <form onSubmit={handleForm}>
-                <Stack direction='column' columnGap='10px' maxWidth='300px' margin='auto' alignItems='center' gap='30px' >
-                    <Text fontWeight={700} letterSpacing='3px' fontSize={30} color='orange' >Galería privada</Text>
-                    <Stack direction='row' justifyContent='space-between'>
-                        <Input
+                <div style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    columnGap: '10px',
+                    maxWidth: '300px',
+                    margin: 'auto',
+                    alignItems: 'center',
+                    gap: '30px',
+                    }}
+                    >
+                    <text style={{fontWeight: 700}} letterSpacing='3px' fontSize={30} color='orange' >Galería privada</text>
+                    <div style={{
+                        display: 'flex',
+                        flexDirection: 'row',
+                        justifyContent: 'space-between',
+                        }}
+                        >
+                        <input
                             type={showPass ? 'text' : 'password'}
                             placeholder='Contraseña'
                             value={pass}
                             onChange={(e)=>setPass(e.target.value)}
                             required
                         />
-                        <Button isLoading={isLoading} type='submit'>Acceder</Button>
-                    </Stack>
-                    <Stack>
+                        <button disabled={isLoading} type='submit'>Acceder</button>
+                    </div>
+                    <div>
                         <a href="/" onClick={handleShowPass} >{showPass ? 'Ocultar' : 'Mostrar'} contraseña</a>
-                    </Stack>
-                </Stack>
+                    </div>
+                </div>
             </form>
         )
     }

@@ -1,4 +1,3 @@
-import { Button, Input, Stack, Text } from '@chakra-ui/react'
 import React from 'react'
 import { gallery } from '../../firebase/gallery'
 import FireContext from '../../FireContext'
@@ -35,25 +34,51 @@ export const GalleryEditor = ({onClose}: GalleryEditorProps) => {
     onClose()
   }
 
-  return <Stack direction='column' gap='20px' alignItems='center' textAlign='center' >
-    <Stack direction='column' >
-      <Text>Nombre actual:</Text>
-      <Text fontWeight={700} >{gallerySelected.name}</Text>
-      <Text>Estado:</Text>
-      <Text fontWeight={700} >{gallerySelected.visible ? 'Visible' : 'Oculto'}</Text>
-    </Stack>
-    <Stack direction='column' >
-      <Text>Nuevo nombre:</Text>
-      <Input autoComplete='false' bg='white' color='black' value={galName} onChange={handleChange} />
-    </Stack>
-    <Button colorScheme='green' isLoading={isEditing} onClick={rename} >Renombrar</Button>
-    <Stack direction='column' justifyContent='space-between' >
-      <Text>Cambiar estado:</Text>
-      <Stack direction='row' justifyContent='space-between' >
-        <Button colorScheme='green' onClick={() => handleVisible(true)} >Visible</Button>
-        <Button colorScheme='red' onClick={() => handleVisible(false)} >Oculto</Button>
-      </Stack>
-    </Stack>
-    <Button disabled colorScheme='red' >Eliminar</Button>
-  </Stack>
+  return <div className='bluedark' style={{
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '20px',
+    alignItems: 'center',
+    textAlign: 'center',
+    padding: '10px',
+  }}
+   >
+    <div style={{
+      display: 'flex',
+      flexDirection: 'column',
+    }}
+    >
+      <text>Nombre actual:</text>
+      <text style={{fontWeight: 700}} >{gallerySelected.name}</text>
+      <text>Estado:</text>
+      <text style={{fontWeight: 700}} >{gallerySelected.visible ? 'Visible' : 'Oculto'} </text>
+    </div>
+        <div style={{
+      display: 'flex',
+      flexDirection: 'column',
+    }}
+    >
+      <text>Nuevo nombre:</text>
+      <input className='bluedark-element' type='text' autoComplete='false' value={galName} onChange={handleChange} />
+    </div>
+    <button disabled={isEditing} onClick={rename} >Renombrar</button>
+    <div style={{
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'space-between',
+    }}
+    >
+      <text>Cambiar estado:</text>
+      <div style={{
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+      }}
+      >
+        <button onClick={() => handleVisible(true)} >Visible</button>
+        <button onClick={() => handleVisible(false)} >Oculto</button>
+      </div>
+    </div>
+    <button disabled >Eliminar</button>
+  </div>
 }

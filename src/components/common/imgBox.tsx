@@ -1,7 +1,6 @@
 import React from 'react'
 import { Cloudinary } from '@cloudinary/url-gen'
 import { fill } from '@cloudinary/url-gen/actions/resize'
-import { Image } from '@chakra-ui/react'
 import { PhotoData } from '../../appType'
 
 interface ImgBoxProp {
@@ -19,6 +18,6 @@ export const ImgBox = ({photo, cld}: ImgBoxProp) => {
     setSrcImage(myImage.toURL())
   }, [photo?.public_id, cld])
 
-    return srcImage ? <Image borderRadius='5px 5px 0 0' src={srcImage} alt='Foto' /> : <></>
+    return srcImage ? <img style={{borderRadius: '5px'}} src={srcImage} alt='Foto' /> : <></>
 
 }

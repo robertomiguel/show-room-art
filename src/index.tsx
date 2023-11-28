@@ -1,11 +1,9 @@
-import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App'
-import { ChakraProvider, ColorModeScript } from "@chakra-ui/react"
-import theme from './theme'
 import { initializeApp } from 'firebase/app'
 import { Firestore, getFirestore } from 'firebase/firestore'
 import { Cloudinary } from '@cloudinary/url-gen'
+import './index.css'
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -31,8 +29,5 @@ const cld = new Cloudinary({
 })
 
 root.render(
-    <ChakraProvider theme={theme}>
-      <ColorModeScript initialColorMode={theme.config.initialColorMode} />
-        <App db={db} pathName={window.location.pathname.slice(1)} cloudinary={cld} />
-    </ChakraProvider>
+    <App db={db} pathName={window.location.pathname.slice(1)} cloudinary={cld} />
 )

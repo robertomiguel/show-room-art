@@ -1,8 +1,8 @@
 import React from 'react'
 
-export const Footer = () => <h3 style={{
+export const Footer = () => <div style={{
     color: 'white',
-    backgroundColor: 'rgba(166,0,0,.5)',
+    backgroundColor: 'rgba(.2,.2,.2,.5)',
     bottom: 0,
     position: 'fixed',
     left: 0,
@@ -10,4 +10,4 @@ export const Footer = () => <h3 style={{
     textAlign: 'center',
   }}>
   Created by Roberto Miguel ® - IG @robertomiguel.ph
-</h3>
+</div>

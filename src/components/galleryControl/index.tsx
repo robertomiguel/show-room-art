@@ -1,5 +1,4 @@
 import React from 'react'
-import { Button, Stack, Text } from '@chakra-ui/react'
 import FireContext from '../../FireContext'
 import { UploadImage } from '../uploadImage'
 import { PhotoData } from '../../appType'
@@ -23,7 +22,7 @@ export const GalleryControl = () => {
     const [ showSetting, setShowSetting ] = React.useState<boolean>(false)
     const [ showGalleryLink, setShowGalleryLink ] = React.useState<boolean>(false)
     const [ showTools, setShowTools ] = React.useState<boolean>(false)
-    
+
     const [ unPublishList, setUnPublishList ] = React.useState<string[]>([])
     const [ isDisabledUnPublished, setIsDisabledUnPublished ] = React.useState<boolean>(false)
 
@@ -42,7 +41,7 @@ export const GalleryControl = () => {
         setPublishList(list2)
         setIsDisabledPublished(list2.length === 0)
     },[selectedPhotos, photosList])
-    
+
     const handlePublished = async (status: boolean) => {
         setIsLoadingPublic(true)
         const list: string[] = status ? publishList : unPublishList
@@ -151,7 +150,7 @@ export const GalleryControl = () => {
     }
 
     return <>
-        {showTools && <Stack zIndex={3} overflowY='scroll'  padding='10px' width='360px' direction='column' position='fixed' bg='rgb(50,50,50)' left={0} top='70px' bottom={0} boxShadow='-1px 0px 9px 3px rgba(28,28,28,0.75)' >
+        {showTools && <div style={{ zIndex: 3, overflowY: 'scroll', padding: '10px', width: '360px', display: 'flex', flexDirection: 'column', position: 'fixed', background: 'rgb(50,50,50)', left: 0, top: '70px', bottom: 0, boxShadow: '-1px 0px 9px 3px rgba(28,28,28,0.75)' }} >
             <div style={{display: 'flex', flexDirection: 'column', gap: '20px'}} >
                 <HeaderModal label='Herramientas' onClose={() => setShowTools(false)} />
                 <MenuButton show={showUploader} onClick={closeUploader} text='Subir fotos' />
@@ -169,26 +168,26 @@ export const GalleryControl = () => {
                 <MenuButton show={showSetting} onClick={closeSetting} text='Configurar' />
                 {showSetting && <Setting />}
             </div>
-        </Stack>}
-        <Stack direction='row' padding='10px' alignItems='center' position='sticky' zIndex={1} >
+        </div>}
+        <div style={{ display: 'flex', flexDirection: 'row', padding: '10px', alignItems: 'center', position: 'sticky', zIndex: 1 }} >
             <div style={{position: 'fixed', left: '10px'}} >
                 <button onClick={() => setShowTools(!showTools)} >Menú</button>
             </div>
             <div>
                 <MenuButton show={showSelector} onClick={closeSelector} text='Selector' />
                 {showSelector && 
-                    <Stack direction='column' gap='10px' position='absolute' bg='rgb(50,50,50)' padding='10px' >
-                        <Button colorScheme='blue' onClick={() => selector('selectAll')} >Todo</Button>
-                        <Button colorScheme='blue' onClick={() => selector('selectPublished')} >Publicadas</Button>
-                        <Button colorScheme='blue' onClick={() => selector('selectUnPublished')} >Sin publicar</Button>
-                        <Button colorScheme='red' onClick={() => selector('clearSelection')} >Limpiar selección</Button>
-                    </Stack>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', position: 'absolute', background: 'rgb(50,50,50)', padding: '10px' }} >
+                        <button onClick={() => selector('selectAll')} >Todo</button>
+                        <button onClick={() => selector('selectPublished')} >Publicadas</button>
+                        <button onClick={() => selector('selectUnPublished')} >Sin publicar</button>
+                        <button onClick={() => selector('clearSelection')} >Limpiar selección</button>
+                    </div>
                 }
             </div>
-            <Text>Seleccionados ({selectedPhotos.length})</Text>
-            <Button colorScheme='green' isLoading={isLoadingPublic} isDisabled={isDisabledPublished} onClick={() => handlePublished(true)} >Publicar</Button>
-            <Button colorScheme='orange' isLoading={isLoadingPublic} isDisabled={isDisabledUnPublished} onClick={() => handlePublished(false)} >Quitar publicación</Button>
-            <Button colorScheme='red' isLoading={isLoadingDelete} isDisabled={isDisabledPublished} onClick={handleDelete} >Eliminar</Button>
-        </Stack>
+            <text>Seleccionados ({selectedPhotos.length})</text>
+            <button disabled={isDisabledPublished || isLoadingPublic} onClick={() => handlePublished(true)} >Publicar</button>
+            <button disabled={isDisabledUnPublished || isLoadingPublic} onClick={() => handlePublished(false)} >Quitar publicación</button>
+            <button disabled={isDisabledPublished || isLoadingDelete} onClick={handleDelete} >Eliminar</button>
+        </div>
     </>
 }

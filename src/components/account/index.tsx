@@ -1,6 +1,5 @@
 import React from 'react'
 import FireContext from '../../FireContext'
-import { Button } from '@chakra-ui/react'
 import { getAuth, sendEmailVerification } from "firebase/auth";
 
 export const Account = () => {
@@ -9,30 +8,26 @@ export const Account = () => {
 
     return <div>
 
-        {isMobile && <Button
-            size='xs'
-            colorScheme='green'
+        {isMobile && <button
             onClick={() => setShowControl( (prev: boolean) => !prev)} >
                 {showControl ? 'Ocultar' : 'Mostrar'} controles
-        </Button>}
+        </button>}
 
         {!user.emailVerified &&
-            <Button
-                size='xs'
-                colorScheme='green'
+            <button
                 onClick={async () => { 
                     await sendEmailVerification(user)
                     alert('Email enviado a: ' + user.email)
                 }}
             >
                 Enviar email de verificación
-            </Button>
+            </button>
         }
 
-        <Button title={user.email} size='xs' colorScheme='orange' marginLeft='5px' onClick={ e => {
+        <button title={user.email} style={{marginLeft: '5px'}} onClick={ e => {
             e.preventDefault()
             getAuth().signOut()
             window.location.href = '/'
-        }}>Cerrar sesión</Button>
+        }}>Cerrar sesión</button>
     </div>
 }
