@@ -1,9 +1,10 @@
 import React from 'react'
 import { Cloudinary } from '@cloudinary/url-gen'
 import FireContext from '../../FireContext'
-import { formatDate } from '../common/formatDate'
 import { PhotoData } from '../../appType'
+import { formatDate } from '../common/formatDate'
 import { ImgBox } from '../common/imgBox'
+import { FormFieldRow, PrivateImageBox, PrivateProductInfo } from './pGallery.styled'
 
 interface ImageBoxProp {
     photo: PhotoData
@@ -30,35 +31,26 @@ export const ImageBox = ({photo, onClick, cld}: ImageBoxProp) => {
     setIsSelected(value)
   },[selectedPhotos, photo.id])
 
-    return <div className='dark-element' style={{
-      display: 'flex',
-      flexDirection: 'column',
-      padding: '4px',
-      borderRadius: '5px',
-      gap: '5px',
-      outline: isSelected ? '1px solid white' : 'unset',
-    }} >
+    return <PrivateImageBox $isSelected={isSelected} >
 
       <div onClick={onClick}>
         <ImgBox photo={photo} cld={cld} />
       </div>
 
-      <div  style={{
-        display: 'flex',
-        flexDirection: 'column',
-        background: photo?.public ? 'rgba(100,100,100,0.7)' : 'rgba(50,50,50,1)',
-        fontSize: '20px',
-        padding: '5px',
-        borderRadius: '0 0 5px 5px',
-      }}>
-          <text>({photo?.order}) Nombre: {photo?.file_name}</text>
-          <text>Estado: <span style={{fontWeight: 700}} >{photo.public ? 'Pública' : 'Privada'}</span></text>
-          {photo?.public_last_date && <text>Última publicación: {formatDate(photo.public_last_date)}</text>}
-          <div style={{ display: 'flex', flexDirection: 'row' }} >
-            <text>Marcar:</text>
-            <input type='checkbox' checked={isSelected} onChange={handleSelected} />
-          </div>
-      </div>
+      <PrivateProductInfo $isPublic={photo?.public} >
+        <FormFieldRow>
+          <p>Nombre de archivo</p><p>{photo?.file_name}</p>
+        </FormFieldRow>
+        <FormFieldRow>
+          <p>Estado</p><p>{photo.public ? 'Pública' : 'Privada'}</p>
+        </FormFieldRow>
+        <FormFieldRow>
+          <p>Última publicación</p><p>{photo.public_last_date ? formatDate(photo.public_last_date) : 'nunca publicado'}</p>
+        </FormFieldRow>
+        <FormFieldRow>
+          <p>Seleccionar</p><input type='checkbox' checked={isSelected} onChange={handleSelected} />
+        </FormFieldRow>
+      </PrivateProductInfo>
 
-  </div>
+  </PrivateImageBox>
 }

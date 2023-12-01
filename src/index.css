@@ -15,29 +15,26 @@
 body {
     background-color: var(--background-dark);
     color: var(--text-light);
+    font-family: Arial, sans-serif;
+    letter-spacing: 1px;
 }
 
-/* Estilo para el encabezado (header) en Dark Burton */
 header {
     background-color: var(--background-darker);
 }
 
-/* Estilo para el encabezado (header) en hover */
 header:hover {
     background-color: var(--background-darker);
 }
 
-/* Estilo para el enlace (a) en Dark Burton */
 a {
     color: var(--text-light);
 }
 
-/* Estilo para el enlace (a) en hover */
 a:hover {
     color: var(--border-light);
 }
 
-/* Estilo para el input de tipo texto en Dark Burton */
 input[type="text"] {
     background-color: var(--background-dark);
     color: var(--text-light);
@@ -46,22 +43,18 @@ input[type="text"] {
     padding: 8px;
     outline: none;
     transition: border-color 0.3s ease, background-color 0.3s ease, color 0.3s ease;
-    font-family: 'Timmana', sans-serif;
 }
 
-/* Estilo para el input de tipo texto en hover */
 input[type="text"]:hover {
     border-color: var(--border-light);
 }
 
-/* Estilo para el input de tipo texto cuando está deshabilitado */
 input[type="text"]:disabled {
     background-color: var(--disabled-background);
     color: var(--disabled-text);
     border-color: var(--disabled-background);
 }
 
-/* Estilo para el input de tipo password en Dark Burton */
 input[type="password"] {
     background-color: var(--background-dark);
     color: var(--text-light);
@@ -70,22 +63,18 @@ input[type="password"] {
     padding: 8px;
     outline: none;
     transition: border-color 0.3s ease, background-color 0.3s ease, color 0.3s ease;
-    font-family: 'Timmana', sans-serif;
 }
 
-/* Estilo para el input de tipo password en hover */
 input[type="password"]:hover {
     border-color: var(--border-light);
 }
 
-/* Estilo para el input de tipo password cuando está deshabilitado */
 input[type="password"]:disabled {
     background-color: var(--disabled-background);
     color: var(--disabled-text);
     border-color: var(--disabled-background);
 }
 
-/* Estilo para el textarea en Dark Burton */
 textarea {
     background-color: var(--background-dark);
     color: var(--text-light);
@@ -95,15 +84,12 @@ textarea {
     outline: none;
     resize: vertical;
     transition: border-color 0.3s ease, background-color 0.3s ease, color 0.3s ease;
-    font-family: 'Timmana', sans-serif;
 }
 
-/* Estilo para el textarea en hover */
 textarea:hover {
     border-color: var(--border-light);
 }
 
-/* Estilo para el textarea cuando está deshabilitado */
 textarea:disabled {
     background-color: var(--disabled-background);
     color: var(--disabled-text);
@@ -114,7 +100,6 @@ textarea:disabled {
     background-color: var(--background-blue);
 }
 
-/* Estilo para el nuevo elemento azul oscuro en Dark Burton */
 .bluedark-element {
     background-color: var(--background-blue);
     color: var(--text-light);
@@ -124,20 +109,17 @@ textarea:disabled {
     transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
 
-/* Estilo para el nuevo elemento azul oscuro en hover */
 .bluedark-element:hover {
     border-color: var(--border-light);
     background-color: var(--background-blue);
 }
 
-/* Estilo para el nuevo elemento azul oscuro cuando está deshabilitado */
 .bluedark-element:disabled {
     background-color: var(--disabled-background);
     color: var(--disabled-text);
     border-color: var(--disabled-background);
 }
 
-/* Estilo para el elemento select en Dark Burton */
 select {
     background-color: var(--background-dark);
     color: var(--text-light);
@@ -146,22 +128,21 @@ select {
     padding: 8px;
     outline: none;
     transition: border-color 0.3s ease, background-color 0.3s ease, color 0.3s ease;
-    font-family: 'Timmana', sans-serif;
+    -moz-appearance:none !important;
+    -webkit-appearance: none !important; 
+    appearance: none !important;
 }
 
-/* Estilo para el elemento select en hover */
 select:hover {
     border-color: var(--border-light);
 }
 
-/* Estilo para el elemento select cuando está deshabilitado */
 select:disabled {
     background-color: var(--disabled-background);
     color: var(--disabled-text);
     border-color: var(--disabled-background);
 }
 
-/* Estilo para el input de tipo checkbox en Dark Burton */
 input[type="checkbox"] {
     appearance: none;
     -webkit-appearance: none;
@@ -175,12 +156,10 @@ input[type="checkbox"] {
     transition: border-color 0.3s ease, background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Estilo para el input de tipo checkbox en hover */
 input[type="checkbox"]:hover {
     background-color: var(--background-darker);
 }
 
-/* Estilo para el input de tipo checkbox cuando está deshabilitado */
 input[type="checkbox"]:disabled {
     background-color: var(--background-dark);
     color: var(--text-dark);
@@ -194,9 +173,8 @@ input[type="checkbox"]:checked {
     color: var(--border-dark);
 }
 
-/* Estilo para mostrar el icono cuando el input de tipo checkbox está seleccionado */
 input[type="checkbox"]:checked::before {
-    color: var(--text-light); /* Color del icono cuando está seleccionado */
+    color: var(--text-light);
 }
 
 /* Estilo para el botón en Dark Burton */
@@ -214,14 +192,12 @@ button {
     transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
 
-/* Estilo para el botón en hover en Dark Burton */
 button:hover {
     background-color: var(--background-darker);
     color: var(--text-light);
     border-color: var(--border-light);
 }
 
-/* Estilo para el botón deshabilitado en hover en Dark Burton */
 button:disabled:hover {
     background-color: var(--disabled-background);
     color: var(--disabled-text);
@@ -229,7 +205,6 @@ button:disabled:hover {
     cursor: not-allowed;
 }
 
-/* Estilo para el elemento option en el select en Dark Burton */
 select option {
     background-color: var(--background-dark);
     color: var(--text-light);
@@ -237,8 +212,31 @@ select option {
     font-size: 1.3rem;
 }
 
-/* Estilo para el elemento option en hover en el select en Dark Burton */
 select option:hover {
     background-color: var(--background-darker);
     color: var(--text-light);
+}
+
+input[type="email"] {
+    background-color: var(--background-dark);
+    color: var(--text-light);
+    border: 1px solid var(--border-dark);
+    border-radius: 5px;
+    padding: 8px;
+    outline: none;
+    transition: border-color 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+}
+
+input[type="email"]:hover {
+    border-color: var(--border-light);
+}
+
+input[type="email"]:disabled {
+    background-color: var(--disabled-background);
+    color: var(--disabled-text);
+    border-color: var(--disabled-background);
+}
+
+.shadow {
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.75);
 }

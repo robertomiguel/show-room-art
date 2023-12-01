@@ -1,9 +1,10 @@
 import React, { useContext, useState } from 'react'
 import axios from 'axios'
-import FireContext from "../../FireContext"
-import { generateId } from '../common/generateId'
-import { PhotoData } from '../../appType'
-import { photos } from '../../firebase/photos'
+import FireContext from '../../../../FireContext'
+import { PhotoData } from '../../../../appType'
+import { photos } from '../../../../firebase/photos'
+import { generateId } from '../../../common/generateId'
+import { ToolsFormContainer, ToolsFormFieldColumn, ToolsFormFieldRow } from '../toolsForm.styled'
 
 export const UploadImage = () => {
 
@@ -74,18 +75,20 @@ export const UploadImage = () => {
         }
       };
 
-    return <div className='bluedark' style={{ display: 'flex', flexDirection: 'column', gap: '20px', alignItems: 'center', padding: '10px' }} >
-        <input type="file" onChange={handleFileChange} multiple accept='image/jpeg' />
-        <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }} >
-            <text>Galería</text>
-            <text>{gallerySelected?.name}</text>
-        </div>
-        <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
-            <text>Cargados</text>
-            <text>{count}/{files.length}</text>
-        </div>
-        <div style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+    return <ToolsFormContainer>
+        <ToolsFormFieldColumn>
+            <input type="file" onChange={handleFileChange} multiple accept='image/jpeg' />
+        </ToolsFormFieldColumn>
+        <ToolsFormFieldColumn>
+            <p>Galería:</p>
+            <p>{gallerySelected?.name}</p>
+        </ToolsFormFieldColumn>
+        <ToolsFormFieldRow>
+            <p>Cargados</p>
+            <p>{count} - {files.length}</p>
+        </ToolsFormFieldRow>
+        <ToolsFormFieldColumn>
             <button disabled={files.length===0 || files.length === count || isLoading} onClick={handleUpload} >Iniciar Carga</button>
-        </div>
-    </div>
+        </ToolsFormFieldColumn>
+    </ToolsFormContainer>
 }

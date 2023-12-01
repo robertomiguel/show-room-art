@@ -2,6 +2,7 @@ import React, { useContext, useEffect } from 'react'
 import { GalleryData } from '../../appType'
 import FireContext from '../../FireContext'
 import { gallery } from '../../firebase/gallery'
+import { StyledOption, StyledSelect } from './gSelector.styled'
 
 export const GallerySelector = () => {
 
@@ -24,17 +25,25 @@ export const GallerySelector = () => {
     }, [user?.uid])
 
     return (
-        <div style={{width: isMobile ? '100%' : '350px' }}>
-            <select
+        <fieldset style={{
+            padding: 0,
+            borderRadius: '5px',
+            textAlign: 'center',
+            border: 'none',
+            width: isMobile ? '90%' : 'auto',
+        }} >
+            <legend>Seleccionar galería</legend>
+            <StyledSelect
+                $isMobile={isMobile}
                 value={gallerySelected?.id}
                 onChange={ val => {
                     setGallerySelected(galleryList.find( (f: GalleryData) => f.id === val.target.value ))
                 }}
-            >
+                >
                 {galleryList.map((gallery: GalleryData) =>
-                    <option key={gallery.id} value={gallery.id} >{gallery.name} {user?.uid && (gallery?.visible ? '(Visible)' : '(No Visible)')}</option>)
+                    <StyledOption $isMobile={isMobile} key={gallery.id} value={gallery.id} >{gallery.name} {user?.uid && (gallery?.visible ? '(Visible)' : '(No Visible)')}</StyledOption>)
                 }
-            </select>
-        </div>
+            </StyledSelect>
+        </fieldset>
     )
 }

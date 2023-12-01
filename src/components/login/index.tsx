@@ -1,6 +1,7 @@
 import React from "react"
 import { getAuth, signInWithEmailAndPassword, UserCredential } from "firebase/auth";
 import FireContext from "../../FireContext";
+import { LoginButtons, LoginContainer, LoginInputs } from "./login.styled";
 
 const Login = () => {
 
@@ -38,21 +39,23 @@ const Login = () => {
     const handleShow = () => setShow(!show)
     
     return (
-        <div>
+        <>
             <button onClick={handleShow}>Login</button>
             {show && 
-                <div style={{ display: 'flex', alignItems: 'center', position: 'absolute', right: 0, top: 0, background: 'black', padding: '5px' }} >
-                    <form onSubmit={login} style={{textAlign: 'center'}} >
-                        <div style={{display: 'flex', flexDirection: 'column'}} >
-                            <input type="email" placeholder="Email" name="email" required />
-                            <input type="password" placeholder="Password" name="password" required />
-                        </div>
-                        <button onClick={handleShow} >Cancelar</button>
-                        <button type="submit">Entrar</button>
-                    </form>
-                </div>
+                <form onSubmit={login}>
+                    <LoginContainer>
+                        <LoginInputs>
+                            <input autoComplete="false" type="email" placeholder="Email" name="email" required />
+                            <input autoComplete="false" type="password" placeholder="Password" name="password" required />
+                        </LoginInputs>
+                        <LoginButtons>
+                            <button onClick={handleShow} >Cancelar</button>
+                            <button type="submit">Entrar</button>
+                        </LoginButtons>
+                    </LoginContainer>
+                </form>
             }
-        </div>
+        </>
     )
 }
 

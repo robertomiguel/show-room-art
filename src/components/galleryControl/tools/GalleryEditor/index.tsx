@@ -1,7 +1,8 @@
 import React from 'react'
-import { gallery } from '../../firebase/gallery'
-import FireContext from '../../FireContext'
-import { GalleryData } from '../../appType'
+import FireContext from '../../../../FireContext'
+import { GalleryData } from '../../../../appType'
+import { gallery } from '../../../../firebase/gallery'
+import { ToolsFormCheckConfirm, ToolsFormContainer, ToolsFormFieldColumn, ToolsFormFieldRow } from '../toolsForm.styled'
 
 interface GalleryEditorProps {
   onClose: () => void
@@ -34,51 +35,32 @@ export const GalleryEditor = ({onClose}: GalleryEditorProps) => {
     onClose()
   }
 
-  return <div className='bluedark' style={{
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '20px',
-    alignItems: 'center',
-    textAlign: 'center',
-    padding: '10px',
-  }}
-   >
-    <div style={{
-      display: 'flex',
-      flexDirection: 'column',
-    }}
-    >
-      <text>Nombre actual:</text>
-      <text style={{fontWeight: 700}} >{gallerySelected.name}</text>
-      <text>Estado:</text>
-      <text style={{fontWeight: 700}} >{gallerySelected.visible ? 'Visible' : 'Oculto'} </text>
-    </div>
-        <div style={{
-      display: 'flex',
-      flexDirection: 'column',
-    }}
-    >
-      <text>Nuevo nombre:</text>
+  return <ToolsFormContainer>
+    <ToolsFormFieldColumn>
+      <p>Nombre actual:</p>
+      <p style={{fontWeight: 700}} >{gallerySelected.name}</p>
+    </ToolsFormFieldColumn>
+    <ToolsFormFieldRow>
+      <p>Estado:</p>
+      <p style={{fontWeight: 700}} >{gallerySelected.visible ? 'Visible' : 'Oculto'} </p>
+    </ToolsFormFieldRow>
+    <ToolsFormFieldColumn>
+      <p>Nuevo nombre:</p>
       <input className='bluedark-element' type='text' autoComplete='false' value={galName} onChange={handleChange} />
-    </div>
-    <button disabled={isEditing} onClick={rename} >Renombrar</button>
-    <div style={{
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'space-between',
-    }}
-    >
-      <text>Cambiar estado:</text>
-      <div style={{
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-      }}
-      >
+    </ToolsFormFieldColumn>
+    <ToolsFormFieldRow>
+      <button disabled={isEditing} onClick={rename} >Renombrar</button>
+    </ToolsFormFieldRow>
+    <ToolsFormFieldColumn>
+      <p>Cambiar estado:</p>
+      <ToolsFormFieldRow>
         <button onClick={() => handleVisible(true)} >Visible</button>
         <button onClick={() => handleVisible(false)} >Oculto</button>
-      </div>
-    </div>
-    <button disabled >Eliminar</button>
-  </div>
+      </ToolsFormFieldRow>
+    </ToolsFormFieldColumn>
+    <ToolsFormFieldRow>
+      <ToolsFormCheckConfirm><input type='checkbox' /><p>Confirmar borrado</p></ToolsFormCheckConfirm>
+      <button disabled >Eliminar</button>
+    </ToolsFormFieldRow>
+  </ToolsFormContainer>
 }

@@ -4,15 +4,9 @@ import { getAuth, sendEmailVerification } from "firebase/auth";
 
 export const Account = () => {
 
-    const { user, isMobile, showControl, setShowControl } = React.useContext(FireContext)
+    const { user } = React.useContext(FireContext)
 
     return <div>
-
-        {isMobile && <button
-            onClick={() => setShowControl( (prev: boolean) => !prev)} >
-                {showControl ? 'Ocultar' : 'Mostrar'} controles
-        </button>}
-
         {!user.emailVerified &&
             <button
                 onClick={async () => { 

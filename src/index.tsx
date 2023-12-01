@@ -1,9 +1,9 @@
 import ReactDOM from 'react-dom/client'
-import App from './App'
 import { initializeApp } from 'firebase/app'
 import { Firestore, getFirestore } from 'firebase/firestore'
 import { Cloudinary } from '@cloudinary/url-gen'
 import './index.css'
+import { Home } from './components/home'
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -29,5 +29,5 @@ const cld = new Cloudinary({
 })
 
 root.render(
-    <App db={db} pathName={window.location.pathname.slice(1)} cloudinary={cld} />
+    <Home db={db} pathName={window.location.pathname.slice(1)} cloudinary={cld} />
 )

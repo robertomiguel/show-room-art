@@ -1,26 +1,26 @@
 import React from 'react'
 import FireContext from '../../FireContext'
-import { UploadImage } from '../uploadImage'
 import { PhotoData } from '../../appType'
-import { GalleryCreator } from '../galleryCreator'
-import { GalleryEditor } from '../GalleryEditor'
-import { Setting } from '../Setting'
 import { photos } from '../../firebase/photos'
-import { GalleryLink } from '../galleryLink'
 import axios from 'axios'
 import { sha1 } from 'crypto-hash'
 import { MenuButton } from '../common/vamper/menuButton'
 import { HeaderModal } from '../common/vamper/headerModal'
+import { GalleryControlContainer, GallerySelectorContainer, MenuControlBody, MenuControlContainer } from './gControl.styled'
+import { ScreenBlackout } from '../common/vamper/modal.styled'
+import { GalleryEditor } from './tools/GalleryEditor'
+import { Setting } from './tools/Setting'
+import { GalleryCreator } from './tools/galleryCreator'
+import { UploadImage } from './tools/uploadImage'
+import { GalleryLink } from './tools/galleryLink'
 
 export const GalleryControl = () => {
 
     const { selectedPhotos, setSelectedPhotos, photosList, setPhotosList, gallerySelected, db } = React.useContext(FireContext)
-    const [ showSelector, setShowSelector ] = React.useState<boolean>(false)
-    const [ showUploader, setShowUploader ] = React.useState<boolean>(false)
-    const [ showGalleryCreator, setShowGalleryCreator ] = React.useState<boolean>(false)
-    const [ showGalleryEditor, setShowGalleryEditor ] = React.useState<boolean>(false)
-    const [ showSetting, setShowSetting ] = React.useState<boolean>(false)
-    const [ showGalleryLink, setShowGalleryLink ] = React.useState<boolean>(false)
+    const [ showSelector, setShowSelector ] = React.useState<number | null>(null)
+    
+    const [ menuSelected, setMenuSelected ] = React.useState<number | null>()
+
     const [ showTools, setShowTools ] = React.useState<boolean>(false)
 
     const [ unPublishList, setUnPublishList ] = React.useState<string[]>([])
@@ -97,97 +97,54 @@ export const GalleryControl = () => {
                 setSelectedPhotos([])
                 break;
         }
-        closeSelector()
     }
 
-    const closeSelector = () => {
-        setShowSelector(!showSelector)
+    const closeSelector = (value: number | null) => {
+        setShowSelector(value)
     }
 
-    const closeUploader = () => {
-        setShowUploader(!showUploader)
-        setShowGalleryCreator(false)
-        setShowSelector(false)
-        setShowGalleryEditor(false)
-        setShowSetting(false)
-        setShowGalleryLink(false)
-    }
-
-    const closeGalleryCreator = () => {
-        setShowGalleryCreator(!showGalleryCreator)
-        setShowSelector(false)
-        setShowUploader(false)
-        setShowGalleryEditor(false)
-        setShowSetting(false)
-        setShowGalleryLink(false)
-    }
-
-    const closeGalleryEditor = () => {
-        setShowGalleryEditor(!showGalleryEditor)
-        setShowSelector(false)
-        setShowUploader(false)
-        setShowGalleryCreator(false)
-        setShowSetting(false)
-        setShowGalleryLink(false)
-    }
-
-    const closeSetting = () => {
-        setShowSetting(!showSetting)
-        setShowGalleryEditor(false)
-        setShowSelector(false)
-        setShowUploader(false)
-        setShowGalleryCreator(false)
-        setShowGalleryLink(false)
-    }
-
-    const closeGalleryLink = () => {
-        setShowGalleryLink(!showGalleryLink)
-        setShowSetting(false)
-        setShowGalleryEditor(false)
-        setShowSelector(false)
-        setShowUploader(false)
-        setShowGalleryCreator(false)
-    }
+    const handleShowMenu = (menuNumber: number | null) => setMenuSelected(menuNumber)
 
     return <>
-        {showTools && <div style={{ zIndex: 3, overflowY: 'scroll', padding: '10px', width: '360px', display: 'flex', flexDirection: 'column', position: 'fixed', background: 'rgb(50,50,50)', left: 0, top: '70px', bottom: 0, boxShadow: '-1px 0px 9px 3px rgba(28,28,28,0.75)' }} >
-            <div style={{display: 'flex', flexDirection: 'column', gap: '20px'}} >
-                <HeaderModal label='Herramientas' onClose={() => setShowTools(false)} />
-                <MenuButton show={showUploader} onClick={closeUploader} text='Subir fotos' />
-                {showUploader && <UploadImage />}
+        {showTools && <ScreenBlackout>
+            <MenuControlContainer className='shadow' >
+                <MenuControlBody>
+                    <HeaderModal label='Herramientas' onClose={() => setShowTools(false)} />
 
-                <MenuButton show={showGalleryCreator} onClick={closeGalleryCreator} text='Crear galería' />
-                {showGalleryCreator && <GalleryCreator />}
+                    <MenuButton show={menuSelected} value={1} onClick={handleShowMenu} label='Subir fotos' />
+                    {menuSelected === 1 && <UploadImage />}
 
-                <MenuButton show={showGalleryEditor} onClick={closeGalleryEditor} text='Editar galería' />
-                {showGalleryEditor && <GalleryEditor onClose={() => setShowGalleryEditor(false)} />}
+                    <MenuButton show={menuSelected} value={2} onClick={handleShowMenu} label='Crear galería' />
+                    {menuSelected === 2 && <GalleryCreator />}
 
-                <MenuButton show={showGalleryLink} onClick={closeGalleryLink} text='Crear link' />
-                {showGalleryLink && <GalleryLink onClose={() => setShowGalleryLink(false)} />}
+                    <MenuButton show={menuSelected} value={3} onClick={handleShowMenu} label='Editar galería' />
+                    {menuSelected === 3 && <GalleryEditor onClose={() => setMenuSelected(null)} />}
 
-                <MenuButton show={showSetting} onClick={closeSetting} text='Configurar' />
-                {showSetting && <Setting />}
-            </div>
-        </div>}
-        <div style={{ display: 'flex', flexDirection: 'row', padding: '10px', alignItems: 'center', position: 'sticky', zIndex: 1 }} >
-            <div style={{position: 'fixed', left: '10px'}} >
-                <button onClick={() => setShowTools(!showTools)} >Menú</button>
-            </div>
+                    <MenuButton show={menuSelected} value={4} onClick={handleShowMenu} label='Crear link' />
+                    {menuSelected === 4 && <GalleryLink onClose={() => setMenuSelected(null)} />}
+
+                    <MenuButton show={menuSelected} value={5} onClick={handleShowMenu} label='Configurar' />
+                    {menuSelected === 5 && <Setting />}
+                </MenuControlBody>
+            </MenuControlContainer>
+        </ScreenBlackout>}
+        <GalleryControlContainer>
+            <button onClick={() => setShowTools(!showTools)} >Menú</button>
             <div>
-                <MenuButton show={showSelector} onClick={closeSelector} text='Selector' />
+                <MenuButton show={showSelector ? 1 : null} value={1} onClick={closeSelector} label='Selector' />
                 {showSelector && 
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', position: 'absolute', background: 'rgb(50,50,50)', padding: '10px' }} >
+                    <GallerySelectorContainer className="shadow" >
                         <button onClick={() => selector('selectAll')} >Todo</button>
                         <button onClick={() => selector('selectPublished')} >Publicadas</button>
                         <button onClick={() => selector('selectUnPublished')} >Sin publicar</button>
                         <button onClick={() => selector('clearSelection')} >Limpiar selección</button>
-                    </div>
+                    </GallerySelectorContainer>
                 }
             </div>
-            <text>Seleccionados ({selectedPhotos.length})</text>
+            <p>Seleccionados ({selectedPhotos.length})</p>
             <button disabled={isDisabledPublished || isLoadingPublic} onClick={() => handlePublished(true)} >Publicar</button>
             <button disabled={isDisabledUnPublished || isLoadingPublic} onClick={() => handlePublished(false)} >Quitar publicación</button>
             <button disabled={isDisabledPublished || isLoadingDelete} onClick={handleDelete} >Eliminar</button>
-        </div>
+        </GalleryControlContainer>
     </>
 }

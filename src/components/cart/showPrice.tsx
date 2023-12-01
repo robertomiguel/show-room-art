@@ -2,6 +2,7 @@ import React from 'react'
 import FireContext from '../../FireContext'
 import { numberFormat } from '../common/numberFormat'
 import { Price } from '../../appType'
+import { PriceContainer, PriceField, PriceTotal } from './price.styled'
 
 interface ShowPriceProp {
     quantity: number
@@ -39,21 +40,21 @@ export const ShowPrice = ({quantity}: ShowPriceProp) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     },[quantity, publicSetting.dollar])
 
-    return <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', width: '100%' }}>
-        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+    return <PriceContainer>
+        <PriceField>
             <div>Total de fotos</div><div>{price?.quantity}</div>
-        </div>
+        </PriceField>
 
-        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+        <PriceField>
             <div>Subtotal</div><div>$AR {numberFormat(price?.subTotal)}</div>
-        </div>
+        </PriceField>
 
-        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
+        <PriceField>
             <div>Bonif. por cantidad ({price?.percentage}%)</div><div>$AR {numberFormat(price?.bonificationAmount)}</div>
-        </div>
+        </PriceField>
 
-        <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>
-            <div style={{fontSize: '24px'}} >TOTAL</div><div>$AR {numberFormat(price?.total)}</div>
-        </div>
-    </div>
+        <PriceField>
+            <PriceTotal>TOTAL</PriceTotal><PriceTotal>$AR {numberFormat(price?.total)}</PriceTotal>
+        </PriceField>
+    </PriceContainer>
 }

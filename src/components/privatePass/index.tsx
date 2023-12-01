@@ -1,4 +1,5 @@
 import React from "react";
+import { PassRequiredForm, PassRequiredFormField, PassRequiredFormText } from "./privatePass.styled";
 
 export const PrivatePass = ({onPassSend, isLoading}: {onPassSend: (pass: string) => void, isLoading: boolean}) => {
     
@@ -18,23 +19,9 @@ export const PrivatePass = ({onPassSend, isLoading}: {onPassSend: (pass: string)
     
         return (
             <form onSubmit={handleForm}>
-                <div style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    columnGap: '10px',
-                    maxWidth: '300px',
-                    margin: 'auto',
-                    alignItems: 'center',
-                    gap: '30px',
-                    }}
-                    >
-                    <text style={{fontWeight: 700}} letterSpacing='3px' fontSize={30} color='orange' >Galería privada</text>
-                    <div style={{
-                        display: 'flex',
-                        flexDirection: 'row',
-                        justifyContent: 'space-between',
-                        }}
-                        >
+                <PassRequiredForm className="shadow" >
+                    <PassRequiredFormText>Galería privada</PassRequiredFormText>
+                    <PassRequiredFormField>
                         <input
                             type={showPass ? 'text' : 'password'}
                             placeholder='Contraseña'
@@ -43,11 +30,11 @@ export const PrivatePass = ({onPassSend, isLoading}: {onPassSend: (pass: string)
                             required
                         />
                         <button disabled={isLoading} type='submit'>Acceder</button>
-                    </div>
+                    </PassRequiredFormField>
                     <div>
                         <a href="/" onClick={handleShowPass} >{showPass ? 'Ocultar' : 'Mostrar'} contraseña</a>
                     </div>
-                </div>
+                </PassRequiredForm>
             </form>
         )
     }

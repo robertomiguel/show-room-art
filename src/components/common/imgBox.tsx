@@ -2,6 +2,14 @@ import React from 'react'
 import { Cloudinary } from '@cloudinary/url-gen'
 import { fill } from '@cloudinary/url-gen/actions/resize'
 import { PhotoData } from '../../appType'
+import styled from 'styled-components';
+
+const StyledImage = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover; // 'contain'
+  border-radius: 5px;
+`;
 
 interface ImgBoxProp {
     photo: PhotoData
@@ -18,6 +26,6 @@ export const ImgBox = ({photo, cld}: ImgBoxProp) => {
     setSrcImage(myImage.toURL())
   }, [photo?.public_id, cld])
 
-    return srcImage ? <img style={{borderRadius: '5px'}} src={srcImage} alt='Foto' /> : <></>
+    return srcImage ? <StyledImage src={srcImage} alt='Foto' /> : <></>
 
 }

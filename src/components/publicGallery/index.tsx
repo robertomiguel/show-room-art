@@ -2,10 +2,11 @@ import React from 'react'
 import FireContext from '../../FireContext'
 import { PhotoData } from '../../appType'
 import { ImgBox } from '../common/imgBox'
+import { PublicGalleryContainer, PublicGalleryProduct, PublicGalleryProductInfo } from './galleryPublic.styled'
 
 export const PublicGallery = () => {
 
-    const { isMobile, photosList, paginatorData, cartList, setCartList, setShowCartList, cloudinary, gallerySelected,  } = React.useContext(FireContext)
+    const { isMobile, photosList, paginatorData, cartList, setCartList, cloudinary, gallerySelected,  } = React.useContext(FireContext)
 
     const [ list, setList ] = React.useState<PhotoData[]>([])
     
@@ -17,35 +18,16 @@ export const PublicGallery = () => {
         setCartList( (prev: PhotoData[]) => ([...prev, photo]))
     })
 
-    const openCart = () => setShowCartList(true)
-
-    return <div style={{
-        display: 'flex',
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-        padding: '8px',
-        paddingTop: isMobile ? '120px' : '80px',
-        marginBottom: '40px',
-        justifyContent: 'space-evenly',
-    }}>
+    return <PublicGalleryContainer $isMobile={isMobile}>
         {list.map( (pf: PhotoData) =>
-        <div style={{
-            display: 'flex',
-            flexDirection: 'column',
-            background: 'white',
-            padding: '8px',
-            borderRadius: '5px',
-            gap: '5px',
-            marginBottom: '10px',
-            width: isMobile ? '100%' : 'unset',
-        }}>
+        <PublicGalleryProduct key={pf.id} $isMobile={isMobile} >
             <ImgBox photo={pf} cld={cloudinary} />
-            {gallerySelected?.for_sale && <>
+            {gallerySelected?.for_sale && <PublicGalleryProductInfo>
             {!cartList.some( (s: PhotoData) => s.id === pf.id)
-                ? <button onClick={() => addPhoto(pf)} >La quiero!</button>
-                : <button onClick={openCart} >Agregada a tu lista!</button>
-            }</>}
-        </div>
+                ? <button onClick={() => addPhoto(pf)} >La quiero ♡</button>
+                : <p style={{color: 'var(--text-dark)'}}>Agregada a tu lista ♥</p>
+            }</PublicGalleryProductInfo>}
+        </PublicGalleryProduct>
         )}
-    </div>
+    </PublicGalleryContainer>
 }

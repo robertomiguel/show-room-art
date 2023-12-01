@@ -1,8 +1,9 @@
 import React from "react";
-import { GalleryData, PersonalData } from "../../appType";
-import FireContext from "../../FireContext";
-import { gallery } from "../../firebase/gallery";
-import { personal } from "../../firebase/personal";
+import FireContext from "../../../../FireContext";
+import { PersonalData, GalleryData } from "../../../../appType";
+import { gallery } from "../../../../firebase/gallery";
+import { personal } from "../../../../firebase/personal";
+import { ToolsFormContainer, ToolsFormFieldColumn, ToolsFormFieldRow } from "../toolsForm.styled";
 
 export const GalleryLink = ({onClose}: {onClose: () => void}) => {
 
@@ -56,31 +57,30 @@ export const GalleryLink = ({onClose}: {onClose: () => void}) => {
 
     return (
         <form onSubmit={handleForm}>
-            <div className="bluedark" style={{ display: 'flex', flexDirection: 'column', columnGap: '10px', padding: '10px', gap: '10px' }}>
-                <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', maxWidth: '80%' }}>
-                    <text>Activar Link</text>
+            <ToolsFormContainer>
+                <ToolsFormFieldRow>
+                    <p>Activar Link</p>
                     <input type='checkbox' defaultChecked={linkData?.enabled} name='enabled' />
-                </div>
+                </ToolsFormFieldRow>
 
-                <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-                    <text>URL de acceso:</text>
-                    <text>robertomiguelfotos.art/</text>
+                <ToolsFormFieldColumn>
+                    <p>URL de acceso:</p>
+                    <p>robertomiguelfotos.art/</p>
                     <input type='text' defaultValue={gallerySelected?.personal_id} name='personal_id' required />
-                </div>
+                </ToolsFormFieldColumn>
 
-                <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-                    <text>Título:</text>
+                <ToolsFormFieldColumn>
+                    <p>Título:</p>
                     <input type='text' defaultValue={linkData?.title} name='title' required />
-                </div>
+                </ToolsFormFieldColumn>
 
-                <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
-                    <text>Descripción</text>
+                <ToolsFormFieldColumn>
+                    <p>Descripción</p>
                     <textarea defaultValue={linkData?.description} name='description' />
-                </div>
+                </ToolsFormFieldColumn>
 
-                <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between', gap: '10px' }}>
-                    <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', maxWidth: '80%' }}>
-                    <text>Acceso con contraseña</text>
+                <ToolsFormFieldRow>
+                    <p>Acceso con contraseña</p>
                     <input
                         type='checkbox'
                         defaultChecked={linkData?.security}
@@ -89,16 +89,19 @@ export const GalleryLink = ({onClose}: {onClose: () => void}) => {
                         setLinkData((prev) => ({ ...prev, security: e.target.checked } as PersonalData))
                         }
                     />
-                    </div>
-                    <input type='password' defaultValue={linkData?.password} name='password' required={linkData?.security} disabled={!linkData?.security} />
-                </div>
+                </ToolsFormFieldRow>
 
-                <div>
+                <ToolsFormFieldColumn>
+                    <input autoComplete="false" placeholder="contraseña" type='password' defaultValue={linkData?.password} name='password' required={linkData?.security} disabled={!linkData?.security} />
+                </ToolsFormFieldColumn>
+
+                <ToolsFormFieldColumn>
                     <button type='submit' disabled={isLoading}>
-                    Aplicar
+                        Aplicar
                     </button>
-                </div>
-            </div>
+                </ToolsFormFieldColumn>
+
+            </ToolsFormContainer>
 
         </form>
     )

@@ -1,8 +1,9 @@
 import React, { useContext, useState } from 'react'
-import { generateId } from '../common/generateId'
-import { GalleryData } from '../../appType'
-import FireContext from '../../FireContext'
-import { gallery } from '../../firebase/gallery'
+import FireContext from '../../../../FireContext'
+import { GalleryData } from '../../../../appType'
+import { gallery } from '../../../../firebase/gallery'
+import { generateId } from '../../../common/generateId'
+import { ToolsFormContainer, ToolsFormFieldColumn, ToolsFormFieldRow } from '../toolsForm.styled'
 
 export const GalleryCreator = () => {
 
@@ -43,29 +44,21 @@ export const GalleryCreator = () => {
         }
       }
 
-    return <div className='bluedark' style={{ display: 'flex', flexDirection: 'column', padding: '5px', gap: '10px' }} >
-        <text>Nombre de galería</text>
-        <input className='bluedark-element' type='text' value={galName} onChange={handleChange} />
-        <div style={{
-          display: 'flex',
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          maxWidth: '60%'
-        }} >
-          <text>Visible</text>
+    return <ToolsFormContainer>
+        <ToolsFormFieldColumn>
+          <p>Nombre de galería</p>
+          <input className='bluedark-element' type='text' value={galName} onChange={handleChange} />
+        </ToolsFormFieldColumn>
+        <ToolsFormFieldRow>
+          <p>Visible</p>
           <input type='checkbox' checked={visible} onChange={() => setVisible(!visible)} />
-        </div>
-        <div style={{
-          display: 'flex',
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          maxWidth: '60%'
-        }} >
-          <text>Para venta</text>
+        </ToolsFormFieldRow>
+        <ToolsFormFieldRow>
+          <p>Para venta</p>
           <input type='checkbox' checked={forSale} onChange={() => setForSale(!forSale)} />
-        </div>
-        <button disabled={isCreating || isCreating} onClick={create} >Crear</button>
-    </div>
+        </ToolsFormFieldRow>
+        <ToolsFormFieldColumn>
+          <button disabled={isCreating || isCreating} onClick={create} >Crear</button>
+        </ToolsFormFieldColumn>
+    </ToolsFormContainer>
 }

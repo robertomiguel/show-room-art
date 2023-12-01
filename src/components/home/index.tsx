@@ -1,24 +1,28 @@
 import { useState, useEffect, useMemo } from 'react';
-import FireContext from './FireContext';
-import Login from './components/login';
 import { UserCredential } from "firebase/auth";
 import { doc, getDoc, Firestore } from "firebase/firestore";
-import { Cart } from './components/cart';
-import { Account } from './components/account';
-import { Footer } from './components/footer';
-import { GalleryControl } from './components/galleryControl';
-import { PublicGallery } from './components/publicGallery';
-import { PhotoData, Price, PublicSetting, GalleryData, PersonalData, PaginatorData } from './appType';
-import { Paginator } from './components/paginator';
-import { GallerySelector } from './components/GallerySelector';
-import { personal } from './firebase/personal';
-import logoimg from './image/logo.svg'
-import { PrivateGallery } from './components/privateGallery';
+import logoimg from '../../image/logo.svg'
 import { Cloudinary } from '@cloudinary/url-gen';
-import { PrivatePass } from './components/privatePass';
-import { useMediaQuery } from './components/common/useMediaQuery';
+import FireContext from '../../FireContext';
+import { PhotoData, PaginatorData, Price, PublicSetting, GalleryData, PersonalData } from '../../appType';
+import { personal } from '../../firebase/personal';
+import { GallerySelector } from '../GallerySelector';
+import { Account } from '../account';
+import { Cart } from '../cart';
+import { useMediaQuery } from '../common/useMediaQuery';
+import { Footer } from '../footer';
+import { GalleryControl } from '../galleryControl';
+import Login from '../login';
+import { Paginator } from '../paginator';
+import { PrivatePass } from '../privatePass';
+import { PublicGallery } from '../publicGallery';
+import { HeaderBox } from './headerBox';
+import { Logo } from './logo';
+import { GallTitle } from './title';
+import { PrivateGallery } from '../privateGallery';
 
-const App = ({db, pathName, cloudinary}: {db: Firestore, pathName: string, cloudinary: Cloudinary}) => {
+
+export const Home = ({db, pathName, cloudinary}: {db: Firestore, pathName: string, cloudinary: Cloudinary}) => {
 
   const [ user, setUser ] = useState<UserCredential['user'] | null>(null)
   
@@ -51,9 +55,6 @@ const App = ({db, pathName, cloudinary}: {db: Firestore, pathName: string, cloud
 
   // Galería seleccionada / vista actual
   const [ gallerySelected, setGallerySelected ] = useState<GalleryData>()
-
-  // Mostrar/ocultas todos los controles del admin en mobile
-  const [ showControl, setShowControl ] = useState<boolean>(false)
 
   // Datos de la galería personal correspondente a galería seleccionada
   const [ personalGallery, setPersonalGallery ] = useState<PersonalData | null>(null)
@@ -105,13 +106,11 @@ const App = ({db, pathName, cloudinary}: {db: Firestore, pathName: string, cloud
       db,
       gallerySelected,
       galleryList,
-      showControl,
       cloudinary,
       showAccessPassForm,
       paginatorData,
       setPaginatorData,
       setShowAccessPassForm,
-      setShowControl,
       setPublicSetting,
       setUser,
       setSelectedPhotos,
@@ -125,63 +124,30 @@ const App = ({db, pathName, cloudinary}: {db: Firestore, pathName: string, cloud
   // eslint-disable-next-line react-hooks/exhaustive-deps
   },[user, photosList, selectedPhotos, showAccessPassForm,
     cartList, showCartList, price, isMobile, db, gallerySelected, publicSetting,
-    galleryList, showControl, cloudinary, paginatorData])
+    galleryList, cloudinary, paginatorData])
 
   return (
     <FireContext.Provider value={valueContext}>
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'center',
-            alignItems: 'center',
-            flexWrap: 'wrap',
-            position: 'fixed',
-            top: 0,
-            left: 0,
-            right: 0,
-            boxShadow: '0px 0px 10px #000000',
-            background: '#333333',
-            zIndex: 4,
-            padding: '5px',
-          }}
-        >
-          <div style={{
-            display: 'flex',
-            flexDirection: isMobile ? 'column' : 'row',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            width: '100%',
-          }}>
+        <HeaderBox>
 
-            <div style={{
-              display: 'flex',
-              flexDirection: 'row',
-              justifyContent: 'center',
-              alignItems: 'center',
-              width: 'auto',
-            }} >
-              {!isMobile && <div style={{cursor: 'pointer'}} onClick={handleGoHome}><img src={logoimg} alt="logo" style={{width: '50px', padding: '3px'}} /></div>}
+          {!isMobile && <div style={{cursor: 'pointer'}} onClick={handleGoHome}><Logo src={logoimg} alt="logo" /></div>}
 
-              {(pathName === '/' || !pathName) && <GallerySelector />}
+          {(pathName === '/' || !pathName) && <GallerySelector />}
 
-              {personalGallery?.title && <div style={{color: 'orange', fontSize: '20px'}} >{personalGallery.title}</div>}
-            </div>
+          {personalGallery?.title && <GallTitle >{personalGallery.title}</GallTitle>}
 
-            {publicSetting && <Paginator />}
+          {publicSetting && <Paginator />}
 
-            {!user && gallerySelected?.for_sale && <Cart />}
+          {!user && gallerySelected?.for_sale && <Cart />}
 
-            {user
-              ? <Account />
-              : window.location.href.includes('?admin') && <Login />
-            }
-          </div>
-          {user && <div style={{display: 'flex', flexDirection: 'column'}}>
-            {(showControl || !isMobile) && <GalleryControl />}
-          </div>
+          {user
+            ? <Account />
+            : window.location.href.includes('?admin') && <Login />
           }
-        </div>
+
+          {user && <GalleryControl />}
+
+        </HeaderBox>
 
         {user && <PrivateGallery />}
 
@@ -194,5 +160,3 @@ const App = ({db, pathName, cloudinary}: {db: Firestore, pathName: string, cloud
     </FireContext.Provider>
   )
 }
-
-export default App;
