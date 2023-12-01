@@ -1,0 +1,7 @@
+a {
+    color: var(--text-light);
+}
+
+a:hover {
+    color: var(--border-light);
+}

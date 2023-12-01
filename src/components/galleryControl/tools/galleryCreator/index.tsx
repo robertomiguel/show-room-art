@@ -11,7 +11,7 @@ export const GalleryCreator = () => {
 
     const [ galName, setGalName ] = useState<string>('')
     const [ visible, setVisible ] = useState<boolean>(false)
-    const [ forSale, setForSale ] = useState<boolean>(false)
+    const [ forSale, setForSale ] = useState<boolean>(true)
 
     const [ isCreating, setIsCreating ] = useState<boolean>(false)
 
@@ -58,7 +58,7 @@ export const GalleryCreator = () => {
           <input type='checkbox' checked={forSale} onChange={() => setForSale(!forSale)} />
         </ToolsFormFieldRow>
         <ToolsFormFieldColumn>
-          <button disabled={isCreating || isCreating} onClick={create} >Crear</button>
+          <button disabled={isCreating || !galName.trim()} onClick={create} >Crear</button>
         </ToolsFormFieldColumn>
     </ToolsFormContainer>
 }

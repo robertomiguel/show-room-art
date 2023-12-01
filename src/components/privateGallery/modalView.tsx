@@ -2,6 +2,7 @@ import React from 'react'
 import { EditPhoto } from '.'
 import { generateId } from '../common/generateId'
 import { ContentModal } from '../common/vamper/contentModal'
+import { ModalButtonContainer, ModalImageContainer } from './pGallery.styled'
 
 interface ModalViewProp {
     photo: EditPhoto
@@ -31,11 +32,11 @@ export const ModalView = ({photo, onClose}: ModalViewProp) => {
     }
 
     return <ContentModal isOpen={true} onClose={onClose} label='Foto' >
-                <div>
+                <ModalImageContainer>
                     <img src={photo.url || ''} alt="foto" />
-                </div>
+                </ModalImageContainer>
 
-                <div>
+                <ModalButtonContainer>
                     <button onClick={() => onClose()}>Cerrar</button>
                     <button
                         disabled={isLoading}
@@ -46,6 +47,6 @@ export const ModalView = ({photo, onClose}: ModalViewProp) => {
                             forceDownload(photo.url, `photo-${generateId(8)}.jpg`)
                         }}
                     >Descargar</button>
-                </div>
+                </ModalButtonContainer>
             </ContentModal>
 }

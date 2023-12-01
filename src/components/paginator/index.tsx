@@ -14,13 +14,17 @@ export const Paginator = () => {
 
     const getPhotos = async (publicPhotos: boolean) => {
         const list = await photos(db).getList(gallerySelected?.id, publicPhotos)
+        setPhotosList(list)
+    }
+
+    useEffect(() => {
+        const list = photosList
         const count = list.length
         setTotalDocs(count)
         setTotalPage(Math.ceil(count / publicSetting?.per_page))
         setPerPage(publicSetting?.per_page)
         setCurrentPage(1)
-        setPhotosList(list)
-    }
+    },[publicSetting?.per_page, photosList])
 
     useEffect(() => {
         if (gallerySelected?.id) getPhotos(!user?.uid)

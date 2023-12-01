@@ -30,10 +30,7 @@ export const Home = ({db, pathName, cloudinary}: {db: Firestore, pathName: strin
   const [ photosList, setPhotosList ] = useState<PhotoData[]>([])
 
   // Paginado
-  const [ paginatorData, setPaginatorData ] = useState<PaginatorData>({  
-    indexFrom: 1,
-    indexTo: 5,
-  })
+  const [ paginatorData, setPaginatorData ] = useState<PaginatorData>()
   
   // IDs de las fotos seleccionadas en el admin
   const [ selectedPhotos, setSelectedPhotos ] = useState<string[]>([])
@@ -81,6 +78,7 @@ export const Home = ({db, pathName, cloudinary}: {db: Firestore, pathName: strin
     const docSnapshot = await getDoc(documentoRef)
     const setting = docSnapshot.data()
     setPublicSetting(setting as PublicSetting)
+    setPaginatorData({indexFrom: 1, indexTo: setting?.per_page ?? 1})
   }
 
   useEffect(() => {

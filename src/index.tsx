@@ -2,7 +2,7 @@ import ReactDOM from 'react-dom/client'
 import { initializeApp } from 'firebase/app'
 import { Firestore, getFirestore } from 'firebase/firestore'
 import { Cloudinary } from '@cloudinary/url-gen'
-import './index.css'
+import './css/dark-burton.css'
 import { Home } from './components/home'
 
 const root = ReactDOM.createRoot(

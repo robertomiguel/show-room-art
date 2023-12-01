@@ -1,0 +1,26 @@
+button {
+    background-color: var(--background-dark);
+    color: var(--text-light);
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-align: center;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+button:hover {
+    background-color: var(--border-light);
+    color: var(--text-dark);
+    border: none;
+}
+
+button:disabled {
+    background-color: var(--disabled-background);
+    color: var(--disabled-text);
+    border-color: var(--border-dark);
+    cursor: not-allowed;
+}

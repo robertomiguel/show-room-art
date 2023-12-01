@@ -97,7 +97,7 @@ export const GalleryLink = ({onClose}: {onClose: () => void}) => {
 
                 <ToolsFormFieldColumn>
                     <button type='submit' disabled={isLoading}>
-                        Aplicar
+                        Guardar
                     </button>
                 </ToolsFormFieldColumn>
 

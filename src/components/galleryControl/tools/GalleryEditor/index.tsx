@@ -40,27 +40,33 @@ export const GalleryEditor = ({onClose}: GalleryEditorProps) => {
       <p>Nombre actual:</p>
       <p style={{fontWeight: 700}} >{gallerySelected.name}</p>
     </ToolsFormFieldColumn>
+
     <ToolsFormFieldRow>
       <p>Estado:</p>
       <p style={{fontWeight: 700}} >{gallerySelected.visible ? 'Visible' : 'Oculto'} </p>
     </ToolsFormFieldRow>
+
     <ToolsFormFieldColumn>
       <p>Nuevo nombre:</p>
       <input className='bluedark-element' type='text' autoComplete='false' value={galName} onChange={handleChange} />
     </ToolsFormFieldColumn>
+
     <ToolsFormFieldRow>
-      <button disabled={isEditing} onClick={rename} >Renombrar</button>
+      <button disabled={isEditing || !galName.trim() || galName === gallerySelected.name } onClick={rename} >Renombrar</button>
     </ToolsFormFieldRow>
+
     <ToolsFormFieldColumn>
       <p>Cambiar estado:</p>
       <ToolsFormFieldRow>
-        <button onClick={() => handleVisible(true)} >Visible</button>
-        <button onClick={() => handleVisible(false)} >Oculto</button>
+        <button disabled={gallerySelected.visible} onClick={() => handleVisible(true)} >Visible</button>
+        <button disabled={!gallerySelected.visible} onClick={() => handleVisible(false)} >Oculto</button>
       </ToolsFormFieldRow>
     </ToolsFormFieldColumn>
+
     <ToolsFormFieldRow>
       <ToolsFormCheckConfirm><input type='checkbox' /><p>Confirmar borrado</p></ToolsFormCheckConfirm>
       <button disabled >Eliminar</button>
     </ToolsFormFieldRow>
+
   </ToolsFormContainer>
 }

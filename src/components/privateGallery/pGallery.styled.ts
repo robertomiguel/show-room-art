@@ -40,3 +40,18 @@ export const FormFieldRow = styled.div`
   width: 95%;
   height: 45px;
 `;
+
+export const ModalImageContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 10px;
+`;
+
+export const ModalButtonContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  width: 100%;
+`;
