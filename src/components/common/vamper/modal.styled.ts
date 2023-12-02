@@ -25,4 +25,5 @@ export const DarkModal = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  box-shadow: var(--box-shadow);
 `;

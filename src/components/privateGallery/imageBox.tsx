@@ -41,12 +41,15 @@ export const ImageBox = ({photo, onClick, cld}: ImageBoxProp) => {
         <FormFieldRow>
           <p>Nombre de archivo</p><p>{photo?.file_name}</p>
         </FormFieldRow>
+
         <FormFieldRow>
           <p>Estado</p><p>{photo.public ? 'Pública' : 'Privada'}</p>
         </FormFieldRow>
+
         <FormFieldRow>
           <p>Última publicación</p><p>{photo.public_last_date ? formatDate(photo.public_last_date) : 'nunca publicado'}</p>
         </FormFieldRow>
+
         <FormFieldRow>
           <p>Seleccionar</p><input type='checkbox' checked={isSelected} onChange={handleSelected} />
         </FormFieldRow>

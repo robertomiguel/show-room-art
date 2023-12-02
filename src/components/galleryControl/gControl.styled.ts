@@ -12,6 +12,7 @@ export const MenuControlContainer = styled.div`
   left: 0;
   top: 0;
   bottom: 0;
+  box-shadow: var(--box-shadow);
 `;
 
 export const MenuControlBody = styled.div`
@@ -31,11 +32,12 @@ export const GalleryControlContainer = styled.div`
   z-index: 1;
 `;
 
-export const GallerySelectorContainer = styled.div`
+export const MenuContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
   position: absolute;
   background: var(--background-darker);
   padding: 10px;
+  box-shadow: var(--box-shadow);
 `;

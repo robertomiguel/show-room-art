@@ -11,6 +11,7 @@ export const PassRequiredForm = styled.div`
   background-color: var(--background-darker);
   padding: 20px;
   border-radius: 10px;
+  box-shadow: var(--box-shadow);
 `;
 
 export const PassRequiredFormText = styled.span`

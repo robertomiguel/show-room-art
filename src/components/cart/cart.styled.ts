@@ -9,6 +9,7 @@ export const CartMain = styled.div`
   bottom: 0;
   right: 0;
   background: var(--background-darker);
+  box-shadow: var(--box-shadow);
 `;
 
 export const CartBody = styled.div`

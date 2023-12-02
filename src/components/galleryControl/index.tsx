@@ -6,9 +6,9 @@ import axios from 'axios'
 import { sha1 } from 'crypto-hash'
 import { MenuButton } from '../common/vamper/menuButton'
 import { HeaderModal } from '../common/vamper/headerModal'
-import { GalleryControlContainer, GallerySelectorContainer, MenuControlBody, MenuControlContainer } from './gControl.styled'
+import { GalleryControlContainer, MenuContainer, MenuControlBody, MenuControlContainer } from './gControl.styled'
 import { ScreenBlackout } from '../common/vamper/modal.styled'
-import { GalleryEditor } from './tools/GalleryEditor'
+import { GalleryEditor } from './tools/galleryEditor'
 import { Setting } from './tools/Setting'
 import { GalleryCreator } from './tools/galleryCreator'
 import { UploadImage } from './tools/uploadImage'
@@ -17,7 +17,6 @@ import { GalleryLink } from './tools/galleryLink'
 export const GalleryControl = () => {
 
     const { selectedPhotos, setSelectedPhotos, photosList, setPhotosList, gallerySelected, db } = React.useContext(FireContext)
-    const [ showSelector, setShowSelector ] = React.useState<number | null>(null)
     
     const [ menuSelected, setMenuSelected ] = React.useState<number | null>()
 
@@ -99,15 +98,11 @@ export const GalleryControl = () => {
         }
     }
 
-    const closeSelector = (value: number | null) => {
-        setShowSelector(value)
-    }
-
     const handleShowMenu = (menuNumber: number | null) => setMenuSelected(menuNumber)
 
     return <>
         {showTools && <ScreenBlackout>
-            <MenuControlContainer className='shadow' >
+            <MenuControlContainer>
                 <MenuControlBody>
                     <HeaderModal label='Herramientas' onClose={() => setShowTools(false)} />
 
@@ -131,14 +126,23 @@ export const GalleryControl = () => {
         <GalleryControlContainer>
             <button onClick={() => setShowTools(!showTools)} >Menú</button>
             <div>
-                <MenuButton show={showSelector ? 1 : null} value={1} onClick={closeSelector} label='Selector' />
-                {showSelector && 
-                    <GallerySelectorContainer className="shadow" >
+                <MenuButton show={menuSelected} value={100} onClick={handleShowMenu} label='Selector' />
+                {menuSelected === 100 && 
+                    <MenuContainer>
                         <button onClick={() => selector('selectAll')} >Todo</button>
                         <button onClick={() => selector('selectPublished')} >Publicadas</button>
                         <button onClick={() => selector('selectUnPublished')} >Sin publicar</button>
                         <button onClick={() => selector('clearSelection')} >Limpiar selección</button>
-                    </GallerySelectorContainer>
+                    </MenuContainer>
+                }
+            </div>
+            <div>
+                <MenuButton show={menuSelected} value={101} onClick={handleShowMenu} label='Filtro' />
+                {menuSelected === 101 && 
+                    <MenuContainer>
+                        <p>Ver seleccionadas</p>
+                        <p>Buscar</p>
+                    </MenuContainer>
                 }
             </div>
             <p>Seleccionados ({selectedPhotos.length})</p>

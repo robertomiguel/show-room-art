@@ -9,4 +9,5 @@
     --border-light: #4c6b8c; /* Azul claro para bordes */
     --disabled-background: #001f3f; /* Fondo para elementos deshabilitados en tono azul principal */
     --disabled-text: #335878; /* Texto para elementos deshabilitados en tono azul más oscuro */
+    --box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.75); /* Sombra de caja */
 }

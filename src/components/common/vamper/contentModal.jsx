@@ -6,7 +6,7 @@ export const ContentModal = ({ children, isOpen, onClose, label }) => {
         <>
             {isOpen && (
                 <ScreenBlackout>
-                    <DarkModal className='shadow' >
+                    <DarkModal>
                         <HeaderModal onClose={onClose} label={label} />
                         {children}
                     </DarkModal>

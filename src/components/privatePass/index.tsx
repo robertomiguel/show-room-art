@@ -19,7 +19,7 @@ export const PrivatePass = ({onPassSend, isLoading}: {onPassSend: (pass: string)
     
         return (
             <form onSubmit={handleForm}>
-                <PassRequiredForm className="shadow" >
+                <PassRequiredForm>
                     <PassRequiredFormText>Galería privada</PassRequiredFormText>
                     <PassRequiredFormField>
                         <input
