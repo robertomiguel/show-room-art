@@ -1,9 +1,9 @@
 import React from "react"
 import { ImageBox } from "./imageBox"
 import { ModalView } from "./modalView"
-import FireContext from "../../FireContext"
-import { PhotoData } from "../../appType"
 import { PrivateGalleryContainer } from "./pGallery.styled"
+import FireContext from "FireContext"
+import { PhotoData } from "appType"
 
 export interface EditPhoto {
   url: string

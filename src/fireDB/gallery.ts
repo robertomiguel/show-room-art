@@ -1,5 +1,5 @@
 import { DocumentData, DocumentSnapshot, Firestore, collection, doc, getDoc, getDocs, orderBy, query, setDoc, where } from "firebase/firestore";
-import { GalleryData } from "../appType";
+import { GalleryData } from "appType";
 
 function gallery(db: Firestore) {
 

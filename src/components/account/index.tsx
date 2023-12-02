@@ -1,5 +1,5 @@
 import React from 'react'
-import FireContext from '../../FireContext'
+import FireContext from 'FireContext'
 import { getAuth, sendEmailVerification } from "firebase/auth";
 
 export const Account = () => {

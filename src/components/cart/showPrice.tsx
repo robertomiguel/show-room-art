@@ -1,8 +1,8 @@
 import React from 'react'
-import FireContext from '../../FireContext'
-import { numberFormat } from '../common/numberFormat'
-import { Price } from '../../appType'
 import { PriceContainer, PriceField, PriceTotal } from './price.styled'
+import FireContext from 'FireContext'
+import { Price } from 'appType'
+import { numberFormat } from 'components/common/numberFormat'
 
 interface ShowPriceProp {
     quantity: number

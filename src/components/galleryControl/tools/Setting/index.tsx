@@ -1,8 +1,8 @@
 import React from 'react'
 import { doc, setDoc } from 'firebase/firestore'
-import FireContext from '../../../../FireContext'
-import { PublicSetting } from '../../../../appType'
 import { ToolsFormContainer, ToolsFormFieldColumn } from '../toolsForm.styled'
+import FireContext from 'FireContext'
+import { PublicSetting } from 'appType'
 
 export const Setting = () => {
 

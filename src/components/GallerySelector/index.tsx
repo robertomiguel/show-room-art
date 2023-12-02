@@ -1,8 +1,8 @@
 import React, { useContext, useEffect } from 'react'
-import { GalleryData } from '../../appType'
-import FireContext from '../../FireContext'
-import { gallery } from '../../firebase/gallery'
+import { gallery } from 'fireDB/gallery'
 import { StyledOption, StyledSelect } from './gSelector.styled'
+import FireContext from 'FireContext'
+import { GalleryData } from 'appType'
 
 export const GallerySelector = () => {
 

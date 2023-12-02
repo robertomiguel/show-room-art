@@ -1,7 +1,7 @@
 import React from 'react'
 import { Cloudinary } from '@cloudinary/url-gen'
 import { fill } from '@cloudinary/url-gen/actions/resize'
-import { PhotoData } from '../../appType'
+import { PhotoData } from 'appType'
 import styled from 'styled-components';
 
 const StyledImage = styled.img`

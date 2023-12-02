@@ -1,8 +1,8 @@
 import React from 'react'
-import FireContext from '../../FireContext'
-import { PhotoData } from '../../appType'
-import { ImgBox } from '../common/imgBox'
+import FireContext from 'FireContext'
+import { PhotoData } from 'appType'
 import { PublicGalleryContainer, PublicGalleryProduct, PublicGalleryProductInfo } from './galleryPublic.styled'
+import { ImgBox } from 'components/common/imgBox'
 
 export const PublicGallery = () => {
 
@@ -25,11 +25,14 @@ export const PublicGallery = () => {
 
             <ImgBox photo={pf} cld={cloudinary} />
 
-            {gallerySelected?.for_sale && <PublicGalleryProductInfo>
-            {!cartList.some( (s: PhotoData) => s.id === pf.id)
-                ? <button onClick={() => addPhoto(pf)} >La quiero ♡</button>
-                : <p style={{color: 'var(--text-dark)'}}>Agregada a tu lista ♥</p>
-            }</PublicGalleryProductInfo>}
+            {gallerySelected?.for_sale && 
+                <PublicGalleryProductInfo>
+                    {!cartList.some( (s: PhotoData) => s.id === pf.id)
+                        ? <button onClick={() => addPhoto(pf)} >La quiero ♡</button>
+                        : <p style={{color: 'var(--text-dark)'}}>Agregada a tu lista ♥</p>
+                    }
+                </PublicGalleryProductInfo>
+            }
             
         </PublicGalleryProduct>
         )}

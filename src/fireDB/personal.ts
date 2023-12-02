@@ -1,5 +1,5 @@
 import { DocumentData, DocumentSnapshot, Firestore, collection, deleteDoc, doc, getDocs, limit, query, setDoc, where } from "firebase/firestore"
-import { PersonalData } from "../appType";
+import { PersonalData } from "appType";
 
 export const personal = (db: Firestore) => {
 

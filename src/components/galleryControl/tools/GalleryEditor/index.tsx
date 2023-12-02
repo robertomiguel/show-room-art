@@ -1,8 +1,8 @@
 import React from 'react'
-import FireContext from '../../../../FireContext'
-import { GalleryData } from '../../../../appType'
-import { gallery } from '../../../../firebase/gallery'
-import { ToolsFormCheckConfirm, ToolsFormContainer, ToolsFormFieldColumn, ToolsFormFieldRow } from '../toolsForm.styled'
+import { gallery } from 'fireDB/gallery'
+import FireContext from 'FireContext'
+import { GalleryData } from 'appType'
+import { ToolsFormContainer, ToolsFormFieldColumn, ToolsFormFieldRow, ToolsFormCheckConfirm } from '../toolsForm.styled'
 
 interface GalleryEditorProps {
   onClose: () => void

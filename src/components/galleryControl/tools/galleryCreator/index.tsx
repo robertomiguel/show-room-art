@@ -1,9 +1,9 @@
 import React, { useContext, useState } from 'react'
-import FireContext from '../../../../FireContext'
-import { GalleryData } from '../../../../appType'
-import { gallery } from '../../../../firebase/gallery'
-import { generateId } from '../../../common/generateId'
+import { gallery } from 'fireDB/gallery'
 import { ToolsFormContainer, ToolsFormFieldColumn, ToolsFormFieldRow } from '../toolsForm.styled'
+import FireContext from 'FireContext'
+import { GalleryData } from 'appType'
+import { generateId } from 'components/common/generateId'
 
 export const GalleryCreator = () => {
 

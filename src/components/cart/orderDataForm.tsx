@@ -1,4 +1,4 @@
-import { isEmail } from "../common/emailValidator";
+import { isEmail } from "components/common/emailValidator";
 import { OrderDataFormBody, OrderDataFormField, OrderDataFormInfo } from "./cart.styled";
 
 interface OrderDataFormProps {

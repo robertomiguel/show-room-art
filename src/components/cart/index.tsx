@@ -1,13 +1,13 @@
 import React from 'react'
-import FireContext from '../../FireContext'
+import FireContext from 'FireContext'
 import { ShowPrice } from './showPrice'
-import { GalleryData, PhotoData } from '../../appType'
-import { ImgBox } from '../common/imgBox'
-import { ContentModal } from '../common/vamper/contentModal'
-import { HeaderModal } from '../common/vamper/headerModal'
 import { CartMain, CartBody, CartFooter, CartOpenButton, CartGalleryContainer, CartProductContainer, CartProductInfo, PromoText, CartEmpty } from './cart.styled'
-import { ScreenBlackout } from '../common/vamper/modal.styled'
 import { OrderDataForm } from './orderDataForm'
+import { ScreenBlackout } from 'components/common/vamper/modal.styled'
+import { PhotoData, GalleryData } from 'appType'
+import { ImgBox } from 'components/common/imgBox'
+import { ContentModal } from 'components/common/vamper/contentModal'
+import { HeaderModal } from 'components/common/vamper/headerModal'
 
 export const Cart = () => {
 

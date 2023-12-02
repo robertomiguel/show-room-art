@@ -1,9 +1,9 @@
 import React from "react";
-import FireContext from "../../../../FireContext";
-import { PersonalData, GalleryData } from "../../../../appType";
-import { gallery } from "../../../../firebase/gallery";
-import { personal } from "../../../../firebase/personal";
+import { gallery } from "fireDB/gallery";
+import { personal } from "fireDB/personal";
 import { ToolsFormContainer, ToolsFormFieldColumn, ToolsFormFieldRow } from "../toolsForm.styled";
+import FireContext from "FireContext";
+import { PersonalData, GalleryData } from "appType";
 
 export const GalleryLink = ({onClose}: {onClose: () => void}) => {
 

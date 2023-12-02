@@ -1,8 +1,8 @@
 import React from 'react'
 import { EditPhoto } from '.'
-import { generateId } from '../common/generateId'
-import { ContentModal } from '../common/vamper/contentModal'
 import { ModalButtonContainer, ModalImageContainer } from './pGallery.styled'
+import { generateId } from 'components/common/generateId'
+import { ContentModal } from 'components/common/vamper/contentModal'
 
 interface ModalViewProp {
     photo: EditPhoto
@@ -19,7 +19,7 @@ export const ModalView = ({photo, onClose}: ModalViewProp) => {
         xhr.responseType = "blob";
         xhr.onload = function(){
             const urlCreator = window.URL || window.webkitURL;
-            const imageUrl = urlCreator.createObjectURL(this.response);
+            const imageUrl = urlCreator.createObjectURL(xhr.response);
             const tag = document.createElement('a');
             tag.href = imageUrl;
             tag.download = fileName;

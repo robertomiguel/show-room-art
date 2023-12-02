@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react'
-import FireContext from '../../FireContext'
-import { photos } from '../../firebase/photos'
-import { generateId } from '../common/generateId'
-import { ButtonPaginator, StyledPagSelect, StyledPaginator } from './styledPaginator'
+import { photos } from 'fireDB/photos'
+import FireContext from 'FireContext'
+import { generateId } from 'components/common/generateId'
+import { StyledPaginator, ButtonPaginator, StyledPagSelect } from './styledPaginator'
 
 export const Paginator = () => {
 

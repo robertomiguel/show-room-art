@@ -1,6 +1,6 @@
 import React from "react"
 import { getAuth, signInWithEmailAndPassword, UserCredential } from "firebase/auth";
-import FireContext from "../../FireContext";
+import FireContext from "FireContext";
 import { LoginButtons, LoginContainer, LoginInputs } from "./login.styled";
 
 const Login = () => {

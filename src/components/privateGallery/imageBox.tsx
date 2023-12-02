@@ -1,10 +1,10 @@
 import React from 'react'
 import { Cloudinary } from '@cloudinary/url-gen'
-import FireContext from '../../FireContext'
-import { PhotoData } from '../../appType'
-import { formatDate } from '../common/formatDate'
-import { ImgBox } from '../common/imgBox'
 import { FormFieldRow, PrivateImageBox, PrivateProductInfo } from './pGallery.styled'
+import FireContext from 'FireContext'
+import { PhotoData } from 'appType'
+import { formatDate } from 'components/common/formatDate'
+import { ImgBox } from 'components/common/imgBox'
 
 interface ImageBoxProp {
     photo: PhotoData

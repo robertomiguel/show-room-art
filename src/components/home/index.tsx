@@ -1,26 +1,26 @@
 import { useState, useEffect, useMemo } from 'react';
 import { UserCredential } from "firebase/auth";
 import { doc, getDoc, Firestore } from "firebase/firestore";
-import logoimg from '../../image/logo.svg'
+import logoimg from 'image/logo.svg'
+import { GalleryControl } from 'components/galleryControl';
+import { gallery } from 'fireDB/gallery';
 import { Cloudinary } from '@cloudinary/url-gen';
-import FireContext from '../../FireContext';
-import { PhotoData, PaginatorData, Price, PublicSetting, GalleryData, PersonalData } from '../../appType';
-import { personal } from '../../firebase/personal';
-import { GallerySelector } from '../GallerySelector';
-import { Account } from '../account';
-import { Cart } from '../cart';
-import { useMediaQuery } from '../common/useMediaQuery';
-import { Footer } from '../footer';
-import { GalleryControl } from '../galleryControl';
-import Login from '../login';
-import { Paginator } from '../paginator';
-import { PrivatePass } from '../privatePass';
-import { PublicGallery } from '../publicGallery';
+import FireContext from 'FireContext';
+import { PhotoData, PaginatorData, Price, PublicSetting, GalleryData, PersonalData } from 'appType';
+import { GallerySelector } from 'components/GallerySelector';
+import { Account } from 'components/account';
+import { Cart } from 'components/cart';
+import { useMediaQuery } from 'components/common/useMediaQuery';
+import { Footer } from 'components/footer';
+import Login from 'components/login';
+import { Paginator } from 'components/paginator';
+import { PrivateGallery } from 'components/privateGallery';
+import { PrivatePass } from 'components/privatePass';
+import { PublicGallery } from 'components/publicGallery';
+import { personal } from 'fireDB/personal';
 import { HeaderBox } from './headerBox';
 import { Logo } from './logo';
 import { GallTitle } from './title';
-import { PrivateGallery } from '../privateGallery';
-import { gallery } from '../../firebase/gallery';
 
 export const Home = ({db, cloudinary}: {db: Firestore, cloudinary: Cloudinary}) => {
 

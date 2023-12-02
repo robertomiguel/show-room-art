@@ -1,10 +1,10 @@
 import React, { useContext, useState } from 'react'
 import axios from 'axios'
-import FireContext from '../../../../FireContext'
-import { PhotoData } from '../../../../appType'
-import { photos } from '../../../../firebase/photos'
-import { generateId } from '../../../common/generateId'
+import { photos } from 'fireDB/photos'
 import { ToolsFormContainer, ToolsFormFieldColumn, ToolsFormFieldRow } from '../toolsForm.styled'
+import FireContext from 'FireContext'
+import { PhotoData } from 'appType'
+import { generateId } from 'components/common/generateId'
 
 export const UploadImage = () => {
 

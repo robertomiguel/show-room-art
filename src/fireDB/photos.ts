@@ -1,5 +1,5 @@
 import { DocumentData, DocumentSnapshot, Firestore, collection, deleteDoc, doc, getDocs, orderBy, query, setDoc, where } from "firebase/firestore";
-import { PhotoData } from "../appType";
+import { PhotoData } from "appType";
 
 function photos(db: Firestore) {
 
