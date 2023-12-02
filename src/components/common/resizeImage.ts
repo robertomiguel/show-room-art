@@ -14,11 +14,9 @@ export const resizeImage = async (base64Str: any, maxWidth = 400, maxHeight = 35
                     height *= MAX_WIDTH / width
                     width = MAX_WIDTH
                 }
-            } else {
-                if (height > MAX_HEIGHT) {
-                    width *= MAX_HEIGHT / height
-                    height = MAX_HEIGHT
-                }
+            } else if (height > MAX_HEIGHT) {
+                width *= MAX_HEIGHT / height
+                height = MAX_HEIGHT
             }
             canvas.width = width
             canvas.height = height

@@ -2,25 +2,25 @@ import { useState, useEffect, useMemo } from 'react';
 import { UserCredential } from "firebase/auth";
 import { doc, getDoc, Firestore } from "firebase/firestore";
 import logoimg from 'image/logo.svg'
-import { GalleryControl } from 'components/galleryControl';
 import { gallery } from 'fireDB/gallery';
 import { Cloudinary } from '@cloudinary/url-gen';
 import FireContext from 'FireContext';
 import { PhotoData, PaginatorData, Price, PublicSetting, GalleryData, PersonalData } from 'appType';
-import { GallerySelector } from 'components/GallerySelector';
-import { Account } from 'components/account';
-import { Cart } from 'components/cart';
-import { useMediaQuery } from 'components/common/useMediaQuery';
-import { Footer } from 'components/footer';
-import Login from 'components/login';
-import { Paginator } from 'components/paginator';
-import { PrivateGallery } from 'components/privateGallery';
-import { PrivatePass } from 'components/privatePass';
-import { PublicGallery } from 'components/publicGallery';
 import { personal } from 'fireDB/personal';
 import { HeaderBox } from './headerBox';
 import { Logo } from './logo';
 import { GallTitle } from './title';
+import { GallerySelector } from 'components/common/GallerySelector';
+import { Account } from 'components/admin/account';
+import { GalleryControl } from 'components/admin/galleryControl';
+import { PrivateGallery } from 'components/admin/privateGallery';
+import { Footer } from 'components/common/footer';
+import { Paginator } from 'components/common/paginator';
+import { useMediaQuery } from 'components/common/useMediaQuery';
+import { Cart } from 'components/public/cart';
+import Login from 'components/public/login';
+import { PrivatePass } from 'components/public/privatePass';
+import { PublicGallery } from 'components/public/publicGallery';
 
 export const Home = ({db, cloudinary}: {db: Firestore, cloudinary: Cloudinary}) => {
 
