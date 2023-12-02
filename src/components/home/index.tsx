@@ -20,11 +20,13 @@ import { HeaderBox } from './headerBox';
 import { Logo } from './logo';
 import { GallTitle } from './title';
 import { PrivateGallery } from '../privateGallery';
+import { gallery } from '../../firebase/gallery';
 
-
-export const Home = ({db, pathName, cloudinary}: {db: Firestore, pathName: string, cloudinary: Cloudinary}) => {
+export const Home = ({db, cloudinary}: {db: Firestore, cloudinary: Cloudinary}) => {
 
   const [ user, setUser ] = useState<UserCredential['user'] | null>(null)
+
+  const [ pathName, setPathName ] = useState<string | undefined>(window.location.pathname.slice(1))
   
   // Todas de fotos de la galería seleccionada
   const [ photosList, setPhotosList ] = useState<PhotoData[]>([])
@@ -41,7 +43,7 @@ export const Home = ({db, pathName, cloudinary}: {db: Firestore, pathName: strin
   // Muestra/oculta el sidesheet de la lista de pedido
   const [ showCartList, setShowCartList ] = useState<boolean>(false)
   
-  // revisar - refactor - quitar
+  // coming soon: se va a usar para grabar las listas de pedido y verlas en el admin
   const [ price, setPrice ] = useState<Price>()
   
   // Configuraciones generales del sistema
@@ -63,7 +65,23 @@ export const Home = ({db, pathName, cloudinary}: {db: Firestore, pathName: strin
 
   const getPersonal = async (personalId: string, fireDB: Firestore, password?: string | null) => {
     const pdata: PersonalData | null = await personal(fireDB).getById(personalId, password)
-    setPersonalGallery(pdata)
+    if (pdata?.gallery_id) {
+      const gData = await gallery(fireDB).getById(pdata.gallery_id)
+      setGalleryList([gData])
+      setGallerySelected(gData)
+      setPersonalGallery(pdata)
+      setShowAccessPassForm(false)
+    } else if (pdata?.error === 'showAccessPassForm') {
+      setCartList([])
+      setPhotosList([])
+      setGalleryList([])
+      setGallerySelected(undefined)
+      setPersonalGallery(null)
+      setShowAccessPassForm(true)
+    } else {
+      window.history.pushState({}, "",'/')
+      window.location.reload()
+    }
   }
 
   useEffect(()=>{
@@ -72,8 +90,19 @@ export const Home = ({db, pathName, cloudinary}: {db: Firestore, pathName: strin
     }
   },[pathName, db])
 
+  useEffect(() => {
+    const handleRouteChange = () => {
+      setPathName(window.location.pathname.slice(1))
+    };
+  
+    window.addEventListener('popstate', handleRouteChange);
+  
+    return () => {
+      window.removeEventListener('popstate', handleRouteChange);
+    };
+  }, []);
 
-  const getSetting = async (fdb: Firestore) => {
+  const getSetting = async (fdb: Firestore, url: string | undefined) => {
     const documentoRef = doc(fdb, "setting", "public")
     const docSnapshot = await getDoc(documentoRef)
     const setting = docSnapshot.data()
@@ -82,8 +111,8 @@ export const Home = ({db, pathName, cloudinary}: {db: Firestore, pathName: strin
   }
 
   useEffect(() => {
-    getSetting(db)
-  },[db])
+    getSetting(db, pathName)
+  },[db, pathName])
 
   const handleGoHome = () => {
     window.history.pushState({}, "",'/')
@@ -128,7 +157,7 @@ export const Home = ({db, pathName, cloudinary}: {db: Firestore, pathName: strin
     <FireContext.Provider value={valueContext}>
         <HeaderBox>
 
-          {!isMobile && <div style={{cursor: 'pointer'}} onClick={handleGoHome}><Logo src={logoimg} alt="logo" /></div>}
+          {!isMobile && <Logo onClick={handleGoHome} src={logoimg} alt="logo" />}
 
           {(pathName === '/' || !pathName) && <GallerySelector />}
 
@@ -151,7 +180,7 @@ export const Home = ({db, pathName, cloudinary}: {db: Firestore, pathName: strin
 
         {!user &&  <PublicGallery /> }
 
-        {showAccessPassForm && <PrivatePass isLoading={false} onPassSend={(pass)=>getPersonal(pathName, db, pass)} />}
+        {pathName && showAccessPassForm && <PrivatePass isLoading={false} onPassSend={(pass)=>getPersonal(pathName, db, pass)} />}
 
         <Footer />
 

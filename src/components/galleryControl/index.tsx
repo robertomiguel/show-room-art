@@ -120,7 +120,7 @@ export const GalleryControl = () => {
                     <MenuButton show={menuSelected} value={3} onClick={handleShowMenu} label='Editar galería' />
                     {menuSelected === 3 && <GalleryEditor onClose={() => setMenuSelected(null)} />}
 
-                    <MenuButton show={menuSelected} value={4} onClick={handleShowMenu} label='Crear link' />
+                    <MenuButton show={menuSelected} value={4} onClick={handleShowMenu} label='Editar link' />
                     {menuSelected === 4 && <GalleryLink onClose={() => setMenuSelected(null)} />}
 
                     <MenuButton show={menuSelected} value={5} onClick={handleShowMenu} label='Configurar' />

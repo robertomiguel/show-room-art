@@ -1,0 +1,23 @@
+@import './theme/dark-burton.css';
+
+@import 'button.css';
+@import 'a.css';
+@import 'input.text.css';
+@import 'input.password.css';
+@import 'textarea.css';
+@import 'select.css';
+@import 'input.checkbox.css';
+@import 'input.email.css';
+@import 'p.css';
+
+/* Estilo para el cuerpo (body) en Dark Burton */
+body {
+    background-color: var(--background-dark);
+    color: var(--text-light);
+    font-family: Arial, sans-serif;
+    letter-spacing: 1px;
+};
+
+.shadow {
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.75);
+};

@@ -61,9 +61,9 @@ export const CartProductContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: white;
     border-radius: 5px;
     border: 2px solid white;
+    background: var(--background-dark);
 `;
 
 export const CartProductInfo = styled.div`
@@ -74,6 +74,7 @@ export const CartProductInfo = styled.div`
   justify-content: space-between;
   align-items: center;
   padding: 5px;
+  background: white;
   button {
     height: 30px;
     display: flex;

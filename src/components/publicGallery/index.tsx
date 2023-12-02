@@ -20,13 +20,17 @@ export const PublicGallery = () => {
 
     return <PublicGalleryContainer $isMobile={isMobile}>
         {list.map( (pf: PhotoData) =>
+
         <PublicGalleryProduct key={pf.id} $isMobile={isMobile} >
+
             <ImgBox photo={pf} cld={cloudinary} />
+
             {gallerySelected?.for_sale && <PublicGalleryProductInfo>
             {!cartList.some( (s: PhotoData) => s.id === pf.id)
                 ? <button onClick={() => addPhoto(pf)} >La quiero ♡</button>
                 : <p style={{color: 'var(--text-dark)'}}>Agregada a tu lista ♥</p>
             }</PublicGalleryProductInfo>}
+            
         </PublicGalleryProduct>
         )}
     </PublicGalleryContainer>

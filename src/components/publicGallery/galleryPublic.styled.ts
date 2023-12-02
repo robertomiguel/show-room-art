@@ -13,8 +13,8 @@ export const PublicGalleryContainer = styled.div<{ $isMobile: boolean }>`
 export const PublicGalleryProduct = styled.div<{ $isMobile: boolean }>`
   display: flex;
   flex-direction: column;
-  background: white;
-  padding: 8px;
+  background: rgb(240, 240, 240);
+  padding: 5px;
   border-radius: 5px;
   gap: 5px;
   margin-bottom: 10px;

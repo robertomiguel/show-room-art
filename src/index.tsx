@@ -2,7 +2,7 @@ import ReactDOM from 'react-dom/client'
 import { initializeApp } from 'firebase/app'
 import { Firestore, getFirestore } from 'firebase/firestore'
 import { Cloudinary } from '@cloudinary/url-gen'
-import './css/dark-burton.css'
+import './css/index.css'
 import { Home } from './components/home'
 
 const root = ReactDOM.createRoot(
@@ -29,5 +29,5 @@ const cld = new Cloudinary({
 })
 
 root.render(
-    <Home db={db} pathName={window.location.pathname.slice(1)} cloudinary={cld} />
+    <Home db={db} cloudinary={cld} />
 )

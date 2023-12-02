@@ -1,0 +1,12 @@
+/* Abyssal Azure - by Roberto Miguel Costi */
+:root {
+    --background-dark: #001f3f; /* Azul oscuro principal (más cercano al azul marino) */
+    --background-darker: #00122a; /* Azul más oscuro */
+    --background-blue: #003366; /* Azul medio */
+    --text-light: #b3d3f5; /* Texto claro en tono azul */
+    --text-dark: #335878; /* Texto oscuro en tono azul más oscuro */
+    --border-dark: #001f3f; /* Borde oscuro en tono azul principal */
+    --border-light: #4c6b8c; /* Azul claro para bordes */
+    --disabled-background: #001f3f; /* Fondo para elementos deshabilitados en tono azul principal */
+    --disabled-text: #335878; /* Texto para elementos deshabilitados en tono azul más oscuro */
+}
