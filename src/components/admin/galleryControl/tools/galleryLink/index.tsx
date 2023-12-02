@@ -1,9 +1,9 @@
 import React from "react";
 import { gallery } from "fireDB/gallery";
 import { personal } from "fireDB/personal";
-import { ToolsFormContainer, ToolsFormFieldColumn, ToolsFormFieldRow } from "../toolsForm.styled";
 import FireContext from "FireContext";
 import { PersonalData, GalleryData } from "appType";
+import { FormContainer, FormFieldRow, FormFieldColumn } from "components/common/vamper/form.styled";
 
 export const GalleryLink = ({onClose}: {onClose: () => void}) => {
 
@@ -57,29 +57,30 @@ export const GalleryLink = ({onClose}: {onClose: () => void}) => {
 
     return (
         <form onSubmit={handleForm}>
-            <ToolsFormContainer>
-                <ToolsFormFieldRow>
+            <FormContainer>
+                
+                <FormFieldRow>
                     <p>Activar Link</p>
                     <input type='checkbox' defaultChecked={linkData?.enabled} name='enabled' />
-                </ToolsFormFieldRow>
+                </FormFieldRow>
 
-                <ToolsFormFieldColumn>
+                <FormFieldColumn>
                     <p>URL de acceso:</p>
                     <p>robertomiguelfotos.art/</p>
                     <input type='text' defaultValue={gallerySelected?.personal_id} name='personal_id' required />
-                </ToolsFormFieldColumn>
+                </FormFieldColumn>
 
-                <ToolsFormFieldColumn>
+                <FormFieldColumn>
                     <p>Título:</p>
                     <input type='text' defaultValue={linkData?.title} name='title' required />
-                </ToolsFormFieldColumn>
+                </FormFieldColumn>
 
-                <ToolsFormFieldColumn>
+                <FormFieldColumn>
                     <p>Descripción</p>
                     <textarea defaultValue={linkData?.description} name='description' />
-                </ToolsFormFieldColumn>
+                </FormFieldColumn>
 
-                <ToolsFormFieldRow>
+                <FormFieldRow>
                     <p>Acceso con contraseña</p>
                     <input
                         type='checkbox'
@@ -89,19 +90,19 @@ export const GalleryLink = ({onClose}: {onClose: () => void}) => {
                         setLinkData((prev) => ({ ...prev, security: e.target.checked } as PersonalData))
                         }
                     />
-                </ToolsFormFieldRow>
+                </FormFieldRow>
 
-                <ToolsFormFieldColumn>
+                <FormFieldColumn>
                     <input autoComplete="false" placeholder="contraseña" type='password' defaultValue={linkData?.password} name='password' required={linkData?.security} disabled={!linkData?.security} />
-                </ToolsFormFieldColumn>
+                </FormFieldColumn>
 
-                <ToolsFormFieldColumn>
+                <FormFieldColumn>
                     <button type='submit' disabled={isLoading}>
                         Guardar
                     </button>
-                </ToolsFormFieldColumn>
+                </FormFieldColumn>
 
-            </ToolsFormContainer>
+            </FormContainer>
 
         </form>
     )

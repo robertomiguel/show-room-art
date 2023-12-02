@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const ToolsFormContainer = styled.div`
+export const FormContainer = styled.div`
   display: flex;
   flex-direction: column;
   padding: 5px;
@@ -11,7 +11,7 @@ export const ToolsFormContainer = styled.div`
   margin-top: -20px;
 `;
 
-export const ToolsFormFieldRow = styled.div`
+export const FormFieldRow = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -20,7 +20,7 @@ export const ToolsFormFieldRow = styled.div`
   height: 45px;
 `;
 
-export const ToolsFormFieldColumn = styled.div`
+export const FormFieldColumn = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -28,7 +28,7 @@ export const ToolsFormFieldColumn = styled.div`
   gap: 10px;
 `;
 
-export const ToolsFormCheckConfirm = styled.label`
+export const FormCheckConfirm = styled.label`
   display: flex;
   flex-direction: row;
   align-items: center;

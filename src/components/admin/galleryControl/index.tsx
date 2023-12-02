@@ -13,6 +13,7 @@ import { HeaderModal } from 'components/common/vamper/headerModal'
 import { MenuButton } from 'components/common/vamper/menuButton'
 import { ScreenBlackout } from 'components/common/vamper/modal.styled'
 import { GalleryEditor } from './tools/galleryEditor'
+import { GalleryFilter } from './filter'
 
 export const GalleryControl = () => {
 
@@ -140,8 +141,7 @@ export const GalleryControl = () => {
                 <MenuButton show={menuSelected} value={101} onClick={handleShowMenu} label='Filtro' />
                 {menuSelected === 101 && 
                     <MenuContainer>
-                        <p>Ver seleccionadas</p>
-                        <p>Buscar</p>
+                        <GalleryFilter />
                     </MenuContainer>
                 }
             </div>

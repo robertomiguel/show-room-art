@@ -6,15 +6,16 @@ import { StyledPaginator, ButtonPaginator, StyledPagSelect } from './styledPagin
 
 export const Paginator = () => {
 
-    const { publicSetting, isMobile, user, db, gallerySelected, photosList, setPhotosList, setPaginatorData } = useContext(FireContext)
+    const { setOriginalList, publicSetting, isMobile, user, db, gallerySelected, photosList, setPhotosList, setPaginatorData } = useContext(FireContext)
     const [currentPage, setCurrentPage] = useState<number>(1)
     const [totalPage, setTotalPage] = useState<number>(0)
     const [perPage, setPerPage] = useState<number>(0)
     const [totalDocs, setTotalDocs] = useState<number>(0)
 
-    const getPhotos = async (publicPhotos: boolean) => {
+    const getPhotos = async (publicPhotos: boolean) => {        
         const list = await photos(db).getList(gallerySelected?.id, publicPhotos)
         setPhotosList(list)
+        setOriginalList(list)
     }
 
     useEffect(() => {

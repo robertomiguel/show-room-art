@@ -1,10 +1,10 @@
 import React, { useContext, useState } from 'react'
 import axios from 'axios'
 import { photos } from 'fireDB/photos'
-import { ToolsFormContainer, ToolsFormFieldColumn, ToolsFormFieldRow } from '../toolsForm.styled'
 import FireContext from 'FireContext'
 import { PhotoData } from 'appType'
 import { generateId } from 'components/common/generateId'
+import { FormContainer, FormFieldColumn, FormFieldRow } from 'components/common/vamper/form.styled'
 
 export const UploadImage = () => {
 
@@ -75,20 +75,25 @@ export const UploadImage = () => {
         }
       };
 
-    return <ToolsFormContainer>
-        <ToolsFormFieldColumn>
+    return <FormContainer>
+
+        <FormFieldColumn>
             <input type="file" onChange={handleFileChange} multiple accept='image/jpeg' />
-        </ToolsFormFieldColumn>
-        <ToolsFormFieldColumn>
+        </FormFieldColumn>
+
+        <FormFieldColumn>
             <p>Galería:</p>
             <p>{gallerySelected?.name}</p>
-        </ToolsFormFieldColumn>
-        <ToolsFormFieldRow>
+        </FormFieldColumn>
+
+        <FormFieldRow>
             <p>Cargados</p>
             <p>{count} - {files.length}</p>
-        </ToolsFormFieldRow>
-        <ToolsFormFieldColumn>
+        </FormFieldRow>
+
+        <FormFieldColumn>
             <button disabled={files.length===0 || files.length === count || isLoading} onClick={handleUpload} >Iniciar Carga</button>
-        </ToolsFormFieldColumn>
-    </ToolsFormContainer>
+        </FormFieldColumn>
+
+    </FormContainer>
 }

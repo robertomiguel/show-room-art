@@ -1,9 +1,10 @@
 import React, { useContext, useState } from 'react'
 import { gallery } from 'fireDB/gallery'
-import { ToolsFormContainer, ToolsFormFieldColumn, ToolsFormFieldRow } from '../toolsForm.styled'
 import FireContext from 'FireContext'
 import { GalleryData } from 'appType'
 import { generateId } from 'components/common/generateId'
+import { FormContainer, FormFieldColumn } from 'components/common/vamper/form.styled'
+import { FormFieldRow } from 'components/admin/privateGallery/pGallery.styled'
 
 export const GalleryCreator = () => {
 
@@ -44,21 +45,26 @@ export const GalleryCreator = () => {
         }
       }
 
-    return <ToolsFormContainer>
-        <ToolsFormFieldColumn>
+    return <FormContainer>
+ 
+        <FormFieldColumn>
           <p>Nombre de galería</p>
           <input className='bluedark-element' type='text' value={galName} onChange={handleChange} />
-        </ToolsFormFieldColumn>
-        <ToolsFormFieldRow>
+        </FormFieldColumn>
+
+        <FormFieldRow>
           <p>Visible</p>
           <input type='checkbox' checked={visible} onChange={() => setVisible(!visible)} />
-        </ToolsFormFieldRow>
-        <ToolsFormFieldRow>
+        </FormFieldRow>
+
+        <FormFieldRow>
           <p>Para venta</p>
           <input type='checkbox' checked={forSale} onChange={() => setForSale(!forSale)} />
-        </ToolsFormFieldRow>
-        <ToolsFormFieldColumn>
+        </FormFieldRow>
+
+        <FormFieldColumn>
           <button disabled={isCreating || !galName.trim()} onClick={create} >Crear</button>
-        </ToolsFormFieldColumn>
-    </ToolsFormContainer>
+        </FormFieldColumn>
+ 
+    </FormContainer>
 }

@@ -31,6 +31,9 @@ export const Home = ({db, cloudinary}: {db: Firestore, cloudinary: Cloudinary}) 
   // Todas de fotos de la galería seleccionada
   const [ photosList, setPhotosList ] = useState<PhotoData[]>([])
 
+  // datos originales para aplicar los filtros
+  const [ originalList, setOriginalList ] = useState<PhotoData[]>([])
+
   // Paginado
   const [ paginatorData, setPaginatorData ] = useState<PaginatorData>()
   
@@ -136,6 +139,8 @@ export const Home = ({db, cloudinary}: {db: Firestore, cloudinary: Cloudinary}) 
       cloudinary,
       showAccessPassForm,
       paginatorData,
+      originalList,
+      setOriginalList,
       setPaginatorData,
       setShowAccessPassForm,
       setPublicSetting,
@@ -149,7 +154,7 @@ export const Home = ({db, cloudinary}: {db: Firestore, cloudinary: Cloudinary}) 
       setPhotosList,
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  },[user, photosList, selectedPhotos, showAccessPassForm,
+  },[user, photosList, selectedPhotos, showAccessPassForm, originalList,
     cartList, showCartList, price, isMobile, db, gallerySelected, publicSetting,
     galleryList, cloudinary, paginatorData])
 

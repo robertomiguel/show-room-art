@@ -10,12 +10,14 @@ function photos(db: Firestore) {
               orderBy('order'),
               where("deleted", "==", false),
             ]
+
             if (published) wheres.push(where("public", "==", true))
+
             const q = query(
               collection(db, 'gallery', galleryId, "photos"),
               ...wheres,
             )
-            const querySnapshot: DocumentData = await getDocs(q);                
+            const querySnapshot: DocumentData = await getDocs(q);
             return querySnapshot.docs.map((doc: DocumentSnapshot) => doc.data());
         } catch (error) {
             console.log('galError: ', error);

@@ -2,7 +2,7 @@ import React from 'react'
 import { gallery } from 'fireDB/gallery'
 import FireContext from 'FireContext'
 import { GalleryData } from 'appType'
-import { ToolsFormContainer, ToolsFormFieldColumn, ToolsFormFieldRow, ToolsFormCheckConfirm } from '../toolsForm.styled'
+import { FormContainer, FormFieldColumn, FormFieldRow, FormCheckConfirm } from 'components/common/vamper/form.styled'
 
 interface GalleryEditorProps {
   onClose: () => void
@@ -35,38 +35,39 @@ export const GalleryEditor = ({onClose}: GalleryEditorProps) => {
     onClose()
   }
 
-  return <ToolsFormContainer>
-    <ToolsFormFieldColumn>
+  return <FormContainer>
+
+    <FormFieldColumn>
       <p>Nombre actual:</p>
       <p style={{fontWeight: 700}} >{gallerySelected.name}</p>
-    </ToolsFormFieldColumn>
+    </FormFieldColumn>
 
-    <ToolsFormFieldRow>
+    <FormFieldRow>
       <p>Estado:</p>
       <p style={{fontWeight: 700}} >{gallerySelected.visible ? 'Visible' : 'Oculto'} </p>
-    </ToolsFormFieldRow>
+    </FormFieldRow>
 
-    <ToolsFormFieldColumn>
+    <FormFieldColumn>
       <p>Nuevo nombre:</p>
       <input className='bluedark-element' type='text' autoComplete='false' value={galName} onChange={handleChange} />
-    </ToolsFormFieldColumn>
+    </FormFieldColumn>
 
-    <ToolsFormFieldRow>
+    <FormFieldRow>
       <button disabled={isEditing || !galName.trim() || galName === gallerySelected.name } onClick={rename} >Renombrar</button>
-    </ToolsFormFieldRow>
+    </FormFieldRow>
 
-    <ToolsFormFieldColumn>
+    <FormFieldColumn>
       <p>Cambiar estado:</p>
-      <ToolsFormFieldRow>
+      <FormFieldRow>
         <button disabled={gallerySelected.visible} onClick={() => handleVisible(true)} >Visible</button>
         <button disabled={!gallerySelected.visible} onClick={() => handleVisible(false)} >Oculto</button>
-      </ToolsFormFieldRow>
-    </ToolsFormFieldColumn>
+      </FormFieldRow>
+    </FormFieldColumn>
 
-    <ToolsFormFieldRow>
-      <ToolsFormCheckConfirm><input type='checkbox' /><p>Confirmar borrado</p></ToolsFormCheckConfirm>
+    <FormFieldRow>
+      <FormCheckConfirm><input type='checkbox' /><p>Confirmar borrado</p></FormCheckConfirm>
       <button disabled >Eliminar</button>
-    </ToolsFormFieldRow>
+    </FormFieldRow>
 
-  </ToolsFormContainer>
+  </FormContainer>
 }

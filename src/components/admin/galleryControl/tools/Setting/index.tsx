@@ -1,8 +1,8 @@
 import React from 'react'
 import { doc, setDoc } from 'firebase/firestore'
-import { ToolsFormContainer, ToolsFormFieldColumn } from '../toolsForm.styled'
 import FireContext from 'FireContext'
 import { PublicSetting } from 'appType'
+import { FormContainer, FormFieldColumn } from 'components/common/vamper/form.styled'
 
 export const Setting = () => {
 
@@ -28,26 +28,26 @@ export const Setting = () => {
         }
     }
 
-    return <ToolsFormContainer>
+    return <FormContainer>
 
-        <ToolsFormFieldColumn>
+        <FormFieldColumn>
             <p>Dolar / Foto</p>
             <input type='text' value={dollar} onChange={( e => setDollar(Number(e.target.value ?? 0)) )} />
-        </ToolsFormFieldColumn>
+        </FormFieldColumn>
 
-        <ToolsFormFieldColumn>
+        <FormFieldColumn>
             <p>Fotos x página</p>
             <input type='text' value={perPage} onChange={( e => setPerPage(Number(e.target.value ?? 1)) )} />
-        </ToolsFormFieldColumn>
+        </FormFieldColumn>
 
-        <ToolsFormFieldColumn>
+        <FormFieldColumn>
             <button disabled={
                 isLoading
                 || (dollar === publicSetting.dollar && perPage === publicSetting.per_page)
                 || dollar < 1
                 || perPage < 1
             } onClick={handleSave} >Guardar</button>
-        </ToolsFormFieldColumn>
+        </FormFieldColumn>
 
-    </ToolsFormContainer>
+    </FormContainer>
 }
