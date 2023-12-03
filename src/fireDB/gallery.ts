@@ -19,6 +19,7 @@ function gallery(db: Firestore) {
                     collection(db, "gallery"),
                     orderBy("created_at", "asc"),
                     where("deleted", "==", false),
+                    where("uid", "==", uid),
                 );
 
                 const querySnapshot: DocumentData = await getDocs(q);

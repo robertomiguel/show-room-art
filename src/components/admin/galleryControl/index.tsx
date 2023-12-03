@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { photos } from 'fireDB/photos'
 import axios from 'axios'
 import { sha1 } from 'crypto-hash'
@@ -82,21 +82,16 @@ export const GalleryControl = () => {
         setIsLoadingDelete(false)
     }
 
+    const runSelector: any = useMemo(() => ({
+        selectAll: () => setSelectedPhotos(photosList.map( (p: PhotoData) => p.id)),
+        selectPublished: () => setSelectedPhotos(photosList.filter( (p: PhotoData) => p.id && p.public).map( (p: PhotoData) => p.id)),
+        selectUnPublished: () => setSelectedPhotos(photosList.filter( (p: PhotoData) => p.id && !p.public).map( (p: PhotoData) => p.id)),
+        clearSelection: () => setSelectedPhotos([]),
+    }),[photosList, setSelectedPhotos])
+
     const selector = (typeSel: string) => {
-        switch (typeSel) {
-            case 'selectAll':
-                setSelectedPhotos(photosList.map( (p: PhotoData) => p.id))
-                break;
-            case 'selectPublished':
-                setSelectedPhotos(photosList.filter( (p: PhotoData) => p.id && p.public).map( (p: PhotoData) => p.id))
-                break;
-            case 'selectUnPublished':
-                setSelectedPhotos(photosList.filter( (p: PhotoData) => p.id && !p.public).map( (p: PhotoData) => p.id))
-                break;
-            case 'clearSelection':
-                setSelectedPhotos([])
-                break;
-        }
+        runSelector[typeSel]()
+        setMenuSelected(null)
     }
 
     const handleShowMenu = (menuNumber: number | null) => setMenuSelected(menuNumber)
@@ -107,20 +102,23 @@ export const GalleryControl = () => {
                 <MenuControlBody>
                     <HeaderModal label='Herramientas' onClose={() => setShowTools(false)} />
 
-                    <MenuButton show={menuSelected} value={1} onClick={handleShowMenu} label='Subir fotos' />
-                    {menuSelected === 1 && <UploadImage />}
+                    <MenuButton show={menuSelected} value={1} onClick={handleShowMenu} label='Crear galería' />
+                    {menuSelected === 1 && <GalleryCreator />}
 
-                    <MenuButton show={menuSelected} value={2} onClick={handleShowMenu} label='Crear galería' />
-                    {menuSelected === 2 && <GalleryCreator />}
+                    {gallerySelected?.id && <>
+                        <MenuButton show={menuSelected} value={2} onClick={handleShowMenu} label='Subir fotos' />
+                        {menuSelected === 2 && <UploadImage />}
 
-                    <MenuButton show={menuSelected} value={3} onClick={handleShowMenu} label='Editar galería' />
-                    {menuSelected === 3 && <GalleryEditor onClose={() => setMenuSelected(null)} />}
+                        <MenuButton show={menuSelected} value={3} onClick={handleShowMenu} label='Editar galería' />
+                        {menuSelected === 3 && <GalleryEditor onClose={() => setMenuSelected(null)} />}
 
-                    <MenuButton show={menuSelected} value={4} onClick={handleShowMenu} label='Editar link' />
-                    {menuSelected === 4 && <GalleryLink onClose={() => setMenuSelected(null)} />}
+                        <MenuButton show={menuSelected} value={4} onClick={handleShowMenu} label='Editar link' />
+                        {menuSelected === 4 && <GalleryLink onClose={() => setMenuSelected(null)} />}
+                    </>}
 
                     <MenuButton show={menuSelected} value={5} onClick={handleShowMenu} label='Configurar' />
                     {menuSelected === 5 && <Setting />}
+                    
                 </MenuControlBody>
             </MenuControlContainer>
         </ScreenBlackout>}

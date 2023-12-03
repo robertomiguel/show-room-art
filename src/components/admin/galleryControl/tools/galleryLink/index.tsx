@@ -7,19 +7,19 @@ import { FormContainer, FormFieldRow, FormFieldColumn } from "components/common/
 
 export const GalleryLink = ({onClose}: {onClose: () => void}) => {
 
-    const { user, gallerySelected, db } = React.useContext(FireContext)
+    const { linkData, setLinkData, user, gallerySelected, db } = React.useContext(FireContext)
 
-    const [ linkData, setLinkData ] = React.useState<PersonalData | null>()
     const [ isLoading, setIsLoading ] = React.useState<boolean>(false)
 
+    
     React.useEffect(()=>{
-        if (!gallerySelected?.personal_id) return
         const getPersonal = async () => {
-            const personalData: PersonalData | null = await personal(db).getById(gallerySelected.personal_id)
+            if (linkData?.id === gallerySelected?.personal_id) return
+            const personalData: PersonalData | null = await personal(db).getByUid(gallerySelected.personal_id, user?.uid as string)
             setLinkData(personalData)            
         }
         getPersonal()
-    }, [gallerySelected, db])
+    }, [db, gallerySelected.personal_id, linkData?.id, setLinkData, user?.uid])
 
     const handleForm = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
@@ -87,7 +87,7 @@ export const GalleryLink = ({onClose}: {onClose: () => void}) => {
                         defaultChecked={linkData?.security}
                         name='security'
                         onChange={(e) =>
-                        setLinkData((prev) => ({ ...prev, security: e.target.checked } as PersonalData))
+                        setLinkData((prev: PersonalData) => ({ ...prev, security: e.target.checked }))
                         }
                     />
                 </FormFieldRow>

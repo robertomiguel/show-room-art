@@ -1,23 +1,12 @@
 import React from "react"
-import { getAuth, signInWithEmailAndPassword, UserCredential } from "firebase/auth";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import FireContext from "FireContext";
 import { LoginButtons, LoginContainer, LoginInputs } from "./login.styled";
 
 const Login = () => {
 
-    const { setUser } = React.useContext(FireContext)
-    const [ show, setShow ] = React.useState<boolean>(false)
-
-    React.useEffect(() => {
-        getAuth().onAuthStateChanged((user: UserCredential['user'] | null) => {
-          if (user) {
-              setUser(user)
-          } else {
-              setUser(null)
-          }
-        })
-    },[setUser])
-    
+    const { setUser, clearAllData } = React.useContext(FireContext)
+    const [ show, setShow ] = React.useState<boolean>(false)    
 
     const login = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
@@ -28,6 +17,7 @@ const Login = () => {
         const auth = getAuth();
         signInWithEmailAndPassword(auth, email as string, password as string)
         .then((userCredential) => {
+            clearAllData()
             // logueado
             setUser(userCredential.user)            
         })

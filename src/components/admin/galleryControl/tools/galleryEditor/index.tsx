@@ -59,8 +59,8 @@ export const GalleryEditor = ({onClose}: GalleryEditorProps) => {
     <FormFieldColumn>
       <p>Cambiar estado:</p>
       <FormFieldRow>
-        <button disabled={gallerySelected.visible} onClick={() => handleVisible(true)} >Visible</button>
-        <button disabled={!gallerySelected.visible} onClick={() => handleVisible(false)} >Oculto</button>
+        <button disabled={gallerySelected.visible} onClick={() => handleVisible(true)} >Hacer visible</button>
+        <button disabled={!gallerySelected.visible} onClick={() => handleVisible(false)} >Ocultar</button>
       </FormFieldRow>
     </FormFieldColumn>
 

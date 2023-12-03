@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from 'react';
-import { UserCredential } from "firebase/auth";
+import { UserCredential, getAuth } from "firebase/auth";
 import { doc, getDoc, Firestore } from "firebase/firestore";
 import logoimg from 'image/logo.svg'
 import { gallery } from 'fireDB/gallery';
@@ -24,7 +24,11 @@ import { PublicGallery } from 'components/public/publicGallery';
 
 export const Home = ({db, cloudinary}: {db: Firestore, cloudinary: Cloudinary}) => {
 
+  // datos del usuario logueado
   const [ user, setUser ] = useState<UserCredential['user'] | null>(null)
+
+  // sirve para saber cuando se termina de verificar si el usuario está logueado
+  const [ finishLoginCheck, setFinishLoginCheck ] = useState<boolean>(false)
 
   const [ pathName, setPathName ] = useState<string | undefined>(window.location.pathname.slice(1))
   
@@ -64,7 +68,24 @@ export const Home = ({db, cloudinary}: {db: Firestore, cloudinary: Cloudinary}) 
   // Muestra pedido de Pass cuando la galería personal tiene contraseña
   const [ showAccessPassForm, setShowAccessPassForm ] = useState<boolean>(false)
 
+  // guarda estado para no tener que hacer un nuevo fetch de la galería personal
+  const [ linkData, setLinkData ] = useState<PersonalData | null>()
+
   const isMobile = useMediaQuery('(max-width: 900px)')
+
+  const clearAllData = () => {
+    setPhotosList([])
+    setOriginalList([])
+    setSelectedPhotos([])
+    setCartList([])
+    setShowCartList(false)
+    setPrice(undefined)
+    setGalleryList([])
+    setGallerySelected(undefined)
+    setPersonalGallery(null)
+    setShowAccessPassForm(true)
+    setLinkData(null)
+  }
 
   const getPersonal = async (personalId: string, fireDB: Firestore, password?: string | null) => {
     const pdata: PersonalData | null = await personal(fireDB).getById(personalId, password)
@@ -75,22 +96,29 @@ export const Home = ({db, cloudinary}: {db: Firestore, cloudinary: Cloudinary}) 
       setPersonalGallery(pdata)
       setShowAccessPassForm(false)
     } else if (pdata?.error === 'showAccessPassForm') {
-      setCartList([])
-      setPhotosList([])
-      setGalleryList([])
-      setGallerySelected(undefined)
-      setPersonalGallery(null)
-      setShowAccessPassForm(true)
+      clearAllData()
     } else {
       window.history.pushState({}, "",'/')
       window.location.reload()
     }
   }
 
+  useEffect(() => {
+    getAuth().onAuthStateChanged((user: UserCredential['user'] | null) => {
+        if (user) {
+            setUser(user)
+        } else {
+          setUser(null)
+        }
+        setFinishLoginCheck(true)
+      })
+  },[setUser])
+
   useEffect(()=>{
     if (pathName && pathName !== '/' && db) {      
       getPersonal(pathName, db)
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   },[pathName, db])
 
   useEffect(() => {
@@ -140,6 +168,9 @@ export const Home = ({db, cloudinary}: {db: Firestore, cloudinary: Cloudinary}) 
       showAccessPassForm,
       paginatorData,
       originalList,
+      linkData,
+      finishLoginCheck,
+      setLinkData,
       setOriginalList,
       setPaginatorData,
       setShowAccessPassForm,
@@ -152,43 +183,45 @@ export const Home = ({db, cloudinary}: {db: Firestore, cloudinary: Cloudinary}) 
       setGallerySelected,
       setGalleryList,
       setPhotosList,
+      clearAllData,
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   },[user, photosList, selectedPhotos, showAccessPassForm, originalList,
     cartList, showCartList, price, isMobile, db, gallerySelected, publicSetting,
-    galleryList, cloudinary, paginatorData])
+    galleryList, cloudinary, paginatorData, linkData, finishLoginCheck])
 
   return (
     <FireContext.Provider value={valueContext}>
-        <HeaderBox>
+      {finishLoginCheck && <>
+          <HeaderBox>
 
-          {!isMobile && <Logo onClick={handleGoHome} src={logoimg} alt="logo" />}
+            {!isMobile && <Logo onClick={handleGoHome} src={logoimg} alt="logo" />}
 
-          {(pathName === '/' || !pathName) && <GallerySelector />}
+            {(pathName === '/' || !pathName) && <GallerySelector />}
 
-          {personalGallery?.title && <GallTitle >{personalGallery.title}</GallTitle>}
+            {personalGallery?.title && <GallTitle >{personalGallery.title}</GallTitle>}
 
-          {publicSetting && <Paginator />}
+            {publicSetting && <Paginator />}
 
-          {!user && gallerySelected?.for_sale && <Cart />}
+            {!user && gallerySelected?.for_sale && <Cart />}
 
-          {user
-            ? <Account />
-            : window.location.href.includes('?admin') && <Login />
-          }
+            {user
+              ? <Account />
+              : window.location.href.includes('?admin') && <Login />
+            }
 
-          {user && <GalleryControl />}
+            {user && <GalleryControl />}
 
-        </HeaderBox>
+          </HeaderBox>
 
-        {user && <PrivateGallery />}
+          {user && <PrivateGallery />}
 
-        {!user &&  <PublicGallery /> }
+          {!user &&  <PublicGallery /> }
 
-        {pathName && showAccessPassForm && <PrivatePass isLoading={false} onPassSend={(pass)=>getPersonal(pathName, db, pass)} />}
+          {pathName && showAccessPassForm && <PrivatePass isLoading={false} onPassSend={(pass)=>getPersonal(pathName, db, pass)} />}
 
-        <Footer />
-
+          <Footer />
+        </>}
     </FireContext.Provider>
   )
 }

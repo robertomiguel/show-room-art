@@ -6,20 +6,23 @@ import { GalleryData } from 'appType'
 
 export const GallerySelector = () => {
 
-    const { isMobile, db, gallerySelected, setGallerySelected, galleryList, setGalleryList, user } = useContext(FireContext)
-
-    const getList = async () => {
-        try {
-            const list = await gallery(db).getList(user?.uid)            
-            setGalleryList(list)
-            if (list.length > 0)
-                setGallerySelected(list[0])
-        } catch (error) {
-            console.log('galError: ', error);
-        }
-    }
+    const { finishLoginCheck, setLinkData, isMobile, db, gallerySelected, setGallerySelected, galleryList, setGalleryList, user } = useContext(FireContext)
 
     useEffect(() => {
+        if (!finishLoginCheck) return
+        const getList = async () => {
+            try {
+                const list = await gallery(db).getList(user?.uid)            
+                setGalleryList(list)
+                if (list.length)
+                    setGallerySelected(list[0])
+                else
+                    setGallerySelected(null)
+
+            } catch (error) {
+                console.log('galError: ', error);
+            }
+        }
         getList()
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [user?.uid])
@@ -38,6 +41,7 @@ export const GallerySelector = () => {
                 value={gallerySelected?.id}
                 onChange={ val => {
                     setGallerySelected(galleryList.find( (f: GalleryData) => f.id === val.target.value ))
+                    setLinkData(null)
                 }}
                 >
                 {galleryList.map((gallery: GalleryData) =>

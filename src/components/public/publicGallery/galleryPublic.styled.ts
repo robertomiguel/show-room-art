@@ -18,9 +18,8 @@ export const PublicGalleryProduct = styled.div<{ $isMobile: boolean }>`
   border-radius: 5px;
   gap: 5px;
   margin-bottom: 10px;
-  width: ${({ $isMobile }) => ($isMobile ? '100%' : 'unset')};
+  width: ${({ $isMobile }) => ($isMobile ? 'fit-content' : 'unset')};
 `;
-
 
 export const PublicGalleryProductInfo = styled.div`
     display: flex;

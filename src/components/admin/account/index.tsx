@@ -4,7 +4,7 @@ import { getAuth, sendEmailVerification } from "firebase/auth";
 
 export const Account = () => {
 
-    const { user } = React.useContext(FireContext)
+    const { user, setUser, clearAllData } = React.useContext(FireContext)
 
     return <div>
         {!user.emailVerified &&
@@ -21,6 +21,8 @@ export const Account = () => {
         <button title={user.email} style={{marginLeft: '5px'}} onClick={ e => {
             e.preventDefault()
             getAuth().signOut()
+            setUser(null)
+            clearAllData()
             window.location.href = '/'
         }}>Cerrar sesión</button>
     </div>

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useCallback, useContext, useEffect, useState } from 'react'
 import { photos } from 'fireDB/photos'
 import FireContext from 'FireContext'
 import { generateId } from 'components/common/generateId'
@@ -12,11 +12,11 @@ export const Paginator = () => {
     const [perPage, setPerPage] = useState<number>(0)
     const [totalDocs, setTotalDocs] = useState<number>(0)
 
-    const getPhotos = async (publicPhotos: boolean) => {        
-        const list = await photos(db).getList(gallerySelected?.id, publicPhotos)
+    const getPhotos = useCallback(async (publicPhotos: boolean) => {        
+        const list = await photos(db).getList(gallerySelected?.id, publicPhotos, user?.uid)
         setPhotosList(list)
         setOriginalList(list)
-    }
+    }, [db, gallerySelected?.id, setOriginalList, setPhotosList, user?.uid])
 
     useEffect(() => {
         const list = photosList
@@ -29,8 +29,7 @@ export const Paginator = () => {
 
     useEffect(() => {
         if (gallerySelected?.id) getPhotos(!user?.uid)
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [gallerySelected?.id])
+    }, [gallerySelected, getPhotos, user?.uid])
 
     useEffect(() => {
         const count = photosList.length
@@ -40,8 +39,7 @@ export const Paginator = () => {
         setPerPage(publicSetting?.per_page)
         setCurrentPage(1)
         setPaginatorData({ indexFrom: 1, indexTo: publicSetting?.per_page })
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [photosList])
+    }, [photosList, publicSetting?.per_page, setPaginatorData, totalDocs])
 
     const nextPage = () => {
         const newPage = currentPage + 1 > totalPage ? 1 : currentPage + 1

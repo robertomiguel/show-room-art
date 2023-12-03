@@ -24,6 +24,22 @@ export const personal = (db: Firestore) => {
             }
         },
 
+        getByUid: async (personalId: string, uid: string) => {
+            try {
+                  const q = query(
+                    collection(db, 'personal'),
+                    where("id", "==", personalId),
+                    where("uid", "==", uid),
+                    where("enabled", "==", true),
+                    limit(1),
+                  )
+                  const querySnapshot: DocumentData = await getDocs(q);
+                  return querySnapshot.docs.map((doc: DocumentSnapshot) => doc.data())[0]
+            } catch {
+                return null;
+            }
+        },
+
         update: async (personalId: string, data: PersonalData) => {
             const docRef = doc(db, 'personal', personalId);
             await setDoc(docRef, data, { merge: true });

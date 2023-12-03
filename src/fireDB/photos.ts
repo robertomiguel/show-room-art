@@ -4,14 +4,17 @@ import { PhotoData } from "appType";
 function photos(db: Firestore) {
 
   return {
-    getList: async (galleryId: string, published?: boolean) => {
+    getList: async (galleryId: string, published: boolean, uid: string) => {
         try {
             const wheres = [
               orderBy('order'),
               where("deleted", "==", false),
             ]
 
-            if (published) wheres.push(where("public", "==", true))
+            if (published)
+              wheres.push(where("public", "==", true))
+            else
+              wheres.push(where("uid", "==", uid))
 
             const q = query(
               collection(db, 'gallery', galleryId, "photos"),

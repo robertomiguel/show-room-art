@@ -5,7 +5,7 @@ import { PhotoData } from 'appType'
 import styled from 'styled-components';
 
 const StyledImage = styled.img`
-  width: 100%;
+  max-width: 400px;
   height: 100%;
   object-fit: contain; // cover | contain
   border-radius: 5px;
