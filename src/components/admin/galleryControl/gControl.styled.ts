@@ -1,4 +1,15 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
+
+const slideDownAnimation = keyframes`
+  from {
+    transform: translateY(-20%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+`;
 
 export const MenuControlContainer = styled.div`
   z-index: 3;
@@ -40,4 +51,6 @@ export const MenuContainer = styled.div`
   background: var(--background-darker);
   padding: 10px;
   box-shadow: var(--box-shadow);
+  animation: ${slideDownAnimation} 0.5s ease-in-out;
+  transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
 `;

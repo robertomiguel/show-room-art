@@ -12,21 +12,25 @@ export const GalleryEditor = ({onClose}: GalleryEditorProps) => {
 
   const { db, gallerySelected, setGallerySelected, setGalleryList } = React.useContext(FireContext)
 
-  const [ galName, setGalName ] = React.useState<string>('')
+  const [ galName, setGalName ] = React.useState<string>(gallerySelected.name)
+  const [ galDescription, setGalDescription ] = React.useState<string>(gallerySelected?.description || '')
 
   const [ isEditing, setIsEditing ] = React.useState<boolean>(false)
 
   const handleChange = (e: any) => setGalName(e.target.value)
+  const handleDescription = (e: any) => setGalDescription(e.target.value)
 
   const rename = async () => {
     if (galName === '') return
     setIsEditing(true)
-    await gallery(db).rename(galName, gallerySelected.id)
+    await gallery(db).rename(galName, galDescription, gallerySelected.id)
     setIsEditing(false)
-    setGallerySelected({...gallerySelected, name: galName})
-    setGalleryList((prev: GalleryData[]) => prev.map(g => g.id === gallerySelected.id ? {...g, name: galName} : g))
+    setGallerySelected({...gallerySelected, name: galName, description: galDescription})
+    setGalleryList((prev: GalleryData[]) => prev.map(g => g.id === gallerySelected.id ? {...g, name: galName, description: galDescription} : g))
     onClose()
   }
+
+  
 
   const handleVisible = async (status: boolean) => {
     await gallery(db).visible(status, gallerySelected.id)
@@ -38,23 +42,21 @@ export const GalleryEditor = ({onClose}: GalleryEditorProps) => {
   return <FormContainer>
 
     <FormFieldColumn>
-      <p>Nombre actual:</p>
-      <p style={{fontWeight: 700}} >{gallerySelected.name}</p>
+      <p>Título:</p>
+      <input className='bluedark-element' type='text' autoComplete='false' value={galName} onChange={handleChange} />
+      <FormFieldRow $right>
+        <button disabled={isEditing || !galName.trim() || galName === gallerySelected.name } onClick={rename} >Renombrar</button>
+      </FormFieldRow>
     </FormFieldColumn>
-
-    <FormFieldRow>
-      <p>Estado:</p>
-      <p style={{fontWeight: 700}} >{gallerySelected.visible ? 'Visible' : 'Oculto'} </p>
-    </FormFieldRow>
 
     <FormFieldColumn>
-      <p>Nuevo nombre:</p>
-      <input className='bluedark-element' type='text' autoComplete='false' value={galName} onChange={handleChange} />
+      <p>Comentario:</p>
+      <textarea value={galDescription} onChange={handleDescription} ></textarea>
+      <FormFieldRow $right>
+        <button disabled={isEditing || !galDescription.trim() || galDescription === gallerySelected?.description } onClick={rename} >Guardar</button>
+      </FormFieldRow>
     </FormFieldColumn>
 
-    <FormFieldRow>
-      <button disabled={isEditing || !galName.trim() || galName === gallerySelected.name } onClick={rename} >Renombrar</button>
-    </FormFieldRow>
 
     <FormFieldColumn>
       <p>Cambiar estado:</p>

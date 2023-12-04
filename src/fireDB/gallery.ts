@@ -47,10 +47,10 @@ function gallery(db: Firestore) {
             }
         },
 
-        rename: async (newName: string, galleryId: string) => {
+        rename: async (newName: string, newDescription: string, galleryId: string) => {
             try {
                 await setDoc(doc(db, 'gallery', galleryId), 
-                { name: newName }
+                { name: newName, description: newDescription }
               , { merge: true });                
             } catch (error) {
                 console.log('galError: ', error);

@@ -1,15 +1,26 @@
 import styled, { keyframes } from 'styled-components';
 
-export const CartMain = styled.div`
+const slideInAnimation = keyframes`
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+`;
+
+export const CartMain = styled.div<{$isMobile?: boolean}>`
   position: fixed;
   display: flex;
   flex-direction: column;
-  max-width: 400px;
+  width: ${({ $isMobile }) => ($isMobile ? '100%' : '450px')};
   top: 0;
   bottom: 0;
   right: 0;
   background: var(--background-darker);
   box-shadow: var(--box-shadow);
+  animation: ${slideInAnimation} 0.5s ease;
+  transition: opacity 0.5s ease;
 `;
 
 export const CartBody = styled.div`
@@ -34,6 +45,7 @@ export const CartOpenButton = styled.button<{ $isMobile: boolean }>`
     marginBottom: '0',
     border: '2px solid white',
     zoom: '1.1',
+    boxShadow: 'var(--box-shadow)',
   }) : ({
     position: 'relative',
     bottom: 'auto',

@@ -1,4 +1,15 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
+
+const slideDownAnimation = keyframes`
+  from {
+    transform: translateY(-20%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+`;
 
 export const FormContainer = styled.div`
   display: flex;
@@ -9,12 +20,14 @@ export const FormContainer = styled.div`
   padding: 10px;
   border-radius: 5px;
   margin-top: -20px;
+  animation: ${slideDownAnimation} 0.5s ease-in-out;
+  transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
 `;
 
-export const FormFieldRow = styled.div`
+export const FormFieldRow = styled.div<{$right?: boolean}>`
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: ${({$right}) => $right ? 'right' : 'space-between'};
   align-items: center;
   width: 100%;
   height: 45px;

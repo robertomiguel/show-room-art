@@ -45,6 +45,7 @@ export interface PhotoData {
     visible: boolean
     personal_id?: string
     for_sale: boolean
+    image?: string
     description?: string
   }
 

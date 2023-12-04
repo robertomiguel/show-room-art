@@ -1,7 +1,7 @@
 import React from 'react'
 import FireContext from 'FireContext'
 import { PhotoData } from 'appType'
-import { PublicGalleryContainer, PublicGalleryProduct, PublicGalleryProductInfo } from './galleryPublic.styled'
+import { GalleryDescription, PublicGalleryContainer, PublicGalleryProduct, PublicGalleryProductInfo } from './galleryPublic.styled'
 import { ImgBox } from 'components/common/imgBox'
 
 export const PublicGallery = () => {
@@ -19,6 +19,9 @@ export const PublicGallery = () => {
     })
 
     return <PublicGalleryContainer $isMobile={isMobile}>
+
+        {gallerySelected?.description && <GalleryDescription><p>{gallerySelected.description}</p></GalleryDescription>}
+
         {list.map( (pf: PhotoData) =>
 
         <PublicGalleryProduct key={pf.id} $isMobile={isMobile} >

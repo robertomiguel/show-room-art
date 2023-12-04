@@ -56,7 +56,7 @@ Importe: $${price.total}
             </fieldset>
 
             {showCartList && <ScreenBlackout>
-                <CartMain>
+                <CartMain $isMobile={isMobile} >
                 
                     <HeaderModal onClose={() => setShowCartList(false)} label='Mi selección' />
 

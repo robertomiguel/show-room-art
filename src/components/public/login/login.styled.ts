@@ -12,6 +12,7 @@ export const LoginContainer = styled.div`
     padding: 10px;
     border-radius: 5px;
     gap: 10px;
+    box-shadow: var(--box-shadow);
 `;
 
 export const LoginInputs = styled.div`
