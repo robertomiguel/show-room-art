@@ -6,7 +6,7 @@ export const PrivateGalleryContainer = styled.div<{$isMobile: boolean}>`
   justify-content: space-evenly;
   padding: 8px;
   margin-bottom: 40px;
-  gap: 10px;
+  gap: 20px;
   width: 100%;
   flex-wrap: wrap;
   margin-top: ${({ $isMobile }) => ($isMobile ? '250px' : '150px')};
@@ -16,10 +16,12 @@ export const PrivateImageBox = styled.div<{$isSelected: boolean}>`
   display: flex;
   flex-direction: column;
   border-radius: 5px;
-  gap: 5px;
   width: fit-content;
-  outline: ${({ $isSelected }) => ($isSelected ? '1px solid white' : 'unset')};
-  `;
+  outline: ${({ $isSelected }) => ($isSelected ? '5px solid var(--border-light)' : 'unset')};
+  padding: 2px;
+  background-color: #ccc;
+  box-shadow: var(--box-shadow);
+`;
 
 export const PrivateProductInfo = styled.div<{$isPublic: boolean}>`
   display: flex;
@@ -30,6 +32,7 @@ export const PrivateProductInfo = styled.div<{$isPublic: boolean}>`
   padding: 0;
   width: 100%;
   background-color: ${({ $isPublic }) => ($isPublic ? 'var(--background-blue)' : 'var(--background-darker)')};
+  border-radius: 5px;
 `;
 
 export const FormFieldRow = styled.div`

@@ -8,6 +8,7 @@ export const PublicGalleryContainer = styled.div<{ $isMobile: boolean }>`
   padding-top: ${({ $isMobile }) => ($isMobile ? '120px' : '80px')};
   margin-bottom: 40px;
   justify-content: space-evenly;
+  gap: 10px;
 `;
 
 export const PublicGalleryProduct = styled.div<{ $isMobile: boolean }>`

@@ -1,6 +1,9 @@
 import FireContext from "FireContext"
 import { PhotoData } from "appType"
+import { Calendar } from "components/common/calendar"
+import { formatFireToDate } from "components/common/formatDate"
 import { FormFieldColumn, FormFieldRow } from "components/common/vamper/form.styled"
+import { MenuButton } from "components/common/vamper/menuButton"
 import { useContext, useRef, useState } from "react"
 
 export const GalleryFilter = () => {
@@ -9,6 +12,8 @@ export const GalleryFilter = () => {
     const [ filterPublic, setFilterPublic ] = useState<boolean | string>(false)
     const [ filterSearch, setFilterSearch ] = useState<string>('')
     const [ valueText, setValueText ] = useState<string>('all')
+    const [ showCalendar, setShowCalendar ] = useState<boolean>(false)
+    const [ dateSearch, setDateSearch ] = useState<Date | null>(null)
 
     const inputRef = useRef<HTMLInputElement | null>(null)
 
@@ -53,6 +58,29 @@ export const GalleryFilter = () => {
         setFilterSearch(search)
     }
 
+    const getFormatedDate = (date: Date) => {
+        const year = date.getFullYear()
+        const month = (date.getMonth() + 1).toString().padStart(2, '0');
+        const day = date.getDate().toString().padStart(2, '0');
+        return `${day}-${month}-${year}`
+    }
+
+    const handleDateSearch = (vDate: Date | null) => {
+        setDateSearch(vDate)
+        setShowCalendar(false)
+        if (!vDate) return
+        const newList = originalList.filter(
+            (item: PhotoData) => {
+                if (!item?.public_last_date) return false
+                const date = new Date(formatFireToDate(item.public_last_date))
+                return date.getFullYear() === vDate.getFullYear() &&
+                    date.getMonth() === vDate.getMonth() &&
+                    date.getDate() === vDate.getDate()
+            }
+        )
+        setPhotosList(newList);
+    }
+
     return <div style={{width: '200px'}}>
         <FormFieldRow>
             <p>Estado</p><select onChange={handleSelected} >
@@ -66,6 +94,18 @@ export const GalleryFilter = () => {
                 <p>Buscar</p>
                 <input ref={inputRef} type="text" placeholder="Nombre" />
                 <button type='submit'>Buscar</button>
+
+                <p>Fecha de publicación</p>
+                <FormFieldColumn>
+                    <MenuButton
+                        show={showCalendar ? 1 : 0}
+                        value={1}
+                        onClick={() => setShowCalendar(prev => !prev)} label={dateSearch ? getFormatedDate(dateSearch) : 'Seleccionar'}
+                    />
+                    {showCalendar && <div style={{position: 'absolute', marginTop: '40px'}} >
+                        <Calendar value={dateSearch} onChange={handleDateSearch} />
+                    </div>}
+                </FormFieldColumn>
 
                 <p>Filtro aplicado</p>
                 <FormFieldRow>

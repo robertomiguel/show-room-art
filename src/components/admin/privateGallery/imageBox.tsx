@@ -33,9 +33,7 @@ export const ImageBox = ({photo, onClick, cld}: ImageBoxProp) => {
 
     return <PrivateImageBox $isSelected={isSelected} >
 
-      <div onClick={onClick}>
-        <ImgBox photo={photo} cld={cld} />
-      </div>
+      <ImgBox photo={photo} cld={cld} onClick={onClick} hover />
 
       <PrivateProductInfo $isPublic={photo?.public} >
         <FormFieldRow>

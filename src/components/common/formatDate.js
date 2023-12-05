@@ -9,3 +9,9 @@ export const formatDate = (d) => {
     return `${day}/${month}/${year}`;
   }
   
+  export const formatFireToDate = (d) => {
+    if (!d) return ''
+    const fechaEnMilisegundos = d.seconds * 1000 + Math.round(d.nanoseconds / 1000000);
+    return new Date(fechaEnMilisegundos)
+  }
+  
