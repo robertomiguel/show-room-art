@@ -16,8 +16,8 @@ export const ScreenBlackout = styled.div`
   top: 0;
   width: 100%;
   height: 100%;
-  overflow: auto;
-  background-color:rgba(26, 26, 26, 0.8); /* rgba(30, 30, 30, 0.8); - Fondo oscuro */
+  overflow: hidden;
+  background-color: var(--background-dark-transparent);
   display: flex;
   justify-content: center;
   align-items: center;

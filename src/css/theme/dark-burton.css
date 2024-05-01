@@ -1,7 +1,9 @@
 /* Colores Dark Burton - by Roberto Miguel Costi */
 :root {
     --background-dark: #1A1A1A; /* Fondo oscuro principal */
+    --background-dark-transparent: rgba(26, 26, 26, .9);
     --background-darker: #333333; /* Fondo oscuro más oscuro */
+    --background-darker-transparent: rgba(51, 51, 51, .9);
     --background-blue: #1E3B4F; /* Azul oscuro añadido */
     --text-light: #CCCCCC; /* Texto claro */
     --text-dark: #555555; /* Texto oscuro */
@@ -9,5 +11,5 @@
     --border-light: #00BFFF; /* Borde de enfoque en azul claro */
     --disabled-background: #1A1A1A; /* Fondo para elementos deshabilitados */
     --disabled-text: #555555; /* Texto para elementos deshabilitados */
-    --box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.75); /* Sombra de caja */
+    --box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.75); /* Sombra de caja */   
 }

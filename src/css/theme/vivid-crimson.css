@@ -1,7 +1,9 @@
 /* tema Vivid Crimson - by Roberto Miguel Costi */
 :root {
     --background-dark: #7F0000; /* Rojo oscuro principal */
+    --background-dark-transparent: rgba(127, 0, 0, .9);
     --background-darker: #540000; /* Rojo más oscuro */
+    --background-darker-transparent: rgba(84, 0, 0, .9);
     --background-blue: #CC0000; /* Rojo medio */
     --text-light: #FFCCCC; /* Texto claro en tono rojo */
     --text-dark: #FF0000; /* Texto oscuro en tono rojo más oscuro */

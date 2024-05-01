@@ -25,6 +25,7 @@ export const CartMain = styled.div<{$isMobile?: boolean}>`
 
 export const CartBody = styled.div`
   overflow-y: scroll;
+  overflow-x: hidden;
   height: calc(100vh - 110px);
   padding: 10px;
 `;

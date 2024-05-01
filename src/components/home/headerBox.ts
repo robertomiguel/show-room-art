@@ -11,7 +11,7 @@ export const HeaderBox = styled.div`
     left: 0;
     right: 0;
     box-shadow: var(--box-shadow);
-    background: var(--background-darker);
+    background: var(--background-darker-transparent);
     z-index: 4;
     padding: 5px;
 `
