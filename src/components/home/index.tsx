@@ -7,7 +7,7 @@ import { Cloudinary } from '@cloudinary/url-gen';
 import FireContext from 'FireContext';
 import { PhotoData, PaginatorData, Price, PublicSetting, GalleryData, PersonalData } from 'appType';
 import { personal } from 'fireDB/personal';
-import { HeaderBox } from './headerBox';
+import { HeaderBox } from './headerBox.styled';
 import { Logo } from './logo';
 import { GallTitle } from './title';
 import { GallerySelector } from 'components/common/GallerySelector';

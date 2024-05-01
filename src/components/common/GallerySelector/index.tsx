@@ -38,7 +38,12 @@ export const GallerySelector = () => {
                 }}
                 >
                 {galleryList.map((gallery: GalleryData) =>
-                    <StyledOption key={gallery.id} value={gallery.id} >{gallery.name} {user?.uid && (gallery?.visible ? '(Visible)' : '(No Visible)')}</StyledOption>)
+                    <StyledOption
+                        key={gallery.id}
+                        value={gallery.id}
+                    >
+                        {gallery.name} {user?.uid && (gallery?.visible ? '(Visible)' : '(No Visible)')}
+                    </StyledOption>)
                 }
             </StyledSelect>
         </GalleryLegend>
