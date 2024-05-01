@@ -1,4 +1,5 @@
 import styled, { keyframes } from 'styled-components';
+import mediaQuery from 'mediaQueries';
 
 const slideInAnimation = keyframes`
   from {
@@ -9,11 +10,11 @@ const slideInAnimation = keyframes`
   }
 `;
 
-export const CartMain = styled.div<{$isMobile?: boolean}>`
+export const CartMain = styled.div`
   position: fixed;
   display: flex;
   flex-direction: column;
-  width: ${({ $isMobile }) => ($isMobile ? '100%' : '450px')};
+  width: 450px;
   top: 0;
   bottom: 0;
   right: 0;
@@ -21,6 +22,9 @@ export const CartMain = styled.div<{$isMobile?: boolean}>`
   box-shadow: var(--box-shadow);
   animation: ${slideInAnimation} 0.5s ease;
   transition: opacity 0.5s ease;
+  @media ${ mediaQuery.mobile } {
+    width: 100%;
+  }
 `;
 
 export const CartBody = styled.div`
@@ -38,23 +42,22 @@ export const CartFooter = styled.div`
   height: 60px;
 `;
 
-export const CartOpenButton = styled.button<{ $isMobile: boolean }>`
-  ${({ $isMobile }) => ($isMobile ? ({
-    position: 'fixed',
-    bottom: '50px',
-    margin: '25%',
-    marginBottom: '0',
-    border: '2px solid white',
-    zoom: '1.1',
-    boxShadow: 'var(--box-shadow)',
-  }) : ({
-    position: 'relative',
-    bottom: 'auto',
-    margin: 'unset',
-    marginBottom: 'unset',
-    border: 'unset',
-    zoom: 'unset',
-  }))};
+export const CartOpenButton = styled.button`
+  position: relative;
+  bottom: auto;
+  margin: unset;
+  margin-bottom: unset;
+  border: unset;
+  zoom: unset;
+  @media ${ mediaQuery.mobile } {
+    position: fixed;
+    bottom: 50px;
+    margin: 25%;
+    margin-bottom: 0;
+    border: 2px solid white;
+    zoom: 1.1;
+    box-shadow: var(--box-shadow);
+  }
 `;
 
 export const CartGalleryContainer = styled.div`

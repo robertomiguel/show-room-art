@@ -1,6 +1,7 @@
+import mediaQuery from 'mediaQueries';
 import styled from 'styled-components';
 
-export const PrivateGalleryContainer = styled.div<{$isMobile: boolean}>`
+export const PrivateGalleryContainer = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
@@ -9,7 +10,10 @@ export const PrivateGalleryContainer = styled.div<{$isMobile: boolean}>`
   gap: 20px;
   width: 100%;
   flex-wrap: wrap;
-  margin-top: ${({ $isMobile }) => ($isMobile ? '250px' : '150px')};
+  margin-top: 150px;
+  @media ${mediaQuery.mobile} {
+    margin-top: 250px;
+  }
 `;
 
 export const PrivateImageBox = styled.div<{$isSelected: boolean}>`

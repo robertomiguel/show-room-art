@@ -50,13 +50,13 @@ Importe: $${price.total}
                 border: 'none',
             }}>
                 {!isMobile && <legend>Solicitar fotos</legend>}
-                <CartOpenButton $isMobile={isMobile} onClick={handleShow}>
+                <CartOpenButton onClick={handleShow}>
                     Mi selección {`(${cartList.length })`}
                 </CartOpenButton>
             </fieldset>
 
             {showCartList && <ScreenBlackout onClick={() => setShowCartList(false)} >
-                <CartMain $isMobile={isMobile} onClick={(e) => e.stopPropagation()} >
+                <CartMain onClick={(e) => e.stopPropagation()} >
                 
                     <HeaderModal onClose={() => setShowCartList(false)} label='Mi selección' />
 

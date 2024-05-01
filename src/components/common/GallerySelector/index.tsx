@@ -1,12 +1,12 @@
 import React, { useContext, useEffect } from 'react'
 import { gallery } from 'fireDB/gallery'
-import { StyledOption, StyledSelect } from './gSelector.styled'
+import { GalleryLegend, StyledOption, StyledSelect } from './gSelector.styled'
 import FireContext from 'FireContext'
 import { GalleryData } from 'appType'
 
 export const GallerySelector = () => {
 
-    const { finishLoginCheck, setLinkData, isMobile, db, gallerySelected, setGallerySelected, galleryList, setGalleryList, user } = useContext(FireContext)
+    const { finishLoginCheck, setLinkData, db, gallerySelected, setGallerySelected, galleryList, setGalleryList, user } = useContext(FireContext)
 
     useEffect(() => {
         if (!finishLoginCheck) return
@@ -28,16 +28,9 @@ export const GallerySelector = () => {
     }, [user?.uid])
 
     return (
-        <fieldset style={{
-            padding: 0,
-            borderRadius: '5px',
-            textAlign: 'center',
-            border: 'none',
-            width: isMobile ? '90%' : 'auto',
-        }} >
+        <GalleryLegend>
             <legend>Seleccionar galería</legend>
             <StyledSelect
-                $isMobile={isMobile}
                 value={gallerySelected?.id}
                 onChange={ val => {
                     setGallerySelected(galleryList.find( (f: GalleryData) => f.id === val.target.value ))
@@ -45,9 +38,9 @@ export const GallerySelector = () => {
                 }}
                 >
                 {galleryList.map((gallery: GalleryData) =>
-                    <StyledOption $isMobile={isMobile} key={gallery.id} value={gallery.id} >{gallery.name} {user?.uid && (gallery?.visible ? '(Visible)' : '(No Visible)')}</StyledOption>)
+                    <StyledOption key={gallery.id} value={gallery.id} >{gallery.name} {user?.uid && (gallery?.visible ? '(Visible)' : '(No Visible)')}</StyledOption>)
                 }
             </StyledSelect>
-        </fieldset>
+        </GalleryLegend>
     )
 }

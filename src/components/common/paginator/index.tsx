@@ -6,7 +6,7 @@ import { StyledPaginator, ButtonPaginator, StyledPagSelect } from './styledPagin
 
 export const Paginator = () => {
 
-    const { setOriginalList, publicSetting, isMobile, user, db, gallerySelected, photosList, setPhotosList, setPaginatorData } = useContext(FireContext)
+    const { setOriginalList, publicSetting, user, db, gallerySelected, photosList, setPhotosList, setPaginatorData } = useContext(FireContext)
     const [currentPage, setCurrentPage] = useState<number>(1)
     const [totalPage, setTotalPage] = useState<number>(0)
     const [perPage, setPerPage] = useState<number>(0)
@@ -59,7 +59,7 @@ export const Paginator = () => {
         setCurrentPage(pagerNumber)
     }
 
-    return totalPage ? <StyledPaginator $isMobile={isMobile} >
+    return totalPage ? <StyledPaginator>
         <fieldset style={{
             padding: 0,
             borderRadius: '5px',

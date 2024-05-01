@@ -21,6 +21,7 @@ import { Cart } from 'components/public/cart';
 import Login from 'components/public/login';
 import { PrivatePass } from 'components/public/privatePass';
 import { PublicGallery } from 'components/public/publicGallery';
+import mediaQuery from 'mediaQueries';
 
 export const Home = ({db, cloudinary}: {db: Firestore, cloudinary: Cloudinary}) => {
 
@@ -71,7 +72,7 @@ export const Home = ({db, cloudinary}: {db: Firestore, cloudinary: Cloudinary}) 
   // guarda estado para no tener que hacer un nuevo fetch de la galería personal
   const [ linkData, setLinkData ] = useState<PersonalData | null>()
 
-  const isMobile = useMediaQuery('(max-width: 900px)')
+  const isMobile = useMediaQuery(mediaQuery.mobile)
 
   const clearAllData = () => {
     setPhotosList([])

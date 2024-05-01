@@ -1,11 +1,15 @@
+import mediaQuery from 'mediaQueries';
 import styled from 'styled-components';
 
-export const StyledPaginator = styled.div<{$isMobile: boolean}>`
+export const StyledPaginator = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  width: ${({ $isMobile }) => ($isMobile ? '100%' : '350px')};
+  width: 350px;
+  @media ${mediaQuery.mobile} {
+    width: 100%;
+  }
 `;
 
 export const StyledPagSelect = styled.select`

@@ -6,7 +6,7 @@ import { ImgBox } from 'components/common/imgBox'
 
 export const PublicGallery = () => {
 
-    const { isMobile, photosList, paginatorData, cartList, setCartList, cloudinary, gallerySelected,  } = React.useContext(FireContext)
+    const { photosList, paginatorData, cartList, setCartList, cloudinary, gallerySelected,  } = React.useContext(FireContext)
 
     const [ list, setList ] = React.useState<PhotoData[]>([])
     
@@ -18,13 +18,13 @@ export const PublicGallery = () => {
         setCartList( (prev: PhotoData[]) => ([...prev, photo]))
     })
 
-    return <PublicGalleryContainer $isMobile={isMobile}>
+    return <PublicGalleryContainer>
 
         {gallerySelected?.description && <GalleryDescription><p>{gallerySelected.description}</p></GalleryDescription>}
 
         {list.map( (pf: PhotoData) =>
 
-        <PublicGalleryProduct key={pf.id} $isMobile={isMobile} >
+        <PublicGalleryProduct key={pf.id} >
 
             <ImgBox photo={pf} cld={cloudinary} />
 
