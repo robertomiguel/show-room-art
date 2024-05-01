@@ -40,7 +40,7 @@ function gallery(db: Firestore) {
             try {
                 await setDoc(doc(db, 'gallery', galleryData.id), 
                 galleryData
-              , { merge: true });                
+              , { merge: true });
             } catch (error) {
                 console.log('galError: ', error);
                 throw error
@@ -51,7 +51,7 @@ function gallery(db: Firestore) {
             try {
                 await setDoc(doc(db, 'gallery', galleryId), 
                 { name: newName, description: newDescription }
-              , { merge: true });                
+              , { merge: true });
             } catch (error) {
                 console.log('galError: ', error);
                 throw error
@@ -67,7 +67,7 @@ function gallery(db: Firestore) {
             try {
                 await setDoc(doc(db, 'gallery', galleryId), 
                 { password: newPass }
-              , { merge: true });                
+              , { merge: true });
             } catch (error) {
                 console.log('galError: ', error);
                 throw error
@@ -78,7 +78,7 @@ function gallery(db: Firestore) {
             try {
                 await setDoc(doc(db, 'gallery', galleryId), 
                 { visible }
-              , { merge: true });                
+              , { merge: true });
             } catch (error) {
                 console.log('galError: ', error);
                 throw error

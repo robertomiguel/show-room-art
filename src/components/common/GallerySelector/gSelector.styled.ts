@@ -3,7 +3,6 @@ import styled from "styled-components";
 export const StyledSelect = styled.select<{ $isMobile: boolean }>`
     font-size: 1.2rem;
     letter-spacing: 1px;
-    border-radius: 0;
     margin: 0;
     padding-top: 6px;
     padding-bottom: 8.5px;

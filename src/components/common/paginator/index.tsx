@@ -65,6 +65,9 @@ export const Paginator = () => {
             borderRadius: '5px',
             textAlign: 'center',
             border: 'none',
+            display: 'flex',
+            flexDirection: 'row',
+            gap: '5px',
         }} >
             <legend>Navegador de fotos</legend>
             <ButtonPaginator onClick={prevPage}>{'<'}</ButtonPaginator>

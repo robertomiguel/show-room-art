@@ -1,4 +1,6 @@
 @import './theme/dark-burton.css';
+/* @import './theme/abyssal-azure.css'; */
+/* @import './theme/vivid-crimson.css'; */
 
 @import 'button.css';
 @import 'a.css';
@@ -12,8 +14,30 @@
 
 /* Estilo para el cuerpo (body) en Dark Burton */
 body {
-    background-color: #4a4a4a;
+    background-color: var(--background-dark);
     color: var(--text-light);
     font-family: Arial, sans-serif;
     letter-spacing: 1px;
+}
+
+/* Estilos para los scrolls en WebKit (Chrome, Safari, etc.) */
+/* Barra del scroll */
+::-webkit-scrollbar {
+    width: 12px; /* Ancho del scroll */
+}
+
+/* Track (la parte de fondo detrás del thumb) */
+::-webkit-scrollbar-track {
+    background: var(--background-dark); /* Fondo oscuro */
+}
+
+/* Thumb (la parte móvil del scroll) */
+::-webkit-scrollbar-thumb {
+    background: var(--background-blue); /* Color del thumb */
+    border-radius: 10px; /* Borde redondeado */
+}
+
+/* Hover sobre el thumb */
+::-webkit-scrollbar-thumb:hover {
+    background: var(--border-light); /* Color del thumb al pasar el mouse */
 }

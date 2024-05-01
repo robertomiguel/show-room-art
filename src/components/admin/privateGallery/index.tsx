@@ -15,7 +15,7 @@ export const PrivateGallery = () => {
     const { isMobile, photosList, cloudinary, paginatorData } = React.useContext(FireContext)
     const [ editPhoto, setEditPhoto ] = React.useState<EditPhoto|null>()
     const [ list, setList ] = React.useState<PhotoData[]>([])
-    
+
     React.useEffect(() => {
       setList(photosList.filter( ( _: any , index: number) => index >= paginatorData.indexFrom - 1 && index <= paginatorData.indexTo - 1 ))
     }, [photosList, paginatorData])
